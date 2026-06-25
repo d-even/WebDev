@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.card{
+
+    height: 500px;
+     margin: 3% 475px;
+     border-radius: 4%;
+     text-align: center;
+    padding: 18px;
+    background-color: hsl(0, 0%, 12%);
+    color: white;
+}
+
+img{
+    height: 70px;
+    border-radius: 50%;
+}
+
+.btn{
+    width: 90%;
+    height: 7%;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: hsl(0, 0%, 8%);
+    border: none;
+    color: white;
+}
