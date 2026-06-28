@@ -1,0 +1,47 @@
+
+  * { box-sizing: border-box; }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .languages {
+    text-align: center;
+  }
+
+  /* ---- Masthead ---- */
+  .title {
+    text-align: center;
+  }
+  .quote-latin {
+    font-style: italic;
+    text-align: center;
+  }
+
+  .quote-english {
+    text-align: center;
+    }
+  /* ---- Two column content ---- */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .columns h2 {
+    font-weight: 400;
+    font-size: 26px;
+    margin: 8px 0 12px;
+  }
+
+  .columns p { margin: 0 0 16px; }
+  
+  /* ---- Tool panels ---- */
+  .panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 6px;
+  }
+  .panel { padding: 22px 26px; }
+  .panel + .panel { border-left: 1px solid var(--rule); }
+  

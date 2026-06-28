@@ -1,43 +1,74 @@
-*{
-    padding: 0%;
-    margin: 0%;
-    background-color: hsl(0, 0%, 95%);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.container{
-    display: flex;
-    margin: 20%;
-
-  
-   
-
-    .orangeContainer{
-    background-color: hsl(31, 77%, 52%); 
-        color: hsla(0, 0%, 100%, 0.75);
-        font-size: 15px;
-
-    img{
-        margin: 10%;
-        height: 18%;
-        width: 18%;
-        border-radius: 70%;
-    }
-    
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(0, 0%, 95%);
+  font-family:sans-serif;
+  font-size: 15px;
 }
 
-    .blueContainer{
-        background-color: hsl(184, 100%, 22%);
-        color: hsla(0, 0%, 100%, 0.75);
-    
-    }
-    
-
-    .greenContainer{
-        background-color: hsl(179, 100%, 13%);
-        color: hsla(0, 0%, 100%, 0.75);
-    
-    }
-
+.card {
+  display: flex;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 920px;
+  width: 90%;
 }
 
+.panel {
+  flex: 1;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 
+.panel img {
+  width: 64px;
+}
+
+.panel h2 {
+  font-family: sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: hsl(0, 0%, 95%);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.panel p {
+  color: hsla(0, 0%, 100%, 0.75);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.sedan  { background-color: hsl(31, 77%, 52%); }
+.suv    { background-color: hsl(184, 100%, 22%); }
+.luxury { background-color: hsl(179, 100%, 13%); }
+
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-family:sans-serif;
+  font-size: 15px;
+  text-decoration: none;
+  background-color: hsl(0, 0%, 95%);
+  width: fit-content;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.sedan-btn  { color: hsl(31, 77%, 52%); }
+.suv-btn    { color: hsl(184, 100%, 22%); }
+.luxury-btn { color: hsl(179, 100%, 13%); }
+
+.sedan-btn{ background-color: transparent; color: hsl(0, 0%, 95%); border: 2px solid hsl(0, 0%, 95%); padding: 12px 30px; }
+.suv-btn{ background-color: transparent; color: hsl(0, 0%, 95%); border: 2px solid hsl(0, 0%, 95%); padding: 12px 30px; }
+.luxury-btn { background-color: transparent; color: hsl(0, 0%, 95%); border: 2px solid hsl(0, 0%, 95%); padding: 12px 30px; }
