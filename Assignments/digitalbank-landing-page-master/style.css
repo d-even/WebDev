@@ -1,0 +1,104 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* Ensure hero background image fills its container and scales responsively */
+
+
+/* Mobile / narrow screens
+@media (max-width: 800px){
+    .hero{
+        grid-template-columns: 1fr;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+    .hero .bg{
+        width: 100%;
+        height: 40vh;
+        padding: 1rem;
+    }
+    .hero .text{
+        padding: 2rem;
+    }
+    .hero .bg img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+} */
+.navbar{
+    padding: 6vh;
+    height: 5vh;
+    border: solid black 2px;
+    display: grid;
+     grid-template-columns: 1fr 1fr 1fr;
+     
+    
+
+    a{
+        padding: 10px;
+    }
+    
+
+    button{
+        background-color:  hsl(136, 64%, 51%);
+        height: 5vh;
+        width: 20vw;
+        border-radius: 20%;
+         /* display: flex;
+        justify-content: end; */
+        
+    }
+    
+}
+
+
+
+.hero{
+
+    margin-top: 5%;
+    margin-left: 5%;
+
+
+ 
+    display: grid;
+     grid-template-columns: 1fr 1fr;
+
+     .text{
+        padding: 15%;
+     }
+     
+     
+     .bg{
+    height: 80vh;
+    width: 50vw;
+    padding: 2vh;
+    overflow: hidden;
+}
+
+ img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+       
+}
+
+
+
+.section{
+    margin: 5%;
+    padding: 1%;
+    height: 250px;
+ 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    img{
+        height: 50px;
+    }
+}
