@@ -1,0 +1,53 @@
+[
+  {
+    "element": "ul",
+    "name": "ulStars",
+    "style": "display: flex; width: fit-content; list-style: none; margin: 0; padding: 0;",
+    "blueprint": {
+      "element": "li",
+      "style": "width: fit-content",
+      "count": "5",
+      "children": [
+        {
+          "element": "img",
+          "style": "width: cwrapProperty[starWidth=fit-content]; height: auto",
+          "attributes": {
+            "src": "static/images/icon-star.svg",
+            "alt": "star icon"
+          }
+        }
+      ]
+    },
+    "customTag": "cwrapBlueprintCSS"
+  },
+  {
+    "element": "div",
+    "name": "divSocial1",
+    "style": "display: flex; align-items: center; gap: 12px;",
+    "children": [
+      {
+        "element": "img",
+        "attributes": {
+          "src": "static/images/image-avatars.webp",
+          "alt": "avatar"
+        },
+        "style": "width: 110px; height: 40px;"
+      },
+      {
+        "element": "div",
+        "children": [
+          {
+            "element": "cwrap-template",
+            "text": "cwrapTemplate[ulStars]",
+            "templateName": true
+          },
+          {
+            "element": "span",
+            "style": "color: cwrapProperty[spanColor=#385159]; font-family: Martian Mono; font-size: 14px; line-height: 120%; letter-spacing: -1px;",
+            "text": "200+ developers joined already"
+          }
+        ]
+      }
+    ]
+  }
+]

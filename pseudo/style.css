@@ -1,0 +1,22 @@
+button:focus{
+    background-color: red;
+}
+
+a:visited{
+    color: yellow;
+}
+.hello:hover{
+    color: crimson;
+}
+
+p:last-child{
+    background-color: aquamarine;
+}
+
+.element h1::after{
+    content: "World";
+}
+
+.element h2::before{
+    content: "Afternoon";
+}

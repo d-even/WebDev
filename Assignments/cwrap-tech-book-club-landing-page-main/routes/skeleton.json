@@ -1,0 +1,830 @@
+{
+  "head": {
+    "title": "New Candy Wrapper project",
+    "link": [
+      {
+        "rel": "shortcut icon",
+        "href": "favicon.ico",
+        "type": "image/x-icon"
+      },
+      {
+        "rel": "stylesheet",
+        "href": "https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap",
+        "type": "text/css"
+      },
+      {
+        "rel": "stylesheet",
+        "href": "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+        "type": "text/css"
+      }
+    ],
+    "meta": [
+      {
+        "name": "viewport",
+        "content": "width=device-width, initial-scale=1.0"
+      },
+      {
+        "charset": "UTF-8"
+      },
+      {
+        "name": "description",
+        "content": "New Candy Wrapper project."
+      },
+      {
+        "name": "keywords",
+        "content": ""
+      }
+    ]
+  },
+  "fonts": [],
+  "classroom": [
+    {
+      "name": "h1",
+      "type": "element",
+      "style": "font-family: Martian Mono; font-weight: bold; font-size: 62px; line-height: 120%; letter-spacing: -2px; margin: 0; background: linear-gradient(107deg, #FF9A60 -11.37%, #062630 61.84%); background-clip: text; color: transparent;",
+      "mediaQueries": [
+        {
+          "query": "max-width: 768px",
+          "style": "font-size: 38px;"
+        }
+      ]
+    },
+    {
+      "name": "p",
+      "type": "element",
+      "style": "margin: 0;"
+    },
+    {
+      "name": "p1",
+      "type": "class",
+      "style": "color: #385159; font-size: 20px; line-height: 140%; letter-spacing: -0.5px; font-family: Inter;"
+    },
+    {
+      "name": "button",
+      "type": "element",
+      "style": "min-height: 64px; border: 2px #062630 solid; border-radius: 8px; margin: 0; padding: 0; color: #062630; font-family: Martian Mono; font-size: 18px; font-weight: 600; cursor: pointer; display: flex; align-items: center; padding-inline: 24px; letter-spacing: -1px; line-height: 130%; justify-content: center;",
+      "mediaQueries": [
+        {
+          "query": "max-width: 768px",
+          "style": "font-size: 16px;"
+        }
+      ]
+    },
+    {
+      "name": "buttonLight",
+      "type": "class",
+      "style": "background:no-repeat linear-gradient(90deg, #FFE2D1, #FFF5EF); background-position-x: -400px; transition: 200ms; background-color: #FFF5EF;"
+    },
+    {
+      "name": "buttonLight:hover",
+      "type": "class",
+      "style": "background-position-x: 0%;"
+    },
+    {
+      "name": "h2",
+      "type": "element",
+      "style": "font-size: 50px; font-weight: 600; line-height: 130%; letter-spacing: -2px; color: #062630; font-family: Martian Mono; margin: 0;",
+      "mediaQueries": [
+        {
+          "query": "max-width: 768px",
+          "style": "font-size: 34px;"
+        }
+      ]
+    },
+    {
+      "name": "a",
+      "type": "element",
+      "style": "cursor: pointer;"
+    },
+    {
+      "name": "button:focus",
+      "type": "element",
+      "style": "outline: 2px solid white; outline-offset: 3px;"
+    },
+    {
+      "name": "buttonLight:focus",
+      "type": "class",
+      "style": "outline-color: #062630;"
+    }
+  ],
+  "element": "body",
+  "style": "background-color: #FFFFFF; margin: 0; box-sizing: border-box; display: flex; flex-direction: column; overflow-x: clip; min-height: 100dvh; padding: 0;",
+  "children": [
+    {
+      "element": "header",
+      "style": "width: 100%; height: fit-content; background-image: url(\"static/images/pattern-light-bg.svg\"); background-color: #FAF5F3; display: flex; flex-direction: column; padding: 32px 0 66px 0; box-sizing: border-box; padding-inline: 16px; overflow-x: clip;",
+      "children": [
+        {
+          "element": "div",
+          "style": "max-width: 1170px; width: 100%; margin-inline: auto; height: 100%; display: flex; flex-direction: column; gap: 80px;",
+          "mediaQueries": [
+            {
+              "query": "max-width: 768px",
+              "style": "gap: 48px;"
+            },
+            {
+              "query": "max-width: 1280px",
+              "style": "max-width: 704px; gap: 64px;"
+            }
+          ],
+          "children": [
+            {
+              "element": "img",
+              "attributes": {
+                "src": "static/images/logo.svg",
+                "alt": "logo"
+              },
+              "style": "width: fit-content; height: fit-content;"
+            },
+            {
+              "element": "div",
+              "style": "display: flex; align-items: center; justify-content: space-between;",
+              "mediaQueries": [
+                {
+                  "query": "max-width: 1280px",
+                  "style": "flex-direction: column; align-items: start; gap: 64px;"
+                }
+              ],
+              "children": [
+                {
+                  "element": "div",
+                  "style": "width: 100%; height: fit-content; max-width: 570px; display: flex; flex-direction: column; gap: 32px; padding-right: 40px;",
+                  "mediaQueries": [
+                    {
+                      "query": "max-width: 1280px",
+                      "style": "max-width: fit-content;"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "element": "div",
+                      "style": "",
+                      "children": [
+                        {
+                          "element": "section",
+                          "style": "display: flex; flex-direction: column; gap: 24px;",
+                          "children": [
+                            {
+                              "element": "h1",
+                              "style": "",
+                              "text": "Join the ultimate tech book club"
+                            },
+                            {
+                              "element": "p",
+                              "attributes": {
+                                "class": "p1"
+                              },
+                              "style": "",
+                              "text": "Turn your reading time into learning time with fellow tech enthusiasts. Get curated recommendations, join vibrant discussions, and level up your skills one chapter at a time."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "element": "div",
+                      "style": "display: flex; flex-direction: column; gap: 22.5px;",
+                      "children": [
+                        {
+                          "element": "button",
+                          "attributes": {
+                            "class": "buttonLight"
+                          },
+                          "style": "gap: 16px; width: fit-content;",
+                          "children": [
+                            {
+                              "element": "img",
+                              "attributes": {
+                                "src": "static/images/icon-arrow-down.svg",
+                                "alt": "arrow icon"
+                              },
+                              "style": ""
+                            }
+                          ],
+                          "text": "REVIEW MEMBERSHIP OPTIONS"
+                        },
+                        {
+                          "element": "cwrap-template",
+                          "text": "cwrapTemplate[divSocial1]"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "element": "div",
+                  "style": "position: relative; display: flex; width: fit-content; height: fit-content;",
+                  "children": [
+                    {
+                      "element": "img",
+                      "attributes": {
+                        "src": "static/images/image-hero-desktop.webp",
+                        "alt": "image of people reading books"
+                      },
+                      "style": "width: 536px; height: fit-content; border-radius: 12px;",
+                      "mediaQueries": [
+                        {
+                          "query": "max-width: 768px",
+                          "style": "object-fit: contain;"
+                        },
+                        {
+                          "query": "max-width: 1280px",
+                          "style": "width: fit-content; max-width: 100%;"
+                        }
+                      ]
+                    },
+                    {
+                      "element": "img",
+                      "attributes": {
+                        "src": "static/images/pattern-glow.svg",
+                        "alt": ""
+                      },
+                      "style": "position: absolute; right:-450px; bottom: -306px; width: 684px; height: 684px;"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "element": "main",
+      "style": "width: 100%; display: flex; flex-direction: column; height: fit-content; margin: 120px auto 120px auto; gap: 120px; align-items: center; max-width: 1170px;",
+      "mediaQueries": [
+        {
+          "query": "max-width: 768px",
+          "style": "margin: 64px 0; padding-inline: 16px; box-sizing: border-box;"
+        },
+        {
+          "query": "max-width: 1280px",
+          "style": "margin: 80px auto 80px auto;"
+        }
+      ],
+      "children": [
+        {
+          "element": "div",
+          "style": "display: flex; align-items: center; gap: 80px;",
+          "mediaQueries": [
+            {
+              "query": "max-width: 1280px",
+              "style": "flex-direction: column-reverse; max-width: 704px; align-items: start; gap: 27px; width: fit-content;"
+            }
+          ],
+          "children": [
+            {
+              "element": "img",
+              "attributes": {
+                "src": "static/images/image-read-together-desktopcwrapMakeBeautiful.webp",
+                "alt": "image of people reading books"
+              },
+              "style": "width: 560px; height: fit-content; border-radius: 12px;",
+              "mediaQueries": [
+                {
+                  "query": "max-width: 768px",
+                  "style": "object-fit: contain;"
+                },
+                {
+                  "query": "max-width: 1280px",
+                  "style": "width: fit-content; max-width: 100%;"
+                }
+              ]
+            },
+            {
+              "element": "section",
+              "style": "display: flex; flex-direction: column; gap: 34px;",
+              "children": [
+                {
+                  "element": "h2",
+                  "style": ";",
+                  "mediaQueries": [
+                    {
+                      "query": "max-width: 1280px",
+                      "style": "white-space: pre-wrap;"
+                    }
+                  ],
+                  "text": "Read together,\ngrow together"
+                },
+                {
+                  "element": "ul",
+                  "style": "margin: 0; padding: 0; display: flex; flex-direction: column; gap: 24px; list-style-position: inside; list-style: none; max-width: 420px;",
+                  "mediaQueries": [
+                    {
+                      "query": "max-width: 1280px",
+                      "style": "max-width: fit-content;"
+                    }
+                  ],
+                  "children": [],
+                  "blueprint": {
+                    "element": "li",
+                    "count": "4",
+                    "children": [
+                      {
+                        "element": "p",
+                        "text": "cwrapArray[Monthly curated tech reads selected by industry experts,Virtual and in-person meetups for deep-dive discussions,Early access to new tech book releases,Author Q&A sessions with tech thought leaders]",
+                        "style": "width: fit-content;color: #385159;font-family: Inter;font-size: 20px;letter-spacing: -0.5px;line-height: 140%"
+                      }
+                    ],
+                    "style": "padding: 0 0 0 42px;margin: 0;display: list-item;background-image: url(\"static/images/icon-check.svg\");background-repeat: no-repeat;background-position: center left"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "style": "display: flex; align-items: center; width: 100%; justify-content: space-between; gap: 80px;",
+          "mediaQueries": [
+            {
+              "query": "max-width: 1280px",
+              "style": "flex-direction: column; max-width: 704px; align-items: start; gap: 27px;"
+            }
+          ],
+          "children": [
+            {
+              "element": "section",
+              "style": "max-width: 530px; display: flex; flex-direction: column; gap: 24px;",
+              "mediaQueries": [
+                {
+                  "query": "max-width: 1280px",
+                  "style": "max-width: fit-content;"
+                }
+              ],
+              "children": [
+                {
+                  "element": "h2",
+                  "style": "",
+                  "mediaQueries": [
+                    {
+                      "query": "max-width: 1280px",
+                      "style": "max-width: 570px;"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "element": "span",
+                      "style": "position: relative",
+                      "children": [
+                        {
+                          "element": "img",
+                          "attributes": {
+                            "src": "static/images/pattern-circle.png",
+                            "alt": ""
+                          },
+                          "style": "position: absolute; right: -10px"
+                        }
+                      ],
+                      "text": "club"
+                    }
+                  ],
+                  "text": "Not your average book cwrapSpan"
+                },
+                {
+                  "element": "p",
+                  "style": "color: #385159; font-size: 20px; line-height: 140%; letter-spacing: -0.5px; font-family: Inter; max-width: 500px;",
+                  "mediaQueries": [
+                    {
+                      "query": "max-width: 1280px",
+                      "style": "max-width: fit-content;"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "element": "span",
+                      "style": "font-weight: 600;",
+                      "text": "Python"
+                    },
+                    {
+                      "element": "span",
+                      "style": "font-weight: 600;",
+                      "text": "TypeScript"
+                    }
+                  ],
+                  "text": "Connect with a community that speaks your language - from cwrapSpan to cwrapSpan and everything in between. Our discussions blend technical depth with practical applications."
+                }
+              ]
+            },
+            {
+              "element": "div",
+              "style": "position: relative;",
+              "children": [
+                {
+                  "element": "img",
+                  "attributes": {
+                    "src": "static/images/image-not-average-desktop.webp",
+                    "alt": "image of people reading books"
+                  },
+                  "style": "width: 530px; height: auto; border-radius: 12px;",
+                  "mediaQueries": [
+                    {
+                      "query": "max-width: 768px",
+                      "style": "object-fit: contain;"
+                    },
+                    {
+                      "query": "max-width: 1280px",
+                      "style": "width: fit-content; max-width: 100%;"
+                    }
+                  ]
+                },
+                {
+                  "element": "img",
+                  "attributes": {
+                    "src": "static/images/logos-tech.svg",
+                    "alt": "image of github, typescript and react"
+                  },
+                  "style": "position: absolute; left: -80px; bottom: 31px;",
+                  "mediaQueries": [
+                    {
+                      "query": "max-width: 1280px",
+                      "style": "left: auto; right: 50px; bottom: 50px;"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "style": "width: 100%; min-height: fit-content; background-image: url(\"static/images/pattern-light-bg.svg\"); background-color: #FAF5F3; border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 80px 60px; box-sizing: border-box; position: relative; z-index: 2; overflow: hidden;",
+          "mediaQueries": [
+            {
+              "query": "max-width: 768px",
+              "style": "width: fit-content;"
+            },
+            {
+              "query": "max-width: 1280px",
+              "style": "max-width: 704px;"
+            }
+          ],
+          "children": [
+            {
+              "element": "section",
+              "style": "display: flex; flex-direction: column; gap: 64px; width: 100%; max-width: 1050px; align-items: center; justify-content: center;",
+              "mediaQueries": [
+                {
+                  "query": "max-width: 768px",
+                  "style": "width: 100%;"
+                }
+              ],
+              "children": [
+                {
+                  "element": "h2",
+                  "style": "max-width: 512px; text-align: center;",
+                  "mediaQueries": [
+                    {
+                      "query": "max-width: 1280px",
+                      "style": "text-align: start;"
+                    }
+                  ],
+                  "text": "Your tech reading journey"
+                },
+                {
+                  "element": "ul",
+                  "style": "display: flex; max-width: 1050px; width: 100%; gap: 48px; list-style: none; margin: 0; padding: 0;",
+                  "mediaQueries": [
+                    {
+                      "query": "max-width: 768px",
+                      "style": "display: flex; flex-wrap: wrap; align-items: center; justify-content: center;"
+                    },
+                    {
+                      "query": "max-width: 1280px",
+                      "style": "display: grid; grid-template-columns: max-content max-content; width: fit-content;"
+                    }
+                  ],
+                  "children": [],
+                  "blueprint": {
+                    "element": "li",
+                    "count": "4",
+                    "children": [
+                      {
+                        "element": "section",
+                        "children": [
+                          {
+                            "element": "div",
+                            "style": "width: 40px;height: 40px;color: #062630;border: 2px #062630 solid;border-radius: 4px;display: flex;align-items: center;justify-content: center;box-sizing: border-box",
+                            "children": [
+                              {
+                                "element": "h3",
+                                "text": "cwrapIndex+1",
+                                "style": "margin: 0;padding: 0;font-size: 24px;letter-spacing: -1px;line-height: 24px;font-family: Martian Mono;font-weight: normal"
+                              }
+                            ]
+                          },
+                          {
+                            "element": "p",
+                            "text": "cwrapArray[Choose your membership tier,Get your monthly book selection,Join our discussion forums,Attend exclusive meetups]",
+                            "style": "font-weight: 600;font-size: 18px;line-height: 130%;font-family: Martian Mono;color: #062630"
+                          }
+                        ],
+                        "style": "gap: 24px;display: flex;flex-direction: column"
+                      },
+                      {
+                        "element": "img",
+                        "attributes": {
+                          "src": "static/images/pattern-arrow.svg",
+                          "alt": ""
+                        },
+                        "style": "position: absolute;top: 0;right: 0",
+                        "text": "cwrapArray[,,,cwrapOmit]",
+                        "mediaQueries": [
+                          {
+                            "query": "max-width: 1280px",
+                            "style": "display: none"
+                          }
+                        ]
+                      }
+                    ],
+                    "style": "max-width: 226px;width: 100%;min-height: 110px;position: relative;z-index: 1"
+                  }
+                }
+              ]
+            },
+            {
+              "element": "img",
+              "attributes": {
+                "src": "static/images/pattern-glow.svg",
+                "alt": ""
+              },
+              "style": "position: absolute; right: -480px; bottom: -556px; width: fit-content; height: fit-content;"
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "style": "width: 100%;",
+          "mediaQueries": [
+            {
+              "query": "max-width: 1280px",
+              "style": "max-width: 704px; align-items: start;"
+            }
+          ],
+          "children": [
+            {
+              "element": "section",
+              "style": "display: flex; flex-direction: column; align-items: center; gap: 64px; justify-content: center;",
+              "mediaQueries": [
+                {
+                  "query": "max-width: 768px",
+                  "style": "align-items: center;"
+                },
+                {
+                  "query": "max-width: 1280px",
+                  "style": "align-items: start; gap: 27px;"
+                }
+              ],
+              "children": [
+                {
+                  "element": "h2",
+                  "style": "width: fit-content;",
+                  "text": "Membership options"
+                },
+                {
+                  "element": "ul",
+                  "style": "display: flex; margin: 0; padding: 0; list-style: none; width: 100%; max-width: 970px; gap: 24px; align-items: center;",
+                  "mediaQueries": [
+                    {
+                      "query": "max-width: 768px",
+                      "style": "justify-content: center; display: flex; flex-direction: column; flex-wrap: wrap;"
+                    },
+                    {
+                      "query": "max-width: 1280px",
+                      "style": "flex-wrap: wrap;"
+                    }
+                  ],
+                  "children": [],
+                  "blueprint": {
+                    "element": "li",
+                    "count": "3",
+                    "children": [
+                      {
+                        "element": "section",
+                        "children": [
+                          {
+                            "element": "h3",
+                            "text": "cwrapArray[Starter,Pro,Enterprise]",
+                            "style": "padding: 0;margin: 0;color: #062630;font-family: Martian Mono;font-weight: 600;font-size: 24px;line-height: 110%;letter-spacing: -1px"
+                          },
+                          {
+                            "element": "div",
+                            "children": [
+                              {
+                                "element": "p",
+                                "text": "cwrapArray[$19,$29,Custom]",
+                                "style": "color: #062630;font-family: Martian Mono;font-weight: 600;font-size: 34px;line-height: 110%;letter-spacing: -1px",
+                                "children": [
+                                  {
+                                    "element": "span",
+                                    "text": "cwrapArray[/month,/month,cwrapOmit]",
+                                    "style": "color: #385159;font-family: Inter;font-weight: normal;font-size: 20px;line-height: 140%;letter-spacing: -0.5px;margin-left: 8px"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ],
+                        "style": "display: flex;flex-direction: column;gap: 24px",
+                        "alter": "partial",
+                        "enum": []
+                      },
+                      {
+                        "element": "div",
+                        "style": "border-bottom: 1px solid #E6E1DF;margin-block: 24px"
+                      },
+                      {
+                        "element": "ul",
+                        "style": "list-style: none; padding: 0; margin: 0; display:flex; flex-direction:column; gap: 12px",
+                        "blueprint": {
+                          "element": "li",
+                          "count": "2",
+                          "children": [
+                            {
+                              "element": "p",
+                              "text": "cwrapArray[cwrapArray[1 book/month,Online forums] cwrapBreak cwrapArray[2 books/month,Virtual meetups] cwrapBreak cwrapArray[Team access,Private sessions]]",
+                              "style": "padding: 0 0 0 42px;margin: 0;display: list-item;background-image: url('static/images/icon-check.svg');background-repeat: no-repeat;background-position: center left; font-family: Inter; color: #385159; font-size: 20px; letter-spacing: -0.5px; line-height: 140%"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "element": "button",
+                        "style": "width: 100%; padding-inline: 0;margin-top:24px;z-index: 1;position: relative",
+                        "text": "cwrapArray[SUBSCRIBE NOW,SUBSCRIBE NOW,TALK TO US]",
+                        "attributes": {
+                          "class": "buttonLight"
+                        }
+                      },
+                      {
+                        "element": "img",
+                        "text": "cwrapArray[cwrapOmit,,cwrapOmit]",
+                        "attributes": {
+                          "src": "static/images/pattern-glow.svg"
+                        },
+                        "style": "position: absolute;bottom: -540px;right: -700px"
+                      }
+                    ],
+                    "style": "max-width: cwrapArray[286px,350px,286px];width: 100%;border: 1px solid #E6E1DF;height: fit-content;border-radius: 8px;background-color: cwrapArray[,#FAF5F3,];box-sizing: border-box;padding: cwrapArray[24px,40px 24px,24px];position: relative;overflow: hidden",
+                    "text": "",
+                    "mediaQueries": [
+                      {
+                        "query": "max-width: 1280px",
+                        "style": "max-width: 340px;padding: 24px"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "style": "width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 970px; gap: 32px;",
+          "mediaQueries": [
+            {
+              "query": "max-width: 1280px",
+              "style": "max-width: 704px; align-items: start; text-align: start;"
+            }
+          ],
+          "children": [
+            {
+              "element": "cwrap-template",
+              "text": "cwrapTemplate[ulStars(starWidth=28px)]"
+            },
+            {
+              "element": "section",
+              "style": "display: flex; flex-direction: column; gap: 32px;",
+              "children": [
+                {
+                  "element": "h3",
+                  "style": "color: #062630; font-weight: 600; font-family: Martian Mono; font-size: 34px; line-height: 130%; letter-spacing: -1px; margin: 0; padding: 0;",
+                  "mediaQueries": [
+                    {
+                      "query": "max-width: 768px",
+                      "style": "font-size: 24px;"
+                    }
+                  ],
+                  "text": "'This book club transformed my technical reading from a solitary activity into an enriching community experience. The discussions are gold!'"
+                },
+                {
+                  "element": "p",
+                  "attributes": {
+                    "class": "p1"
+                  },
+                  "style": "",
+                  "text": "Sarah Chen, Software Architect"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "element": "footer",
+      "style": "min-height: fit-content; width: 100%; background-color: #062630; border-radius: 16px 16px 0 0; display: flex; flex-direction: column; align-items: center; background-image: url(\"static/images/pattern-dark-bg.svg\"); margin-top: auto;",
+      "children": [
+        {
+          "element": "section",
+          "style": "width: fit-content; text-align: center; margin: 80px 0 64px 0; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 40px; padding-inline: 16px;",
+          "mediaQueries": [
+            {
+              "query": "max-width: 768px",
+              "style": "margin: 48px 0 64px 0;"
+            },
+            {
+              "query": "max-width: 1280px",
+              "style": "max-width: 704px; margin: 64px 0 64px 0;"
+            }
+          ],
+          "children": [
+            {
+              "element": "h2",
+              "style": "color: #FAF5F3; max-width: 685px;",
+              "text": "Ready to debug your reading list?"
+            },
+            {
+              "element": "div",
+              "style": "gap: 24px; display: flex; flex-direction: column;",
+              "children": [
+                {
+                  "element": "button",
+                  "style": "background-color: transparent; border-color: white; color: white; gap: 16px;background:no-repeat linear-gradient(90deg, #385159, #062630); background-position-x: -400px; transition: 200ms;",
+                  "extend": [
+                    {
+                      "extension": ":hover",
+                      "style": "background-position-x: 0%;"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "element": "img",
+                      "attributes": {
+                        "src": "static/images/icon-arrow-up.svg",
+                        "alt": "arrow icon"
+                      },
+                      "style": ""
+                    }
+                  ],
+                  "text": "REVIEW MEMBERSHIP OPTIONS"
+                },
+                {
+                  "element": "cwrap-template",
+                  "text": "cwrapTemplate[divSocial1(starWidth=28px,spanColor=#FAF5F3)]"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "style": "height: 70px; border-top: 1px #385159 solid; display: flex; align-items: center; max-width: 1170px; width: 100%; justify-content: space-between; padding: 32px; box-sizing: border-box;",
+          "children": [
+            {
+              "element": "p",
+              "style": "color: #FFFFFF; font-family: Martian Mono; font-size: 14px; line-height: 120%; letter-spacing: -1px;",
+              "text": "© 2024 – Tech Book Club"
+            },
+            {
+              "element": "ul",
+              "style": "list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 24px;",
+              "children": [],
+              "blueprint": {
+                "element": "li",
+                "count": "2",
+                "children": [
+                  {
+                    "element": "a",
+                    "children": [
+                      {
+                        "element": "img",
+                        "attributes": {
+                          "src": "static/images/logo-cwrapArray[bluesky,linkedin].svg",
+                          "alt": "logo cwrapArray[bluesky,linkedin]"
+                        }
+                      }
+                    ],
+                    "alter": "partial",
+                    "enum": [],
+                    "attributes": {
+                      "href": "#"
+                    },
+                    "extend": [
+                      {
+                        "extension": ":hover",
+                        "style": "opacity: 60%;"
+                      }
+                    ],
+                    "style": "transition: 150ms"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

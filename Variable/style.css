@@ -1,0 +1,8 @@
+:root{
+  
+    --btn-margin: 10%;
+
+}
+.hii1{
+    max-width: var(--btn-margin);
+}
