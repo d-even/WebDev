@@ -1,86 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Frontend Mentor | Hotel booking confirmation page</title>
+    <title>Frontend Mentor | Hotel booking confirmation page</title>
 
-  <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
 
-  <div class="header">
-            <div>
+    <aside class="menu">
 
-                <small>BOOKING • CONFIRMED</small>
-                <h1>Bienvenue,<i style="color: brown;">Lucia.</i></h1>
+        <div class="logo">
+            <img src="assets/images/logo.svg" alt="Maison Soleil Logo">
+        </div>
+        <button class="active">
+            <img src="assets/images/icon-bed.svg" alt="">
+            <span>Your Stay</span>
+        </button>
+        <button>
+            <img src="assets/images/icon-key.svg" alt="">
+            <span>The House</span>
+        </button>
+        <button>
+            <img src="assets/images/icon-breakfast.svg" alt="">
+            <span>Breakfast</span>
+        </button>
+        <button>
+            <img src="assets/images/icon-mail.svg" alt="">
+            <span>Messages</span>
+        </button>
+        
 
+    </aside>
+
+    <header class="header">
+
+        <div>
+
+            <small>BOOKING • CONFIRMED</small>
+
+            <h1>
+                Bienvenue,
+                <span>Lucia.</span>
+            </h1>
+
+        </div>
+
+        <div class="buttons">
+
+            <button class="outline">
+                Print Receipt
+            </button>
+
+            <button class="dark">
+                Add to Calendar
+            </button>
+
+        </div>
+
+    </header>
+
+    <main class="content">
+        <div class="cards">
+            <div class="receipt-card">
+                <small>RECEIPT</small>
+                <h2>Your Stay</h2>
+                <div class="date">
+                    <div>
+                        <span>CHECK IN</span>
+                        <h1>25 Apr</h1>
+                        <p>Saturday · 15:00</p>
+                    </div>
+                    <div>
+                        <span>CHECK OUT</span>
+                        <h1>29 Apr</h1>
+                        <p>Wednesday · 11:00</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="bill">
+                    <p>Room · La Garrigue × 4 nights</p>
+                    <span>€620.00</span>
+                </div>
+                <div class="bill">
+                    <p>Breakfast × 2 guests</p>
+                    <span>€96.00</span>
+                </div>
+                <div class="bill">
+                    <p>Tourist Tax</p>
+                    <span>€14.40</span>
+                </div>
+                <hr>
+                <div class="total">
+                    <h3>Total Paid</h3>
+                    <h2>€730.40</h2>
+                </div>
             </div>
 
-            <div class="buttons">
+            <div class="welcome-card">
+                <small>WELCOME CARD</small>
+                <h3>A note from your host,</h3>
+                <h1>Margaux.</h1>
+                <p>
+                    We're so glad you're coming.
+                    The shutters will be open,
+                    the lemonade cold, and the
+                    cat pretending not to notice you.
+                </p>
 
-                <button class="outline">
-                    Print Receipt
-                </button>
-
-                <button class="dark">
-                    Add to Calendar
-                </button>
-
+                <div class="room">
+                    <small>ROOM</small>
+                    <h2>La Garrigue</h2>
+                </div>
             </div>
+        </div>
 
-        </header>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="card-top">
+                    <div class="icon orange">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <span>ARRIVAL</span>
+                    <h2>01</h2>
+                </div>
+                <h3>Check-in from 15:00</h3>
+                <small>Sat, 25 April</small>
+                <p>
+                    Ring the brass bell by the blue door.
+                    If we're at the market, the key is
+                    in the terracotta pot.
+                </p>
+            </div>
+            <div class="info-card">
+                <div class="card-top">
+                    <div class="icon blue">
+                        <i class="fa-solid fa-wifi"></i>
+                    </div>
+                    <span>WIFI</span>
+                    <h2>02</h2>
+                </div>
+                <h3>Le Soleil Guest</h3>
+                <small>Password</small>
+                <div class="wifi-box">
+                    <div>
+                        <strong>Network</strong>
+                        <p>Le Soleil</p>
+                    </div>
+                    <div>
+                        <strong>Password</strong>
+                        <p>soleil-2026</p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="card-top">
+                    <div class="icon pink">
+                        <i class="fa-solid fa-bell-concierge"></i>
+                    </div>
+                    <span>BREAKFAST</span>
+                    <h2>03</h2>
+                </div>
+                <h3>Served 8–10:30</h3>
+                <small>On the Terrace</small>
+                <p>
+                    Fresh fruits, coffee, pastries and
+                    gluten-free options available.
+                </p>
+            </div>
+        </div>
+    </main>
+ <footer class="footer">
 
-    
-    </div>
+        <div class="weather">
+            <small>Today in Cassis</small>
+            <h1>27°</h1>
+            <p>Sunny · Light Breeze</p>
+        </div>
+        <div class="address">
+            <small>EST. 1987</small>
+            <p>Maison Soleil</p>
+            <p>12 Rue des Oliviers · Cassis</p>
+            <p>© 2026 Maison Soleil</p>
+        </div>
 
-   <div class="menu">
-    <div class="logo">
-      <img src="assets/images/logo.svg" alt="">
-      <hr>
-    </div>
-    
-    <button><a><img src="assets/images/icon-bed.svg" alt="Bed icon"></a> Your stay</button>
-    <button><a><img src="assets/images/icon-key.svg" alt="Bed icon"></a> The house</button>
-    <button><a><img src="assets/images/icon-breakfast.svg" alt="Bed icon"></a>  Breakfast</button>
-    <button><a><img src="assets/images/icon-mail.svg" alt="Bed icon"></a> Messages</button>
-   
+    </footer>
 </div>
-  
-  <div class="content">
-    <h3>Lorem Ipsum</h3><p>Lorem ipsum odor amet, consectetuer adipiscing elit. Ridiculus sit nisl laoreet facilisis aliquet. Potenti dignissim litora eget montes rhoncus sapien neque urna. Cursus libero sapien integer magnis ligula lobortis quam ut.</p>
-
-    <section class="card">
-      <div class="card1">
-         Arrival
-  01
-  Check-in from 15:00
-  Sat, 25 April
-  Ring the brass bell by the blue door. If we're at the market, the key is in the terracotta pot by the olive tree.
-
-
-      </div>
-    </section>
-  </div>
-  <div class="footer">
-    <div class="date">
-      <h5>Today in Cassis</h5>
-      <h1>27°</h1>
-      <h5>Sunny · light breeze</h5>
-    </div>
-    <hr>
-    <div class="address">
-       <p></p>Est. 1987
-  <p>Maison Soleil · 12 Rue des Oliviers · Cassis</p>
-  <p>© 2026 Maison Soleil</p>
-    </div>
-  </div>
-</div>
-
-
- 
 </body>
 </html>
