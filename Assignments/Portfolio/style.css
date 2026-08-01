@@ -1,0 +1,570 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#F4EBD8;
+    font-family:Poppins,sans-serif;
+
+}
+
+.container{
+    width:1200px;
+    margin:auto;
+
+}
+
+header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:30px 0;
+
+}
+
+.logo{
+
+    font-size:32px;
+    font-family:'Playfair Display';
+    font-weight:bold;
+    color:#C64A20;
+
+}
+
+.logo span{
+
+    color:#111;
+    margin-left:10px;
+
+}
+
+nav{
+
+    display:flex;
+    align-items:center;
+    gap:50px;
+
+}
+
+nav a{
+
+    text-decoration:none;
+    color:#222;
+    font-size:18px;
+
+}
+
+nav button{
+
+    border:none;
+    background:#FDBB32;
+    padding:12px 28px;
+    border-radius:40px;
+    font-size:17px;
+    cursor:pointer;
+    font-weight:600;
+
+}
+
+
+/* HERO */
+
+.hero{
+
+    display:flex;
+    justify-content:space-between;
+    margin-top:40px;
+
+}
+
+.left{
+
+    width:48%;
+
+}
+
+.left h1{
+
+    font-size:75px;
+    line-height:80px;
+    font-family:'Playfair Display';
+    margin-bottom:25px;
+
+}
+
+.left span{
+
+    color:#111;
+
+}
+
+.left p{
+
+    line-height:32px;
+    font-size:18px;
+    color:#444;
+    width:90%;
+    margin-bottom:45px;
+
+}
+
+.linkedin{
+
+    width:430px;
+    background:#F36A2A;
+    color:white;
+    padding:18px;
+    border-radius:40px;
+    font-size:18px;
+
+}
+
+.linkedin i{
+
+    margin-right:10px;
+
+}
+
+
+/* RIGHT */
+
+.right{
+
+    width:40%;
+
+}
+
+.image-card{
+
+    width:380px;
+    height:360px;
+    background:#35543D;
+    position:relative;
+
+}
+
+.circle{
+
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:#EFE8DA;
+
+    position:absolute;
+    left:50%;
+    top:35px;
+    transform:translateX(-50%);
+
+}
+
+.birth-date{
+
+    position:absolute;
+
+    left:-70px;
+    top:120px;
+
+    background:#FDBB32;
+
+    padding:12px 28px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+}
+
+.country{
+
+    position:absolute;
+
+    right:-45px;
+    bottom:40px;
+
+    background:#FDBB32;
+
+    padding:12px 28px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+}
+
+.contact-card{
+
+    width:330px;
+
+    background:black;
+
+    color:white;
+
+    padding:30px;
+
+    margin-left:50px;
+
+    margin-top:-50px;
+
+}
+
+.contact-card h2{
+
+    font-size:42px;
+    font-family:'Playfair Display';
+    margin-bottom:25px;
+
+}
+
+.contact-card p{
+
+    margin:18px 0;
+    font-size:18px;
+
+}
+
+.contact-card i{
+
+    width:30px;
+
+}
+
+/*================ RESUME SECTION ================*/
+
+.resume-section{
+
+    display:grid;
+    grid-template-columns:45% 55%;
+    margin-top:80px;
+
+}
+
+.left-column{
+
+    background:#36543D;
+    color:white;
+    padding:50px;
+
+}
+
+.left-column h2{
+
+    color:#F6B73C;
+    font-size:55px;
+    font-family:'Playfair Display';
+    margin-bottom:40px;
+
+}
+
+.edu-box,
+.exp-box{
+
+    display:flex;
+    margin-bottom:40px;
+    gap:30px;
+
+}
+
+.year{
+
+    width:170px;
+    font-size:28px;
+    font-weight:600;
+
+}
+
+.details h3{
+
+    font-size:26px;
+    margin-bottom:8px;
+
+}
+
+.details p{
+
+    line-height:30px;
+    color:#ddd;
+
+}
+
+
+.experience{
+
+    background:#F6B73C;
+    color:#111;
+    padding:40px;
+    margin-top:60px;
+
+}
+
+.experience h2{
+
+    color:#111;
+
+}
+
+.experience .details p{
+
+    color:#333;
+
+}
+
+.tag-box{
+
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    margin-top:40px;
+
+}
+
+.tag-box span{
+
+    background:#111;
+    color:white;
+    padding:12px 24px;
+    border-radius:30px;
+
+}
+
+
+/* RIGHT */
+
+.right-column{
+
+    background:#36543D;
+    padding:60px;
+    color:white;
+    position:relative;
+
+}
+
+.resume-bg{
+
+    position:absolute;
+
+    right:20px;
+
+    top:40px;
+
+    font-size:130px;
+
+    opacity:.08;
+
+    font-family:'Playfair Display';
+
+    line-height:110px;
+
+}
+
+.technical{
+
+    margin-top:180px;
+
+}
+
+.technical h2{
+
+    color:#F6B73C;
+
+    font-size:55px;
+
+    font-family:'Playfair Display';
+
+    margin-bottom:40px;
+
+}
+
+.skill-wrapper{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:60px;
+
+}
+
+.software{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.software div{
+
+    width:60px;
+
+    height:60px;
+
+    background:white;
+
+    color:black;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:8px;
+
+    font-weight:bold;
+
+}
+
+.right-column ul{
+
+    margin-top:20px;
+
+}
+
+.right-column li{
+
+    margin-bottom:15px;
+
+}
+
+/*================ BOTTOM SECTION ================*/
+
+.bottom-section{
+
+    display:grid;
+    grid-template-columns:45% 55%;
+
+}
+
+/* Left */
+
+.courses{
+
+    background:#F4EBD8;
+    padding:60px;
+
+}
+
+.courses h2{
+
+    font-size:55px;
+    margin-bottom:40px;
+    font-family:'Playfair Display';
+
+}
+
+.course-box{
+
+    display:flex;
+    gap:40px;
+    margin-bottom:50px;
+
+}
+
+.course-year{
+
+    width:150px;
+    font-size:28px;
+    font-weight:600;
+
+}
+
+.course-box h3{
+
+    margin-bottom:10px;
+    font-size:24px;
+
+}
+
+.course-box p{
+
+    color:#555;
+    line-height:28px;
+
+}
+
+
+/* Right */
+
+.language-box{
+
+    background:#F4EBD8;
+    padding:60px;
+
+}
+
+.language-box h2{
+
+    font-size:55px;
+    margin-bottom:30px;
+    font-family:'Playfair Display';
+
+}
+
+.lang{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    border-bottom:1px solid #ddd;
+
+    padding:18px 0;
+
+}
+
+.lang h3{
+
+    font-size:34px;
+    font-family:'Playfair Display';
+
+}
+
+.lang span{
+
+    font-size:22px;
+
+}
+
+.hobby-title{
+
+    margin-top:50px;
+
+}
+
+.hobbies{
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:35px;
+    margin-top:40px;
+
+}
+
+.hobby{
+
+    text-align:center;
+
+}
+
+.hobby i{
+
+    font-size:42px;
+
+    color:#D39A18;
+
+    margin-bottom:15px;
+
+}
+
+.hobby p{
+
+    font-size:18px;
+
+}
