@@ -1,318 +1,167 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-     <nav class="navbar" aria-label="Primary">
-       <a href="#Personal">Personal</a>
-        <a href="#Resources">Resources</a>
-        <a href="#">Buissness</a>
-        <a href="#">Company</a>
-      <div class="nav-links">
-       <h2>MoneLiq</h2>
-       
-      </div>
-      <a href="#">Help</a>
-        <a href="#Blog">Blog</a>
-        
-    <a href="#">SignUp</a>
-      <button class="LoginButton" type="button">Login</button>
-    </nav>
-    <section>
-
-        <div class="first">
-            Monoliqe
-
-            
-        </div>
-
-<div class="pageWrapper">
-
-    <div class="blurGlow"></div>
-    <div class="gridLines"></div>
-
-    <section class="landingSection">
-
-        <div class="titleBox">
-
-            <h1>
-                Your money is <br>
-                where you are
-            </h1>
-
-            <p>
-                Spend, save and manage your money all in one place.
-                Open a full bank account directly from your phone.
-            </p>
-
-            <button>Get Started</button>
-
-        </div>
-
-        <div class="dashboardBox">
-
-            <div class="leftMenu">
-
-                <h3>MONELIQ</h3>
-
-                <nav>
-
-                    <a href="#">Overview</a>
-                    <a href="#">Accounts</a>
-                    <a href="#">Cards</a>
-                    <a href="#">Loans</a>
-                    <a href="#">Settings</a>
-
-                </nav>
-
-            </div>
-
-            <div class="rightPanel">
-
-                <div class="balanceCard">
-                    <small>Card Balance</small>
-                    <h2>$6,950</h2>
-                    <span>Available Balance</span>
-                </div>
-
-                <div class="chartCard">
-                    Chart
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-</div>
-
-        <!-- <div class="scrollOne">
-            Your money is<br>
-            where you are 
-            <p>Spend money as you want</p>
-              <button class="LoginButton" type="button">Get Started</button>
-
-              <div class="page"></div>
-        </div>
-    -->
-
-
-
-
-    </section>
-
-    <div class="hero">
-        <h1>Efficiency at its best: Moeliq's Daily finance</h1>
-    </div>
-
-    <div class="container">
-        <div class="section1">
-            <h2>Global Payment: your gateway to secure transaction</h2>
-            <p>Moeliq simplyfing payment in the UK,Europe and intentionally</p>
-        </div>
-        
-        <div class="section2">
-            <div class="white">
-                Amount
-                <p>Send Money</p>
-
-                <div class="euro">
-                    Hello Euro
-                </div>
-                <div class="sec">
-                    <p> Who are you sending Money</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    
-</body>
-</html>
-
-<!-- 
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Digital Banking</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>METER — APIs that charge per call</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<div class="page">
 
-<link rel="stylesheet" href="style.css">
-
-</head>
-<body>
-
-
-<header>
-
-<nav class="navbar">
-
-<div class="logo">
-
-<h2>NeoBank</h2>
-
-</div>
-
-<ul class="nav-links">
-
-<li><a href="#">Home</a></li>
-
-<li><a href="#">Features</a></li>
-
-<li><a href="#">About</a></li>
-
-<li><a href="#">Pricing</a></li>
-
-<li><a href="#">Contact</a></li>
-
-</ul>
-
-<div class="nav-btns">
-
-<button class="login">
-Login
-</button>
-
-<button class="signup">
-Get Started
-</button>
-
-</div>
-
+<nav id="nav">
+  <div class="nleft">
+    <a href="#why">Why metered</a>
+    <a href="#how">How it works</a>
+    <a href="#build">Docs</a>
+  </div>
+  <div class="logo"><span class="tick"></span>METER</div>
+  <div class="nright">
+    <a href="#" class="pill-btn">Connect Wallet</a>
+  </div>
 </nav>
 
-</header>
+<!-- ===== wordmark pin + hero riser ===== -->
+<div class="stackzone">
+  <div class="pin">
+    <div class="pinner" id="pinner">
+      <p class="wordmark">METER</p>
+      <p class="pinsub">pay per call · not per month</p>
+      <div class="scrollcue"></div>
+    </div>
+  </div>
 
+  <div class="wrap">
+    <div class="hero" id="hero">
+      <div class="grabber"></div>
+      <div>
+        <span class="badge"><i></i><b>402</b> Payment Required</span>
+        <h1 class="rv">Your API earns <em>per call</em>, not per month.</h1>
+        <p class="lead">No signup, no keys, no plans. A client asks, gets a price, signs, and asks again — settled onchain before the response arrives.</p>
+        <div class="cta">
+          <a href="#build" class="b1">Read the docs</a>
+          <a href="#how" class="b2">See a live call</a>
+        </div>
+      </div>
 
-<section class="hero">
-
-<div class="left">
-
-<p class="tag">
-Trusted by 120K+ Customers
-</p>
-
-<h1>
-
-The Future of
-Digital Banking
-Starts Here.
-
-</h1>
-
-<p class="desc">
-
-Manage your money,
-pay instantly,
-save smarter,
-and grow your wealth
-from one secure platform.
-
-</p>
-
-<div class="hero-btns">
-
-<button class="primary">
-
-Open Account
-
-</button>
-
-<button class="secondary">
-
-Learn More
-
-</button>
-
+      <div class="herostack">
+        <div class="term">
+          <div class="thead"><span>wire transcript</span><span>1.09s</span></div>
+          <div class="tline"><span class="ar">→</span><span>POST /v1/chat <span class="dim">HTTP/1.1</span></span></div>
+          <div class="tline"><span class="ar i">←</span><span><span class="k402">402</span> Payment Required<br><span class="dim">price:</span> <span class="amt">0.001000 USDC</span></span></div>
+          <div class="tline"><span class="ar">⚿</span><span>Signing authorization <span class="dim">· eip-3009</span></span></div>
+          <div class="tline"><span class="ar">→</span><span>POST /v1/chat <span class="dim">retry + x-payment</span></span></div>
+          <div class="tline"><span class="ar i">←</span><span><span class="k200">200</span> OK <span class="dim">· settled onchain</span><br><span class="dim">charged:</span> <span class="amt">0.000037 USDC</span></span></div>
+        </div>
+        <div class="ph dark c">
+          <div class="cap">
+            <img src="./assets/playground1.png">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="stats">
+<div class="wrap">
 
-<div>
+  <!-- why -->
+  <section id="why">
+    <div class="split">
+      <div>
+        <span class="badge">Why metered</span>
+        <h2>The subscription was never the point.</h2>
+        <p class="lead">Card networks take about thirty cents before they take a percentage. That floor is why every API became a monthly plan — not because anyone wanted one.</p>
+        <div class="ph a" style="margin-top:26px">
+          <div class="cap">
+            <img src="./assets/image.png">
+          </div>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="ccard">
+          <k>Card rails</k>
+          <div class="big">$0.30</div>
+          <p>Minimum viable charge. Anything smaller loses money, so it gets bundled into a plan.</p>
+          <ul><li>Account required</li><li>Monthly commitment</li><li>Refunds and churn</li></ul>
+        </div>
+        <div class="ccard hot">
+          <k>Metered rails</k>
+          <div class="big">$0.000037</div>
+          <p>What one real request actually cost. Charged exactly, settled in about a second.</p>
+          <ul><li>No account</li><li>Pay per call</li><li>Nothing to cancel</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<h2>120K+</h2>
+  <!-- how -->
+  <section id="how">
+    <span class="badge">How it works</span>
+    <h2>Four steps, one request.</h2>
+    <p class="lead">The payment lives inside the HTTP exchange. Nothing is stored, nothing is provisioned.</p>
 
-<p>Customers</p>
+    <div class="bento">
+      <div class="bcard"><div class="bico"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><h3>Ask</h3><p>The client hits your endpoint with no credentials at all — no key, no session, no prior relationship.</p></div>
+      <div class="bcard"><div class="bico"><svg viewBox="0 0 24 24"><path d="M12 3v18M8 7h6a3 3 0 010 6H8m0 0h7"/></svg></div><h3>Get a price</h3><p>Your server answers 402 with the amount, the chain, the token, and the address to pay.</p></div>
+      <div class="bcard"><div class="bico"><svg viewBox="0 0 24 24"><path d="M7 11V8a5 5 0 0110 0v3"/><rect x="5" y="11" width="14" height="9" rx="2"/></svg></div><h3>Sign</h3><p>The wallet signs a stablecoin authorization locally. No transaction yet, no gas spent guessing.</p></div>
+      <div class="bcard"><div class="bico"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><h3>Settle</h3><p>The retry carries the signature. Verified and settled onchain, then the response comes back.</p></div>
+      <div class="bcard"><div class="bico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Charge what it cost</h3><p>Price is computed from real token usage, so a short call bills like a short call.</p></div>
+      <div class="bcard"><div class="bico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h5"/></svg></div><h3>Built for agents</h3><p>An autonomous client can't fill in a signup form. It can sign a payment inside a request.</p></div>
+    </div>
+
+    <div class="gal">
+      <div class="ph c"><div class="cap">
+      <video src="./assets/video.mp4" controls playsinline></video>
+    </div></div>
+
+
+
+
+
+      <div class="galcol">
+        <div class="ph b"><div class="cap"><svg viewBox="0 0 24 24"></svg>
+          <!-- settlement clip · 1:1 -->
+        </div></div>
+        <div class="ph b"><div class="cap">
+          <img src="./assets/base.png"></div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="code" id="build">
+    <div>
+      <span class="badge"><i></i>For developers</span>
+      <h2>Three lines on the server.</h2>
+      <p class="lead">Wrap the route, set a price, point at a facilitator. Your handler stays exactly as it was.</p>
+    </div>
+    <pre class=""><span class="c1">// proxy.ts</span>
+<span class="c2">import</span> { paymentProxy } <span class="c2">from</span> <span class="c3">"@x402/next"</span>;
+
+<span class="c2">export const</span> proxy = <span class="c2">paymentProxy</span>({
+  <span class="c3">"/api/v1/chat"</span>: {
+    price:   <span class="c3">"$0.001"</span>,
+    network: <span class="c3">"base-sepolia"</span>,
+    payTo:   <span class="c3">"0x30e7…8440"</span>,
+  },
+});</pre>
+  </div>
+
+  <!-- cta -->
+  <div class="strip">
+    <span class="badge">Open source</span>
+    <h2>Charge a tenth of a cent. Finally.</h2>
+    <p class="lead">Running on Base Sepolia today. Bring your own endpoint and start metering it.</p>
+    <div class="cta">
+      <a href="#" class="b1">View on GitHub</a>
+      <a href="#" class="b2">Try the playground</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>METER · built on the x402 protocol</span>
+    <span><a href="#">GitHub</a> &nbsp;·&nbsp; <a href="#">X</a> &nbsp;·&nbsp; <a href="#">Docs</a></span>
+  </footer>
 
 </div>
-
-<div>
-
-<h2>₹40M</h2>
-
-<p>Transferred</p>
-
 </div>
-
-<div>
-
-<h2>98%</h2>
-
-<p>Satisfaction</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="right">
-
-<div class="circle one"></div>
-
-<div class="circle two"></div>
-
-<div class="phone">
-
-<div class="card">
-
-<div class="chip"></div>
-
-<h3>NeoBank</h3>
-
-<h2>**** **** **** 4821</h2>
-
-<div class="bottom">
-
-<span>Lucia White</span>
-
-<span>12/29</span>
-
-</div>
-
-</div>
-
-<div class="balance">
-
-<h4>Available Balance</h4>
-
-<h1>₹4,58,250</h1>
-
-<p>+12.4% this month</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-</body>
-</html> -->

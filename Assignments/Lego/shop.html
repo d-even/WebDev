@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop phones — Signal Mobile Co.</title>
+<meta name="description" content="Every phone on our shelf, with the specs that actually matter and honest stock counts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="statusbar">
+  <div class="wrap statusbar__row">
+    <div class="statusbar__left">
+      <span class="mono"><span class="open-dot"></span>Open now · closes 9:00 PM</span>
+    </div>
+    <div class="statusbar__right">
+      <span class="mono">Stock updated today, 8:15 AM</span>
+      <span class="bars bars--live"><i></i><i></i><i></i><i></i></span>
+      <span class="battery"><span></span></span>
+    </div>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav__row">
+    <a class="brand" href="index.html">
+      <span class="brand__mark"><span class="bars"><i></i><i></i><i></i><i></i></span></span>
+      <span>Signal<small>Mobile Co.</small></span>
+    </a>
+    <nav class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="is-active">Shop</a>
+      <a href="about.html">About us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="pagehead">
+  <div class="wrap">
+    <span class="mono eyebrow">The shelf · 8 of 41 shown</span>
+    <h1>Every phone we'd actually hand a friend.</h1>
+    <p>Prices include GST. EMI figures are for 12 months at 0% on major cards. Stock counts are what's physically in the drawer this morning.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+
+    <!-- filters work with radio inputs + CSS sibling selectors, no JavaScript -->
+    <input class="filter-input" type="radio" name="filter" id="f-all" checked>
+    <input class="filter-input" type="radio" name="filter" id="f-flagship">
+    <input class="filter-input" type="radio" name="filter" id="f-mid">
+    <input class="filter-input" type="radio" name="filter" id="f-budget">
+    <input class="filter-input" type="radio" name="filter" id="f-refurb">
+
+    <div class="filters">
+      <label for="f-all">Everything</label>
+      <label for="f-flagship">Above ₹40,000</label>
+      <label for="f-mid">₹20,000 – ₹40,000</label>
+      <label for="f-budget">Under ₹20,000</label>
+      <label for="f-refurb">Refurbished</label>
+    </div>
+
+    <div class="grid-cards">
+
+      <article class="card is-flagship">
+        <div class="card__art">
+          <div class="phone tone-1"><div class="phone__screen"><span class="phone__notch"></span>
+            <div class="phone__grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div></div>
+        </div>
+        <div class="card__top"><span class="mono card__brand">Aster</span><span class="tag">Best camera</span></div>
+        <h3>Aster Meridian X</h3>
+        <ul class="card__specs">
+          <li><span>Screen</span><span>6.8" LTPO</span></li>
+          <li><span>Battery</span><span>5200 mAh</span></li>
+          <li><span>Storage</span><span>512 GB</span></li>
+          <li><span>Our test</span><span>1.5 days</span></li>
+        </ul>
+        <div class="card__foot">
+          <span class="price">₹89,900<small>or ₹7,491/mo · 12 mo</small></span>
+          <span class="tag tag--low">2 left</span>
+        </div>
+      </article>
+
+      <article class="card is-flagship">
+        <div class="card__art">
+          <div class="phone tone-6"><div class="phone__screen"><span class="phone__notch"></span>
+            <div class="phone__grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div></div>
+        </div>
+        <div class="card__top"><span class="mono card__brand">Vela</span><span class="tag">Folds</span></div>
+        <h3>Vela Fold 2</h3>
+        <ul class="card__specs">
+          <li><span>Screen</span><span>7.6" folding</span></li>
+          <li><span>Battery</span><span>4400 mAh</span></li>
+          <li><span>Storage</span><span>256 GB</span></li>
+          <li><span>Our test</span><span>1 day</span></li>
+        </ul>
+        <div class="card__foot">
+          <span class="price">₹1,24,999<small>or ₹10,416/mo · 12 mo</small></span>
+          <span class="tag tag--low">Order in</span>
+        </div>
+      </article>
+
+      <article class="card is-mid">
+        <div class="card__art">
+          <div class="phone tone-2"><div class="phone__screen"><span class="phone__notch"></span>
+            <div class="phone__grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div></div>
+        </div>
+        <div class="card__top"><span class="mono card__brand">Aster</span><span class="tag">Best all-round</span></div>
+        <h3>Aster A9 Pro</h3>
+        <ul class="card__specs">
+          <li><span>Screen</span><span>6.6" AMOLED</span></li>
+          <li><span>Battery</span><span>5000 mAh</span></li>
+          <li><span>Storage</span><span>256 GB</span></li>
+          <li><span>Our test</span><span>1.5 days</span></li>
+        </ul>
+        <div class="card__foot">
+          <span class="price">₹34,999<small>or ₹2,916/mo · 12 mo</small></span>
+          <span class="tag tag--stock">In stock</span>
+        </div>
+      </article>
+
+      <article class="card is-mid">
+        <div class="card__art">
+          <div class="phone tone-3"><div class="phone__screen"><span class="phone__notch"></span>
+            <div class="phone__grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div></div>
+        </div>
+        <div class="card__top"><span class="mono card__brand">Nord</span><span class="tag">Longest battery</span></div>
+        <h3>Nord Ceres 5</h3>
+        <ul class="card__specs">
+          <li><span>Screen</span><span>6.4" OLED</span></li>
+          <li><span>Battery</span><span>5500 mAh</span></li>
+          <li><span>Storage</span><span>128 GB</span></li>
+          <li><span>Our test</span><span>2 days</span></li>
+        </ul>
+        <div class="card__foot">
+          <span class="price">₹27,999<small>or ₹2,333/mo · 12 mo</small></span>
+          <span class="tag tag--low">4 left</span>
+        </div>
+      </article>
+
+      <article class="card is-mid">
+        <div class="card__art">
+          <div class="phone tone-5"><div class="phone__screen"><span class="phone__notch"></span>
+            <div class="phone__grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div></div>
+        </div>
+        <div class="card__top"><span class="mono card__brand">Vela</span><span class="tag">Small hands</span></div>
+        <h3>Vela Mini 4</h3>
+        <ul class="card__specs">
+          <li><span>Screen</span><span>5.9" OLED</span></li>
+          <li><span>Battery</span><span>4100 mAh</span></li>
+          <li><span>Storage</span><span>256 GB</span></li>
+          <li><span>Our test</span><span>1 day</span></li>
+        </ul>
+        <div class="card__foot">
+          <span class="price">₹24,499<small>or ₹2,041/mo · 12 mo</small></span>
+          <span class="tag tag--stock">In stock</span>
+        </div>
+      </article>
+
+      <article class="card is-budget">
+        <div class="card__art">
+          <div class="phone tone-4"><div class="phone__screen"><span class="phone__notch"></span>
+            <div class="phone__grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div></div>
+        </div>
+        <div class="card__top"><span class="mono card__brand">Kite</span><span class="tag">Under ₹15k</span></div>
+        <h3>Kite Light 3</h3>
+        <ul class="card__specs">
+          <li><span>Screen</span><span>6.1" LCD</span></li>
+          <li><span>Battery</span><span>4800 mAh</span></li>
+          <li><span>Storage</span><span>128 GB</span></li>
+          <li><span>Our test</span><span>2 days</span></li>
+        </ul>
+        <div class="card__foot">
+          <span class="price">₹13,499<small>or ₹1,124/mo · 12 mo</small></span>
+          <span class="tag tag--stock">In stock</span>
+        </div>
+      </article>
+
+      <article class="card is-budget">
+        <div class="card__art">
+          <div class="phone tone-8"><div class="phone__screen"><span class="phone__notch"></span>
+            <div class="phone__grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div></div>
+        </div>
+        <div class="card__top"><span class="mono card__brand">Kite</span><span class="tag">First phone</span></div>
+        <h3>Kite Basic 2</h3>
+        <ul class="card__specs">
+          <li><span>Screen</span><span>6.0" LCD</span></li>
+          <li><span>Battery</span><span>5000 mAh</span></li>
+          <li><span>Storage</span><span>64 GB</span></li>
+          <li><span>Our test</span><span>2 days</span></li>
+        </ul>
+        <div class="card__foot">
+          <span class="price">₹8,999<small>or ₹749/mo · 12 mo</small></span>
+          <span class="tag tag--stock">In stock</span>
+        </div>
+      </article>
+
+      <article class="card is-refurb">
+        <div class="card__art">
+          <div class="phone tone-7"><div class="phone__screen"><span class="phone__notch"></span>
+            <div class="phone__grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div></div>
+        </div>
+        <div class="card__top"><span class="mono card__brand">Aster · 2023</span><span class="tag">New battery fitted</span></div>
+        <h3>Aster A7 — refurbished</h3>
+        <ul class="card__specs">
+          <li><span>Screen</span><span>6.4" AMOLED</span></li>
+          <li><span>Battery</span><span>Replaced, 100%</span></li>
+          <li><span>Storage</span><span>128 GB</span></li>
+          <li><span>Warranty</span><span>6 months, ours</span></li>
+        </ul>
+        <div class="card__foot">
+          <span class="price">₹16,499<small>light scuff on the frame</small></span>
+          <span class="tag tag--low">1 left</span>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="muted" style="margin-top:34px;max-width:60ch">Nothing here is reserved online. Ring the counter and we'll hold a phone under your name until closing the next day.</p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="band">
+      <div>
+        <h2>Trading in an old phone?</h2>
+        <p>Bring it in and we'll quote in ten minutes. Working or not — we buy dead ones too, for parts.</p>
+      </div>
+      <a class="btn btn--light" href="contact.html">Get a trade-in quote</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="index.html" style="color:#fff">
+          <span class="brand__mark" style="background:#fff;color:#101322"><span class="bars"><i></i><i></i><i></i><i></i></span></span>
+          <span>Signal<small style="color:#767e99">Mobile Co.</small></span>
+        </a>
+        <p>A phone shop on Rajarampuri Main Road that would rather sell you one good phone than three quick ones.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <a href="shop.html">All phones</a>
+        <a href="shop.html">Under ₹15,000</a>
+        <a href="shop.html">Refurbished</a>
+        <a href="shop.html">Cases &amp; chargers</a>
+      </div>
+      <div>
+        <h4>Store</h4>
+        <a href="about.html">About us</a>
+        <a href="about.html">How we test</a>
+        <a href="contact.html">Repairs</a>
+        <a href="contact.html">Visit the counter</a>
+      </div>
+      <div>
+        <h4>Reach us</h4>
+        <a href="tel:+912312345678">+91 231 234 5678</a>
+        <a href="mailto:hello@signalmobile.in">hello@signalmobile.in</a>
+        <a href="contact.html">Mon–Sat, 10 AM – 9 PM</a>
+      </div>
+    </div>
+    <div class="footer__base">
+      <span class="mono">© 2026 Signal Mobile Co. · Kolhapur</span>
+      <span class="mono">Demo site · prices and models are fictional</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

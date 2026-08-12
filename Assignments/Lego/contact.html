@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Signal Mobile Co.</title>
+<meta name="description" content="Call the counter, send a question, or walk in. Rajarampuri Main Road, Kolhapur.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="statusbar">
+  <div class="wrap statusbar__row">
+    <div class="statusbar__left">
+      <span class="mono"><span class="open-dot"></span>Open now · closes 9:00 PM</span>
+    </div>
+    <div class="statusbar__right">
+      <span class="mono">Replies within one working day</span>
+      <span class="bars bars--live"><i></i><i></i><i></i><i></i></span>
+      <span class="battery"><span></span></span>
+    </div>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav__row">
+    <a class="brand" href="index.html">
+      <span class="brand__mark"><span class="bars"><i></i><i></i><i></i><i></i></span></span>
+      <span>Signal<small>Mobile Co.</small></span>
+    </a>
+    <nav class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About us</a>
+      <a href="contact.html" class="is-active">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="pagehead">
+  <div class="wrap">
+    <span class="mono eyebrow">Contact</span>
+    <h1>Ask before you buy. It's free and we quite like it.</h1>
+    <p>Tell us what you use your phone for and roughly what you'd like to spend. You'll get two suggestions and a plain reason for each.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap contact-grid">
+
+    <!-- form -->
+    <form class="form-card" action="#" method="post">
+      <span class="mono eyebrow">Send a question</span>
+      <h2 style="margin:10px 0 22px">What are you looking for?</h2>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" placeholder="Meera Kulkarni" required>
+        </div>
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com">
+        <p class="field__hint">Optional — we'll call if you'd rather not type.</p>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="topic">What's this about?</label>
+          <select id="topic" name="topic">
+            <option>Which phone should I buy</option>
+            <option>Repair a phone</option>
+            <option>Trade in my old phone</option>
+            <option>EMI and paperwork</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="budget">Budget</label>
+          <select id="budget" name="budget">
+            <option>Under ₹15,000</option>
+            <option>₹15,000 – ₹25,000</option>
+            <option>₹25,000 – ₹40,000</option>
+            <option>Above ₹40,000</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="message">Tell us how you use your phone</label>
+        <textarea id="message" name="message" placeholder="Mostly WhatsApp, photos of the kids, and a long train commute. Battery matters more than the camera."></textarea>
+        <p class="field__hint">The more ordinary the detail, the better the advice.</p>
+      </div>
+
+      <button class="btn btn--primary" type="submit">Send question</button>
+      <p class="field__hint" style="margin-top:14px">This is a demo page, so nothing is actually sent. In the real shop, call the counter instead.</p>
+    </form>
+
+    <!-- details -->
+    <div>
+      <div class="info-card">
+        <span class="mono eyebrow">Walk in</span>
+        <h3 style="margin-top:10px">Rajarampuri Main Road</h3>
+        <address>
+          Shop 14, Rajarampuri 6th Lane<br>
+          Kolhapur, Maharashtra 416008<br>
+          Opposite the old bus stand
+        </address>
+        <div class="map" style="margin-top:18px">
+          <span class="map__pin">Signal Mobile Co.</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <span class="mono eyebrow">Opening hours</span>
+        <table class="hours">
+          <tr><th>Monday – Friday</th><td>10:00 AM – 9:00 PM</td></tr>
+          <tr><th>Saturday</th><td>10:00 AM – 9:30 PM</td></tr>
+          <tr><th>Sunday</th><td class="closed">Closed</td></tr>
+          <tr><th>Repair bench</th><td>11:00 AM – 7:00 PM</td></tr>
+        </table>
+      </div>
+
+      <div class="info-card">
+        <span class="mono eyebrow">Straight to a person</span>
+        <h3 style="margin-top:10px">Call the counter</h3>
+        <p class="muted" style="margin:8px 0 16px">Someone picks up between ten and nine. Ask for Rupa for EMI questions, or Sanjay for repairs.</p>
+        <a class="btn btn--ghost" href="tel:+912312345678">+91 231 234 5678</a>
+        <p class="field__hint" style="margin-top:14px">hello@signalmobile.in · WhatsApp on the same number</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="band">
+      <div>
+        <h2>Broken screen right now?</h2>
+        <p>Bring it in before 4 PM on a weekday and you'll usually have it back the same evening.</p>
+      </div>
+      <a class="btn btn--light" href="shop.html">See what else we do</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="index.html" style="color:#fff">
+          <span class="brand__mark" style="background:#fff;color:#101322"><span class="bars"><i></i><i></i><i></i><i></i></span></span>
+          <span>Signal<small style="color:#767e99">Mobile Co.</small></span>
+        </a>
+        <p>A phone shop on Rajarampuri Main Road that would rather sell you one good phone than three quick ones.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <a href="shop.html">All phones</a>
+        <a href="shop.html">Under ₹15,000</a>
+        <a href="shop.html">Refurbished</a>
+        <a href="shop.html">Cases &amp; chargers</a>
+      </div>
+      <div>
+        <h4>Store</h4>
+        <a href="about.html">About us</a>
+        <a href="about.html">How we test</a>
+        <a href="contact.html">Repairs</a>
+        <a href="contact.html">Visit the counter</a>
+      </div>
+      <div>
+        <h4>Reach us</h4>
+        <a href="tel:+912312345678">+91 231 234 5678</a>
+        <a href="mailto:hello@signalmobile.in">hello@signalmobile.in</a>
+        <a href="contact.html">Mon–Sat, 10 AM – 9 PM</a>
+      </div>
+    </div>
+    <div class="footer__base">
+      <span class="mono">© 2026 Signal Mobile Co. · Kolhapur</span>
+      <span class="mono">Demo site · prices and models are fictional</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

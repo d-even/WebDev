@@ -1,51 +1,51 @@
-// // String
-// console.log(typeof("Hello Guys"))
-// console.log(typeof("56"))
+// // Area of Circle
+// let radius = 2;
+// console.log(2 * 22/7 * radius**2)
+
+// //Amout from Gst
+
+// let totalAmount = 118
+// let  gst = totalAmount / (1+(18/100));
+// console.log(gst)
+
+// // C to F
+// let C = 100
+// let F =(C * 9/5) + 32
+// console.log(F)
 
 
-// // Numeric
-// console.log(typeof(56))
-// console.log(typeof(5.3))
+// let marks = 500;
+// let total = 1000;
 
-// // Boolean
-// console.log(typeof(true))
-// console.log(typeof(false))
+// let per = marks *100 /total
 
-// // NaN Specially we used to define for future 
-// console.log(typeof(null))  // It is Object 
-// console.log(typeof(undefined))
+// if(per > 90){
+//   console.log("Grade is A")
+// }
+// else if(per > 70){
+//   console.log("Grade is B")
+// }
+// else if(per >= 50){
+//   console.log("Grade is C")
+// }
+// else{
+//   console.log("D")
+// }
 
-
-// console.log("Hello Guys")
-// console.log("56")
-
-
-// // Numeric
-// console.log(56)
-// console.log(5.3)
-
-// // Boolean
-// console.log(true)
-// console.log(false)
-
-// // NaN Specially we used to define for future 
-// console.log(null)  // It is Object 
-// console.log(undefined)
-
-// Non Primitive DataType
-
-// console.log([2,4,6,8]); Array
-
-// Object: console.log({  
-//     name: "Deven",
-//     city: "Mumbai",
-//     age:21
-// })
+// console.log(true&&(!false || false) && true)
 
 
-// Variable
 
-x = 50;
-console.log(x)
-x = 100;
-console.log(x);
+let meet = prompt("Meet chance")
+let shreya = prompt("Shreya chance")
+
+if(meet === shreya){
+  alert("Tie")
+  
+}
+else if((meet == 'rock' && (shreya =='scissor' || 'lizard')) && (meet =='paper'&& (shreya == 'rock' || 'spock')) && ( meet =='scissor' && (shreya == 'paper' || 'lizard')) && (meet == 'lizard' && (shreya =='paper' || 'spock')) && (meet == 'rock' && (shreya =='scissor' || 'rock')) ){
+  alert("Meet Win")
+}
+else{
+  alert("Shreya Win")
+}
