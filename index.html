@@ -1,10 +1,269 @@
-<!DOCTYPE html>
-<html>
-<body>
-<!-- Single-line text input with a default value -->
-<input type="text" name="username"  placeholder="Enter username" />
-<hr>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>METER — 30s video sequence</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-          <textarea id="message" name="message" placeholder="Write your message here..."> Hello World </textarea>
-</body>
-</html>
+<style>
+:root{
+  --ink:#0C0D0C; --body:#5B615D; --mute:#9CA29E;
+  --amber:#C97A12;
+  --line:#E7E9E7; --track:#EDEFED;
+  --dark:#0A0B0A;
+  --ease:cubic-bezier(.2,.7,.3,1);
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:#fff;font-family:Archivo,system-ui,sans-serif;overflow:hidden;cursor:none}
+
+/* every slate is a centred flex box — nothing else needed */
+.slate{
+  position:fixed;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(28px,6vw,96px);
+  opacity:0;pointer-events:none;
+}
+.slate.on{opacity:1}
+.slate.dark{background:var(--dark)}
+
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes fade{to{opacity:1}}
+@keyframes pop{to{opacity:1;transform:none}}
+
+/* ---------- 1 · two numbers ---------- */
+.rows{width:min(880px,80vw);display:flex;flex-direction:column;gap:clamp(28px,6vh,60px)}
+.row{opacity:0;transform:translateY(16px)}
+.row.go{animation:rise .65s var(--ease) forwards}
+.row.b.go{animation-delay:1.1s}
+.rlabel{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.1vw,14px);letter-spacing:.17em;text-transform:uppercase;color:var(--mute);margin-bottom:12px}
+.num{font-size:clamp(52px,9vw,118px);line-height:.94;letter-spacing:-.048em;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+.num.money{color:var(--amber)}
+.sub{font-size:clamp(14px,1.5vw,19px);color:var(--body);margin-top:12px}
+.bar{height:10px;border-radius:99px;background:var(--track);margin-top:20px;position:relative}
+.bar i{display:block;height:100%;border-radius:99px;width:0;background:var(--ink)}
+.bar.m i{background:var(--amber);min-width:4px}
+.row.a.go .bar i{animation:grow 1.15s var(--ease) .35s forwards}
+.row.b.go .bar i{animation:growtiny 1.15s var(--ease) 1.45s forwards}
+@keyframes grow{to{width:100%}}
+@keyframes growtiny{to{width:.012%}}
+.tiny{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1vw,13px);letter-spacing:.11em;text-transform:uppercase;color:var(--amber);white-space:nowrap;opacity:0}
+.row.b.go .tiny{animation:fade .55s ease 2.5s forwards}
+
+/* ---------- 2 · the multiple ---------- */
+.mult{text-align:center}
+.multnum{font-size:clamp(88px,17vw,240px);line-height:.88;letter-spacing:-.055em;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;opacity:0;transform:scale(.93)}
+.slate.on .multnum{animation:pop .8s var(--ease) forwards}
+.multcap{font-size:clamp(16px,2.1vw,26px);color:var(--body);margin-top:26px;max-width:26ch;line-height:1.4;opacity:0}
+.slate.on .multcap{animation:rise .65s var(--ease) .5s forwards}
+
+/* ---------- 3 & 6 · centred headline slates ---------- */
+.center{
+  width:100%;
+  text-align:center;
+}
+.center h1{
+  max-width:20ch;
+  margin-inline:auto;
+  font-size:clamp(32px,6vw,78px);
+  line-height:1.06;
+  letter-spacing:-.045em;
+  font-weight:500;
+  color:var(--ink);
+  text-wrap:balance;
+}
+.center h1 em{font-style:normal;color:var(--amber)}
+.center .w{display:inline-block;opacity:0;transform:translateY(16px)}
+.slate.on .center .w{animation:rise .6s var(--ease) forwards}
+.slate.dark .center h1{color:#fff}
+
+/* cue sits at the bottom, so it can't shift the headline off centre */
+.cue{
+  position:absolute;left:50%;bottom:11vh;transform:translateX(-50%);
+  font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.1vw,14px);
+  letter-spacing:.22em;text-transform:uppercase;color:var(--mute);
+  opacity:0;white-space:nowrap;
+}
+.slate.on .cue{animation:fade .5s ease 1.15s forwards}
+
+/* ---------- 4 · demo slot ---------- */
+.demoslot{
+  width:100%;height:100%;border-radius:10px;
+  border:2px dashed #D4D8D4;
+  background:repeating-linear-gradient(45deg,#FAFBFA,#FAFBFA 14px,#F2F4F2 14px,#F2F4F2 28px);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+}
+.dm{font-family:'JetBrains Mono',monospace;font-size:clamp(12px,1.4vw,17px);letter-spacing:.15em;text-transform:uppercase;color:#A8AFAA;line-height:2}
+.dm b{display:block;color:var(--amber);font-size:clamp(14px,1.8vw,22px);letter-spacing:.1em}
+.dm span{display:block;font-family:Archivo,sans-serif;font-size:13px;letter-spacing:0;text-transform:none;color:#B6BCB8;margin-top:10px}
+
+/* ---------- 5 · receipt ---------- */
+.receipt{width:min(760px,78vw)}
+.rline{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:clamp(12px,2vh,18px) 0;border-bottom:1px solid var(--line);opacity:0;transform:translateY(12px)}
+.slate.on .rline{animation:rise .55s var(--ease) forwards}
+.slate.on .rline:nth-child(1){animation-delay:.05s}
+.slate.on .rline:nth-child(2){animation-delay:.35s}
+.slate.on .rline:nth-child(3){animation-delay:.65s}
+.rk{font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1.1vw,13px);letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.rv{font-family:'JetBrains Mono',monospace;font-size:clamp(20px,3.2vw,40px);color:var(--ink);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.rv.money{color:var(--amber)}
+.rv.ok{color:#2F9E5A}
+
+/* ---------- 7 · endcard ---------- */
+.end{text-align:center}
+.wordmark{font-size:clamp(64px,15vw,210px);line-height:.85;letter-spacing:-.055em;font-weight:600;color:var(--ink);opacity:0;transform:scale(.95)}
+.slate.on .wordmark{animation:pop .8s var(--ease) forwards}
+.endsub{margin-top:clamp(16px,3vh,28px);font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.3vw,16px);letter-spacing:.22em;text-transform:uppercase;color:var(--mute);opacity:0}
+.slate.on .endsub{animation:fade .6s ease .55s forwards}
+.endlink{margin-top:clamp(20px,3vh,32px);font-size:clamp(13px,1.4vw,17px);color:var(--body);opacity:0}
+.slate.on .endlink{animation:fade .6s ease .95s forwards}
+
+/* ---------- chrome ---------- */
+.prog{position:fixed;left:0;bottom:0;height:3px;background:var(--amber);width:0;z-index:9}
+.prog.go{animation:run 30s linear forwards}
+@keyframes run{to{width:100%}}
+.tc{position:fixed;right:18px;bottom:16px;z-index:9;font-family:'JetBrains Mono',monospace;font-size:12px;color:#C2C8C4}
+.help{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);display:flex;gap:9px;z-index:10}
+.hide{display:none}
+.help button{font-family:Archivo,sans-serif;font-size:13px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 16px;border-radius:999px}
+.help button:hover{border-color:var(--amber);color:var(--amber)}
+</style>
+
+<!-- 1 · 0.0–4.4 -->
+<div class="slate" id="s1">
+  <div class="rows">
+    <div class="row a" id="r1">
+      <p class="rlabel">Card network minimum fee</p>
+      <p class="num">$0.30</p>
+      <p class="sub">Charged on every transaction, before any percentage.</p>
+      <div class="bar"><i></i></div>
+    </div>
+    <div class="row b" id="r2">
+      <p class="rlabel">One LLM request, priced honestly</p>
+      <p class="num money">$0.000037</p>
+      <p class="sub">What the compute actually cost.</p>
+      <div class="bar m"><i></i><span class="tiny">too small to draw</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2 · 4.4–6.8 -->
+<div class="slate" id="s2">
+  <div class="mult">
+    <p class="multnum">8,108×</p>
+    <p class="multcap">The fee is eight thousand times the thing being sold.</p>
+  </div>
+</div>
+
+<!-- 3 · 6.8–9.5 -->
+<div class="slate" id="s3">
+  <div class="center">
+    <h1 data-split>So nobody sells the thing. They sell you a <em>month.</em></h1>
+  </div>
+  <p class="cue">unless you remove the floor</p>
+</div>
+
+<!-- 4 · 9.5–21.0 — DEMO SLOT -->
+ <div class="slate" id="s4" style="padding:clamp(20px,3vw,44px)">
+  <video class="demovid" src="/demo.mp4" muted playsinline></video>
+</div>
+
+<div class="slate" id="s4" style="padding:clamp(20px,3vw,44px)">
+  <div class="demoslot">
+    <p class="dm">
+      <b>◉ demo clip goes here</b>
+      11.5 seconds
+      <span>connect → send → 402 → sign → settled → basescan</span>
+    </p>
+  </div>
+</div>
+
+<!-- 5 · 21.0–25.0 -->
+<div class="slate" id="s5">
+  <div class="receipt">
+    <div class="rline"><span class="rk">Authorized</span><span class="rv">$0.001000</span></div>
+    <div class="rline"><span class="rk">Actually charged</span><span class="rv money">$0.000037</span></div>
+    <div class="rline"><span class="rk">Settled onchain</span><span class="rv ok">1.09s</span></div>
+  </div>
+</div>
+
+<!-- 6 · 25.0–27.5 -->
+<div class="slate dark" id="s6">
+  <div class="center">
+    <h1 data-split>No Account.</h1>
+    <h1 data-split>No Key.</h1>
+    <h1 data-split>No Plan.</h1>
+        No key. 
+        No plan.
+  </div>
+</div>
+
+<!-- 7 · 27.5–30.0 -->
+<div class="slate" id="s7">
+  <div class="end">
+    <p class="wordmark">METER</p>
+    <p class="endsub">pay per call · not per month</p>
+  </div>
+</div>
+
+<div class="prog" id="prog"></div>
+<div class="tc" id="tc">00.0s</div>
+<div class="help" id="help">
+  <button onclick="play()">▶ Replay (R)</button>
+  <button onclick="hideUI()">Hide controls (F)</button>
+</div>
+
+<script>
+document.querySelectorAll("[data-split]").forEach(el=>{
+  el.innerHTML = el.innerHTML.replace(/(<em>.*?<\/em>|[^\s<]+(?:<[^>]+>)?)/g,
+    m => m.trim() ? `<span class="w">${m}</span>` : m);
+});
+
+const S=[1,2,3,4,5,6,7].map(n=>document.getElementById("s"+n));
+const prog=document.getElementById("prog"), tc=document.getElementById("tc");
+const r1=document.getElementById("r1"), r2=document.getElementById("r2");
+const CUES=[0,4400,6800,9500,21000,25000,27500];
+let timers=[], clock=null;
+
+function stagger(slate){
+  slate.querySelectorAll(".w").forEach((w,i)=>{ w.style.animationDelay=(i*70)+"ms"; });
+}
+
+function play(){
+  timers.forEach(clearTimeout); timers=[];
+  clearInterval(clock);
+  S.forEach(s=>s.classList.remove("on"));
+  [r1,r2].forEach(r=>r.classList.remove("go"));
+  prog.classList.remove("go"); void prog.offsetWidth;
+  prog.classList.add("go");
+
+  const t0=Date.now();
+  clock=setInterval(()=>{
+    const t=(Date.now()-t0)/1000;
+    tc.textContent=t.toFixed(1).padStart(4,"0")+"s";
+    if(t>=30) clearInterval(clock);
+  },100);
+
+  S[0].classList.add("on");
+  r1.classList.add("go"); r2.classList.add("go");
+
+  CUES.forEach((ms,i)=>{
+    if(i===0) return;
+    timers.push(setTimeout(()=>{
+      S[i-1].classList.remove("on");
+      stagger(S[i]);
+      S[i].classList.add("on");
+    },ms));
+  });
+}
+
+function hideUI(){
+  document.getElementById("help").classList.add("hide");
+  tc.classList.add("hide");
+}
+
+addEventListener("keydown",e=>{
+  if(e.key==="f"||e.key==="F") hideUI();
+  if(e.key==="r"||e.key==="R"||e.key===" "){ e.preventDefault(); play(); }
+});
+
+play();
+</script>
