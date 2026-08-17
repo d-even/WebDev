@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leticia Valdez — Illustration Portfolio</title>
+<meta name="description" content="Illustration portfolio of Leticia Valdez — watercolour and ink work for picture books, editorial and packaging.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=Poppins:wght@500;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --navy:#17246b;
+  --ink:#0d1533;
+  --paper:#f6fbfd;
+  --sea-pale:#cdeaf7;
+  --sea:#8ecfe8;
+  --sea-deep:#3f9fcb;
+  --line:#a8d8ec;
+  --sun:#f7d489;
+  --coral:#e2594c;
+  --skin:#cf8f61;
+  --skin-dk:#b3714a;
+  --hair:#1b2758;
+
+  --display:"Poppins",system-ui,sans-serif;
+  --hand:"Caveat",cursive;
+  --body:"Newsreader",Georgia,serif;
+
+  --gut:clamp(20px,5vw,88px);
+  --tide:14vh;
+}
+
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:12vh;
+  overscroll-behavior-y:none;
+  background:var(--paper);
+}
+
+body{
+  margin:0;
+  font-family:var(--body);
+  font-weight:300;
+  color:var(--ink);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+}
+
+body.is-locked{overflow:hidden}
+
+img,svg{display:block;max-width:100%}
+
+a{color:inherit}
+
+::selection{background:var(--navy);color:#fff}
+
+:focus-visible{
+  outline:3px solid var(--navy);
+  outline-offset:4px;
+  border-radius:3px;
+}
+
+.skip{
+  position:fixed;top:-100px;left:16px;z-index:200;
+  background:var(--navy);color:#fff;padding:12px 18px;border-radius:0 0 8px 8px;
+  font-family:var(--display);font-size:13px;text-decoration:none;
+}
+.skip:focus{top:0}
+
+/* ============================================================
+   PERSISTENT SEA  — the signature: a waterline that rises with scroll
+   ============================================================ */
+.tide{
+  position:fixed;
+  left:0;right:0;bottom:0;
+  height:var(--tide);
+  z-index:1;
+  pointer-events:none;
+  transition:height .5s cubic-bezier(.22,1,.36,1);
+  will-change:height;
+}
+.tide svg{width:100%;height:100%}
+.tide .wave{animation:tideRoll 14s linear infinite}
+.tide .wave.b{animation-duration:20s;animation-direction:reverse}
+.tide .wave.c{animation-duration:26s}
+@keyframes tideRoll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-360px)}
+}
+
+/* the fin that surfaces on the deeper sections */
+.fin{
+  position:fixed;
+  bottom:calc(var(--tide) - 12px);
+  left:0;
+  width:120px;
+  z-index:2;
+  pointer-events:none;
+  opacity:0;
+  translate:calc(var(--swim,0) * 118vw) 0;
+  transition:opacity .8s ease;
+}
+.fin.up{opacity:.9}
+
+/* ============================================================
+   CHROME
+   ============================================================ */
+.nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:60;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:18px var(--gut);
+  font-family:var(--display);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--navy);
+  mix-blend-mode:multiply;
+}
+.nav a{text-decoration:none}
+.nav .mark{
+  font-family:var(--hand);
+  font-size:22px;
+  letter-spacing:0;
+  text-transform:none;
+}
+.nav-links{display:flex;gap:clamp(14px,2.5vw,34px)}
+.nav-links a{position:relative;padding-bottom:4px}
+.nav-links a::after{
+  content:"";
+  position:absolute;left:0;right:0;bottom:0;
+  height:2px;background:var(--navy);
+  scale:0 1;transform-origin:left;
+  transition:scale .35s cubic-bezier(.22,1,.36,1);
+}
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after{scale:1 1}
+@media (max-width:640px){ .nav-links a:nth-child(2){display:none} }
+
+/* tide meter — scroll progress, drawn as a filling gauge */
+.meter{
+  position:fixed;
+  right:calc(var(--gut) * .5);
+  top:50%;
+  translate:0 -50%;
+  z-index:60;
+  width:6px;height:min(220px,26vh);
+  border-radius:99px;
+  background:rgba(23,36,107,.12);
+  overflow:hidden;
+}
+.meter i{
+  position:absolute;inset:auto 0 0 0;
+  height:100%;
+  background:linear-gradient(180deg,var(--sea-deep),var(--navy));
+  transform-origin:bottom;
+  scale:1 var(--prog,0);
+}
+@supports (animation-timeline:scroll()){
+  .meter i{
+    scale:1 0;
+    animation:fill linear both;
+    animation-timeline:scroll(root block);
+  }
+  @keyframes fill{to{scale:1 1}}
+}
+@media (max-width:860px){ .meter{display:none} }
+
+/* ============================================================
+   HERO  — the cover, unshrinking into its card
+   ============================================================ */
+.hero-wrap{
+  position:relative;
+  height:230svh;
+  z-index:3;
+}
+.hero-pin{
+  position:sticky;
+  top:0;
+  height:100svh;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+}
+
+.cover{
+  container-type:inline-size;
+  position:relative;
+  width:calc(100vw - (var(--p,0) * 34vw));
+  height:calc(100svh - (var(--p,0) * 34svh));
+  max-width:1240px;
+  border-radius:calc(var(--p,0) * 26px);
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 calc(var(--p,0) * 40px) calc(var(--p,0) * 90px) -30px rgba(23,36,107,.45);
+  will-change:width,height;
+}
+@media (max-width:900px){
+  .cover{width:calc(100vw - (var(--p,0) * 12vw));height:calc(100svh - (var(--p,0) * 20svh))}
+}
+
+.cover .scene{position:absolute;inset:0;width:100%;height:100%}
+
+.cover-type{
+  position:absolute;
+  left:6.5cqi;top:12cqi;
+  z-index:3;
+  color:var(--navy);
+}
+.cover-name{
+  font-family:var(--hand);
+  font-size:3.4cqi;line-height:1;
+  margin:0 0 3.2cqi;
+  opacity:0;
+  animation:riseIn .9s .25s cubic-bezier(.22,1,.36,1) both;
+}
+.cover-title{
+  margin:0;
+  font-family:var(--display);
+  font-weight:800;
+  font-size:15.5cqi;
+  line-height:.8;
+  letter-spacing:-.045em;
+  text-transform:uppercase;
+}
+.cover-title span{
+  display:block;
+  opacity:0;
+  animation:riseIn 1s cubic-bezier(.22,1,.36,1) both;
+}
+.cover-title span:nth-child(1){animation-delay:.35s}
+.cover-title span:nth-child(2){animation-delay:.47s}
+.cover-meta{
+  display:flex;align-items:flex-end;gap:1.6cqi;
+  margin-top:1.6cqi;
+  opacity:0;
+  animation:riseIn .9s .62s cubic-bezier(.22,1,.36,1) both;
+}
+.cover-meta .role{font-family:var(--hand);font-size:3.4cqi;line-height:1}
+.cover-meta .year{
+  position:relative;
+  font-family:var(--hand);font-weight:600;
+  font-size:2.7cqi;line-height:1;
+  padding:0 .7cqi .3cqi;
+}
+.cover-meta .year svg{
+  position:absolute;left:-.9cqi;top:-1cqi;
+  width:calc(100% + 1.8cqi);height:calc(100% + 2cqi);
+  overflow:visible;
+}
+.cover-meta .year path{
+  stroke-dasharray:300;stroke-dashoffset:300;
+  animation:draw 1.1s .95s cubic-bezier(.65,0,.35,1) both;
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes riseIn{
+  from{opacity:0;translate:0 .6em;filter:blur(6px)}
+  to{opacity:1;translate:0 0;filter:blur(0)}
+}
+
+.scroll-cue{
+  position:absolute;
+  left:50%;bottom:26px;
+  translate:-50% 0;
+  z-index:4;
+  display:grid;justify-items:center;gap:8px;
+  font-family:var(--display);
+  font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--navy);
+  opacity:calc(1 - var(--p,0) * 2.4);
+}
+.scroll-cue i{
+  display:block;width:1px;height:38px;
+  background:linear-gradient(var(--navy),transparent);
+  animation:cue 2.2s ease-in-out infinite;
+}
+@keyframes cue{
+  0%,100%{transform:scaleY(.4);transform-origin:top}
+  50%{transform:scaleY(1);transform-origin:top}
+}
+
+/* ============================================================
+   TYPE SYSTEM
+   ============================================================ */
+.section{position:relative;z-index:4;padding:clamp(90px,14vh,190px) var(--gut)}
+.section--sea{background:linear-gradient(180deg,transparent,rgba(205,234,247,.5))}
+
+.eyebrow{
+  font-family:var(--display);
+  font-size:11px;font-weight:500;
+  letter-spacing:.26em;text-transform:uppercase;
+  color:var(--sea-deep);
+  margin:0 0 18px;
+}
+
+.h2{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:clamp(38px,7vw,104px);
+  line-height:.92;
+  letter-spacing:-.04em;
+  text-transform:uppercase;
+  color:var(--navy);
+  margin:0;
+}
+.h2 em{
+  font-family:var(--hand);
+  font-weight:400;font-style:normal;
+  text-transform:none;
+  letter-spacing:0;
+  color:var(--coral);
+}
+
+.lede{
+  font-size:clamp(19px,2.2vw,29px);
+  line-height:1.5;
+  max-width:22ch;
+  margin:0;
+}
+.prose{font-size:clamp(16px,1.35vw,19px);line-height:1.72;max-width:56ch}
+.prose + .prose{margin-top:1.1em}
+
+/* word-by-word reveal */
+.split .w{display:inline-block;overflow:hidden;vertical-align:bottom}
+.split .w > span{
+  display:inline-block;
+  translate:0 105%;
+  transition:translate .85s cubic-bezier(.22,1,.36,1);
+  transition-delay:calc(var(--i,0) * 55ms);
+}
+.split.in .w > span{translate:0 0}
+
+.reveal{opacity:0;translate:0 34px;transition:opacity .9s cubic-bezier(.22,1,.36,1),translate .9s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;translate:0 0}
+.reveal.d1{transition-delay:.1s}
+.reveal.d2{transition-delay:.2s}
+.reveal.d3{transition-delay:.3s}
+
+/* ============================================================
+   INTRO
+   ============================================================ */
+.intro{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:clamp(28px,5vw,72px);
+  align-items:start;
+}
+@media (min-width:900px){
+  .intro{grid-template-columns:1.05fr .95fr}
+}
+.intro .stack{display:grid;gap:26px}
+.intro-note{
+  font-family:var(--hand);
+  font-size:clamp(22px,2.4vw,30px);
+  color:var(--sea-deep);
+  margin:0;
+}
+
+.marquee{
+  position:relative;
+  overflow:hidden;
+  margin-top:clamp(50px,9vh,110px);
+  padding:16px 0;
+  border-top:1.5px solid rgba(23,36,107,.18);
+  border-bottom:1.5px solid rgba(23,36,107,.18);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+}
+.marquee-track{
+  display:flex;
+  width:max-content;
+  gap:0;
+  animation:slide 38s linear infinite;
+}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee span{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:clamp(20px,2.6vw,34px);
+  letter-spacing:-.02em;
+  text-transform:uppercase;
+  color:var(--navy);
+  padding:0 26px;
+  white-space:nowrap;
+}
+.marquee span:nth-child(even){
+  font-family:var(--hand);
+  font-weight:400;
+  text-transform:none;
+  letter-spacing:0;
+  color:var(--sea-deep);
+}
+@keyframes slide{to{translate:-50% 0}}
+
+/* ============================================================
+   WORK  — pinned horizontal gallery
+   ============================================================ */
+.work{position:relative;z-index:4;height:520svh;background:linear-gradient(180deg,rgba(205,234,247,.5),rgba(142,207,232,.35))}
+.work-pin{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;align-content:center}
+.work-head{
+  padding:0 var(--gut);
+  display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  margin-bottom:clamp(20px,4vh,44px);
+}
+.work-count{font-family:var(--hand);font-size:22px;color:var(--sea-deep)}
+.work-track{
+  display:flex;
+  gap:clamp(18px,3vw,46px);
+  padding-inline:var(--gut);
+  width:max-content;
+  translate:calc(var(--x,0) * -1px) 0;
+  will-change:translate;
+}
+
+.plate{
+  position:relative;
+  width:clamp(240px,29vw,400px);
+  border-radius:14px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 26px 60px -34px rgba(13,21,51,.6);
+  transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s;
+}
+.plate:hover{transform:translateY(-10px) rotate(-.6deg);box-shadow:0 40px 70px -34px rgba(13,21,51,.7)}
+.plate figure{margin:0}
+.plate svg{width:100%;height:auto;aspect-ratio:4/5}
+.plate figcaption{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:16px 18px 18px;
+}
+.plate h3{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(15px,1.5vw,20px);
+  letter-spacing:-.02em;text-transform:uppercase;
+  color:var(--navy);margin:0;
+}
+.plate .tag{font-family:var(--hand);font-size:17px;color:var(--sea-deep);white-space:nowrap}
+.plate .no{
+  position:absolute;top:14px;left:16px;
+  font-family:var(--display);font-size:11px;font-weight:500;letter-spacing:.2em;
+  color:#fff;mix-blend-mode:difference;
+}
+
+.work-rail{
+  position:absolute;left:var(--gut);right:var(--gut);bottom:5vh;
+  height:2px;background:rgba(23,36,107,.15);
+}
+.work-rail i{
+  display:block;height:100%;background:var(--navy);
+  transform-origin:left;scale:var(--p,0) 1;
+}
+
+@media (max-width:760px){
+  .work{height:auto;background:linear-gradient(180deg,rgba(205,234,247,.5),rgba(142,207,232,.3))}
+  .work-pin{position:static;height:auto;padding:clamp(80px,12vh,140px) 0}
+  .work-track{
+    width:auto;translate:none;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:18px;
+  }
+  .plate{scroll-snap-align:center;flex:0 0 78vw;width:78vw}
+  .work-rail{display:none}
+}
+
+/* ============================================================
+   PROCESS  — four stages, a rising wash
+   ============================================================ */
+.process{background:linear-gradient(180deg,rgba(142,207,232,.35),rgba(246,251,253,1))}
+.stages{
+  display:grid;
+  gap:2px;
+  margin-top:clamp(40px,7vh,80px);
+  border-top:1.5px solid rgba(23,36,107,.16);
+}
+.stage{
+  position:relative;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:clamp(14px,3vw,46px);
+  align-items:baseline;
+  padding:clamp(22px,3.4vh,40px) 0;
+  border-bottom:1.5px solid rgba(23,36,107,.16);
+  overflow:hidden;
+}
+.stage::before{
+  content:"";
+  position:absolute;inset:auto 0 0 0;
+  height:0;
+  background:linear-gradient(180deg,rgba(142,207,232,.42),rgba(63,159,203,.3));
+  transition:height .6s cubic-bezier(.22,1,.36,1);
+  z-index:-1;
+}
+.stage:hover::before,
+.stage:focus-within::before{height:100%}
+.stage .step{
+  font-family:var(--display);
+  font-size:11px;font-weight:500;letter-spacing:.2em;
+  color:var(--sea-deep);
+  padding-top:.6em;
+}
+.stage h3{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(26px,4.6vw,60px);
+  line-height:1;letter-spacing:-.035em;text-transform:uppercase;
+  color:var(--navy);margin:0 0 10px;
+}
+.stage p{margin:0;max-width:52ch;font-size:clamp(15px,1.3vw,18px);line-height:1.65}
+.stage .hand{font-family:var(--hand);font-size:20px;color:var(--coral);white-space:nowrap}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about{display:grid;gap:clamp(34px,6vw,80px);align-items:center}
+@media (min-width:900px){ .about{grid-template-columns:.85fr 1.15fr} }
+.studio{
+  border-radius:14px;
+  overflow:hidden;
+  background:linear-gradient(180deg,#eaf7fd,#cfeaf7);
+  box-shadow:0 30px 60px -40px rgba(13,21,51,.55);
+}
+.studio svg{width:100%;height:auto;aspect-ratio:1/1}
+
+.facts{
+  list-style:none;
+  margin:32px 0 0;padding:0;
+  display:grid;gap:0;
+  border-top:1.5px solid rgba(23,36,107,.16);
+  max-width:56ch;
+}
+.facts li{
+  display:flex;justify-content:space-between;gap:18px;
+  padding:14px 0;
+  border-bottom:1.5px solid rgba(23,36,107,.16);
+  font-size:clamp(15px,1.3vw,17px);
+}
+.facts b{
+  font-family:var(--display);font-weight:500;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sea-deep);
+  padding-top:.35em;
+  white-space:nowrap;
+}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact{
+  position:relative;
+  text-align:center;
+  padding-bottom:calc(var(--tide) + 90px);
+  background:linear-gradient(180deg,transparent,rgba(205,234,247,.7));
+}
+.mail{
+  display:inline-block;
+  position:relative;
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(30px,8.5vw,124px);
+  line-height:1;letter-spacing:-.05em;
+  color:var(--navy);
+  text-decoration:none;
+  margin:clamp(18px,4vh,40px) 0 0;
+  word-break:break-word;
+}
+.mail svg{
+  position:absolute;left:-2%;bottom:-.28em;width:104%;height:.42em;overflow:visible;
+}
+.mail path{
+  fill:none;stroke:var(--coral);stroke-width:7;stroke-linecap:round;
+  stroke-dasharray:1200;stroke-dashoffset:1200;
+  transition:stroke-dashoffset 1s cubic-bezier(.65,0,.35,1);
+}
+.mail:hover path,.mail:focus-visible path{stroke-dashoffset:0}
+.socials{
+  display:flex;justify-content:center;flex-wrap:wrap;
+  gap:clamp(16px,3vw,40px);
+  margin-top:clamp(34px,6vh,64px);
+  font-family:var(--display);
+  font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--navy);
+}
+.socials a{text-decoration:none;padding-bottom:4px;border-bottom:2px solid transparent;transition:border-color .3s}
+.socials a:hover,.socials a:focus-visible{border-color:var(--coral)}
+
+.foot{
+  position:relative;z-index:4;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  padding:0 var(--gut) calc(var(--tide) + 26px);
+  font-family:var(--display);font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(23,36,107,.55);
+  background:rgba(205,234,247,.7);
+}
+
+/* ============================================================
+   CURSOR + GRAIN
+   ============================================================ */
+.dot{
+  position:fixed;top:0;left:0;z-index:90;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--sea-deep);
+  mix-blend-mode:multiply;
+  pointer-events:none;
+  translate:-50% -50%;
+  transition:scale .3s cubic-bezier(.22,1,.36,1),background .3s;
+  opacity:0;
+}
+.dot.on{opacity:.75}
+.dot.big{scale:3.4;background:var(--sun)}
+@media (hover:none),(pointer:coarse){ .dot{display:none} }
+
+.grain{
+  position:fixed;inset:0;z-index:95;
+  pointer-events:none;
+  opacity:.06;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;translate:none}
+  .split .w > span{translate:none}
+  .tide{height:14vh!important}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#work">Skip to the work</a>
+
+<!-- ========== PERSISTENT SEA ========== -->
+<div class="tide" aria-hidden="true">
+  <svg viewBox="0 0 1440 300" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="tideG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#cdeaf7"/>
+        <stop offset=".45" stop-color="#8ecfe8"/>
+        <stop offset="1" stop-color="#3f9fcb"/>
+      </linearGradient>
+    </defs>
+    <path d="M0,60 C240,26 420,86 720,60 C1020,34 1200,88 1440,58 L1440,300 L0,300 Z" fill="url(#tideG)"/>
+    <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".55">
+      <path class="wave"   d="M-360,120 C-180,100 -60,140 120,124 C300,108 420,146 600,128 C780,110 900,148 1080,130 C1260,112 1380,144 1800,124"/>
+      <path class="wave b" d="M-360,186 C-140,166 40,204 240,186 C440,168 620,204 820,186 C1020,168 1200,202 1800,184" opacity=".7"/>
+      <path class="wave c" d="M-360,246 C-120,226 120,262 360,244 C600,226 840,260 1800,242" opacity=".5"/>
+    </g>
+    <g fill="#fff" opacity=".85">
+      <circle cx="140" cy="92" r="20"/><circle cx="182" cy="102" r="14"/>
+      <circle cx="880" cy="86" r="18"/><circle cx="922" cy="98" r="12"/>
+    </g>
+  </svg>
+</div>
+
+<!-- the orca that crosses the deep sections -->
+<svg class="fin" id="fin" viewBox="0 0 200 120" aria-hidden="true">
+  <path d="M96,110 C74,74 60,44 92,10 C104,44 118,76 138,110 Z" fill="#1b2758"/>
+  <path d="M40,112 C70,96 130,96 168,112 Z" fill="#1b2758" opacity=".7"/>
+  <g fill="#fff" opacity=".9">
+    <circle cx="44" cy="112" r="13"/><circle cx="74" cy="118" r="10"/><circle cx="160" cy="114" r="11"/>
+  </g>
+</svg>
+
+<!-- ========== CHROME ========== -->
+<nav class="nav">
+  <a class="mark" href="#top">Leticia Valdez</a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#process">Process</a>
+    <a href="#about">Studio</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="meter" aria-hidden="true"><i id="meterFill"></i></div>
+<div class="dot" id="dot" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ========== HERO ========== -->
+<header class="hero-wrap" id="top">
+  <div class="hero-pin">
+    <div class="cover" id="cover">
+      <svg class="scene" viewBox="0 0 1200 780" preserveAspectRatio="xMidYMid slice" aria-label="A girl surfing beside an orca">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#d9eff9"/><stop offset=".55" stop-color="#f4fbfe"/><stop offset="1" stop-color="#fff"/>
+          </linearGradient>
+          <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#cdeaf7"/><stop offset=".45" stop-color="#96d3ea"/><stop offset="1" stop-color="#4fb0d9"/>
+          </linearGradient>
+          <linearGradient id="boardG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fbe4ab"/><stop offset="1" stop-color="#f0c268"/>
+          </linearGradient>
+          <filter id="wobble" x="-10%" y="-10%" width="120%" height="120%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.021" numOctaves="2" seed="7" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <clipPath id="seaClip">
+            <path d="M0,432 C150,406 265,456 420,439 C602,419 762,463 942,441 C1062,427 1142,449 1200,437 L1200,780 L0,780 Z"/>
+          </clipPath>
+        </defs>
+
+        <rect width="1200" height="780" fill="url(#sky)"/>
+
+        <g filter="url(#wobble)" fill="none" stroke="#a8d8ec" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+          <g data-hd="6">
+            <path d="M96,96 c-6,-26 22,-42 42,-30 c6,-24 44,-28 54,-6 c26,-8 44,14 34,32 c22,4 24,30 2,36 c-40,10 -104,8 -132,-4 c-16,-7 -14,-25 0,-28z"/>
+            <path d="M150,150 c26,10 74,12 108,2"/>
+            <path d="M676,74 c-4,-20 18,-32 34,-22 c8,-20 38,-22 46,-2 c22,-6 36,12 28,26 c18,4 18,24 0,28 c-32,8 -84,6 -106,-4 c-13,-6 -12,-21 -2,-26z"/>
+          </g>
+          <g data-hd="10">
+            <path d="M934,178 c-4,-18 16,-28 30,-19 c8,-17 34,-19 41,-2 c19,-5 32,10 25,23 c16,4 16,21 0,25 c-29,7 -75,5 -95,-4 c-11,-5 -11,-19 -1,-23z"/>
+            <path d="M420,58 c30,-14 74,-10 96,8"/>
+          </g>
+          <g stroke-width="4" opacity=".8" data-hd="14">
+            <path d="M318,120 c12,-12 22,-12 30,-2 c8,-10 18,-10 30,2"/>
+            <path d="M386,182 c9,-9 17,-9 23,-2 c6,-7 14,-7 23,2"/>
+            <path d="M574,142 c8,-8 15,-8 20,-1 c5,-7 12,-7 19,1"/>
+            <path d="M1052,96 c11,-11 20,-11 27,-2 c7,-9 16,-9 27,2"/>
+          </g>
+        </g>
+
+        <g filter="url(#wobble)" fill="none" stroke="#a8d8ec" stroke-width="4.5" stroke-linecap="round" opacity=".85" data-hd="8">
+          <path d="M-10,436 L52,352 L96,398 L146,304 L214,436"/>
+          <path d="M78,392 L118,352"/><path d="M158,340 L196,392"/>
+        </g>
+
+        <g data-hd="4">
+          <path d="M0,432 C150,406 265,456 420,439 C602,419 762,463 942,441 C1062,427 1142,449 1200,437 L1200,780 L0,780 Z" fill="url(#sea)"/>
+          <g clip-path="url(#seaClip)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5" opacity=".55">
+            <path d="M-40,486 C90,468 190,504 320,490 C450,476 540,506 680,494 C820,482 940,508 1240,492"/>
+            <path d="M-40,556 C120,536 240,572 400,556 C560,540 700,574 880,558 C1020,546 1140,566 1240,556"/>
+            <path d="M-40,646 C140,626 300,662 480,644 C660,626 840,660 1240,642" opacity=".7"/>
+            <path d="M-40,736 C180,716 380,748 600,730 C820,712 1040,742 1240,726" opacity=".5"/>
+          </g>
+        </g>
+
+        <g data-hd="16">
+          <g fill="#fff" opacity=".9">
+            <circle cx="240" cy="696" r="52"/><circle cx="316" cy="722" r="44"/>
+            <circle cx="176" cy="726" r="40"/><circle cx="612" cy="732" r="46"/><circle cx="690" cy="710" r="36"/>
+          </g>
+          <path d="M660,686 C700,662 726,642 758,624 C752,662 748,694 744,722 C716,712 686,700 660,686 Z" fill="#1b2758"/>
+          <path d="M690,700 C650,636 552,602 428,604 C318,606 244,644 208,694 C252,722 306,736 404,740 C528,744 634,730 690,700 Z" fill="#1b2758"/>
+          <path d="M246,716 C300,736 366,744 444,742 C520,740 596,730 652,714 C598,740 508,752 424,750 C334,748 278,736 246,716 Z" fill="#fff"/>
+          <path d="M470,610 C484,572 512,546 552,532 C534,562 524,588 522,612 Z" fill="#1b2758"/>
+          <path d="M400,726 C376,750 344,764 306,768 C338,748 366,734 386,718 Z" fill="#0f1838"/>
+          <ellipse cx="272" cy="664" rx="26" ry="14" transform="rotate(-14 272 664)" fill="#fff"/>
+          <circle cx="252" cy="676" r="6" fill="#0d1533"/>
+        </g>
+
+        <g data-hd="24">
+          <g transform="translate(880,470) rotate(11)">
+            <g fill="#fff" opacity=".92">
+              <circle cx="228" cy="52" r="42"/><circle cx="292" cy="26" r="30"/>
+              <circle cx="176" cy="76" r="34"/><circle cx="330" cy="52" r="20"/>
+            </g>
+            <path d="M-252,2 C-198,-46 -66,-64 58,-60 C172,-56 244,-32 256,0 C244,32 172,56 58,60 C-66,64 -198,46 -252,2 Z" fill="url(#boardG)" stroke="#dda94b" stroke-width="6"/>
+            <path d="M-236,14 C-180,50 -60,64 56,60 C160,56 226,36 248,10 C214,44 140,62 46,66 C-70,70 -186,50 -236,14 Z" fill="#fff" opacity=".55"/>
+            <path d="M-150,-30 C-60,-46 60,-44 170,-22" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".8"/>
+            <path d="M150,-62 C132,-24 96,-8 56,-14 C74,-40 96,-58 118,-72 Z" fill="#b3714a"/>
+            <path d="M126,-84 C96,-52 50,-30 6,-30 C6,-52 30,-76 66,-92 Z" fill="#cf8f61"/>
+            <path d="M64,-186 C36,-166 26,-130 44,-100 C64,-68 116,-58 150,-76 C176,-90 178,-124 160,-152 C140,-182 96,-206 64,-186 Z" fill="#e0574a"/>
+            <path d="M58,-146 C88,-124 128,-116 164,-124" fill="none" stroke="#c4463a" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+            <path d="M56,-160 C10,-138 -50,-104 -96,-70 C-84,-52 -66,-46 -50,-52 C-6,-72 42,-104 76,-132 Z" fill="#cf8f61"/>
+            <circle cx="-88" cy="-62" r="17" fill="#cf8f61"/>
+            <path d="M112,-152 C90,-118 68,-96 42,-84 C56,-70 74,-70 86,-80 C110,-98 128,-122 138,-142 Z" fill="#b3714a"/>
+            <circle cx="30" cy="-212" r="46" fill="#cf8f61"/>
+            <path d="M-14,-228 C-20,-278 24,-306 66,-296 C104,-288 122,-256 114,-222 C110,-206 100,-196 88,-192 C96,-214 92,-232 78,-242 C58,-256 22,-254 4,-236 C-2,-230 -8,-226 -14,-228 Z" fill="#1b2758"/>
+            <path d="M96,-268 C126,-262 142,-238 138,-214 C134,-196 120,-186 106,-186 C120,-206 118,-238 96,-268 Z" fill="#1b2758"/>
+            <g stroke="#22306e" stroke-width="5" fill="#eaf7ff">
+              <circle cx="2" cy="-214" r="16"/><circle cx="40" cy="-218" r="16"/>
+              <path d="M18,-215 h6" fill="none"/><path d="M56,-220 C74,-224 88,-232 94,-242" fill="none"/>
+            </g>
+            <path d="M4,-184 C16,-174 34,-174 46,-184" fill="none" stroke="#8a4f30" stroke-width="5" stroke-linecap="round"/>
+            <g fill="#fff" opacity=".95">
+              <circle cx="-268" cy="26" r="34"/><circle cx="-208" cy="46" r="26"/><circle cx="-306" cy="48" r="20"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+
+      <div class="cover-type">
+        <p class="cover-name">Leticia Valdez</p>
+        <h1 class="cover-title"><span>Port</span><span>folio</span></h1>
+        <div class="cover-meta">
+          <span class="role">illustration</span>
+          <span class="year">
+            <svg viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M92,25 C92,39 71,47 49,47 C27,47 7,39 7,25 C7,11 27,3 49,3 C69,3 88,10 91,21" fill="none" stroke="#17246b" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <span>2025</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
+  </div>
+</header>
+
+<!-- ========== INTRO ========== -->
+<section class="section section--sea">
+  <div class="intro">
+    <h2 class="h2 split" data-split>Pictures that hold their <em>breath</em></h2>
+    <div class="stack">
+      <p class="lede reveal">Watercolour and ink, mostly wet-on-wet, mostly about water.</p>
+      <p class="prose reveal d1">I draw for picture books, magazines and the occasional label. Every piece starts on 300gsm cotton paper and ends as a layered file — so the wash keeps its bloom and the art director keeps their deadline.</p>
+      <p class="intro-note reveal d2">Currently taking commissions for Spring 2026 →</p>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marquee">
+      <span>Picture books</span><span>&amp;</span><span>Editorial</span><span>&amp;</span>
+      <span>Packaging</span><span>&amp;</span><span>Murals</span><span>&amp;</span>
+      <span>Book covers</span><span>&amp;</span><span>Title lettering</span><span>&amp;</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WORK ========== -->
+<section class="work" id="work">
+  <div class="work-pin">
+    <div class="work-head">
+      <h2 class="h2 split" data-split>Selected <em>work</em></h2>
+      <p class="work-count">six of forty-one</p>
+    </div>
+
+    <div class="work-track" id="track">
+
+      <article class="plate">
+        <span class="no">01</span>
+        <figure>
+          <svg viewBox="0 0 400 500" role="img" aria-label="A girl paddling out past a breaking wave">
+            <rect width="400" height="500" fill="#eaf6fc"/>
+            <circle cx="300" cy="110" r="52" fill="#f7d489" opacity=".8"/>
+            <path d="M0,300 C70,272 120,320 200,300 C280,280 330,326 400,300 L400,500 L0,500 Z" fill="#96d3ea"/>
+            <path d="M0,360 C90,336 160,382 250,360 C320,344 360,376 400,360 L400,500 L0,500 Z" fill="#4fb0d9"/>
+            <path d="M60,300 C110,240 200,214 268,244 C214,246 156,272 128,308 Z" fill="#fff" opacity=".9"/>
+            <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".7">
+              <path d="M20,410 C90,392 150,424 230,406 C300,390 350,414 390,402"/>
+              <path d="M40,456 C120,438 200,468 380,450"/>
+            </g>
+            <g transform="translate(196,286) rotate(-8)">
+              <path d="M-72,0 C-52,-16 32,-20 66,-14 C82,-10 84,8 66,12 C30,20 -50,16 -72,0 Z" fill="#f7d489" stroke="#dda94b" stroke-width="4"/>
+              <circle cx="6" cy="-42" r="20" fill="#cf8f61"/>
+              <path d="M-14,-46 C-16,-70 8,-80 26,-72 C40,-66 42,-50 36,-40 C34,-56 20,-64 4,-60 C-4,-58 -10,-52 -14,-46 Z" fill="#1b2758"/>
+              <path d="M-16,-24 C-22,-6 -4,4 14,0 C30,-4 34,-22 24,-32 C10,-42 -8,-38 -16,-24 Z" fill="#e0574a"/>
+              <path d="M-18,-28 C-40,-20 -58,-12 -70,-4" stroke="#cf8f61" stroke-width="12" stroke-linecap="round" fill="none"/>
+            </g>
+            <g fill="none" stroke="#a8d8ec" stroke-width="4" stroke-linecap="round">
+              <path d="M64,86 c9,-9 17,-9 22,-2 c5,-7 13,-7 22,2"/>
+              <path d="M124,132 c7,-7 13,-7 17,-1 c4,-6 10,-6 17,1"/>
+            </g>
+          </svg>
+          <figcaption><h3>Ride the Blue</h3><span class="tag">picture book</span></figcaption>
+        </figure>
+      </article>
+
+      <article class="plate">
+        <span class="no">02</span>
+        <figure>
+          <svg viewBox="0 0 400 500" role="img" aria-label="An orca swimming beneath a full moon">
+            <rect width="400" height="500" fill="#16265e"/>
+            <circle cx="286" cy="112" r="58" fill="#f4f0dc"/>
+            <circle cx="262" cy="98" r="58" fill="#16265e"/>
+            <g fill="#fff" opacity=".8">
+              <circle cx="60" cy="70" r="3"/><circle cx="120" cy="40" r="2"/><circle cx="180" cy="96" r="2.5"/>
+              <circle cx="330" cy="220" r="2"/><circle cx="40" cy="180" r="2.5"/><circle cx="150" cy="160" r="2"/>
+            </g>
+            <path d="M0,300 C80,282 150,312 220,298 C300,282 350,308 400,296 L400,500 L0,500 Z" fill="#0e1b48"/>
+            <path d="M0,340 C90,324 170,352 250,338 C320,326 360,346 400,336 L400,500 L0,500 Z" fill="#0a1436"/>
+            <g transform="translate(200,392)">
+              <path d="M116,26 C86,-14 22,-40 -56,-32 C-118,-26 -152,0 -168,30 C-128,52 -70,62 -6,60 C64,58 96,46 116,26 Z" fill="#050b22"/>
+              <path d="M110,20 C138,4 156,-8 178,-22 C172,4 168,26 164,48 C142,38 124,30 110,20 Z" fill="#050b22"/>
+              <path d="M-30,-34 C-20,-64 4,-84 34,-92 C20,-70 12,-50 12,-32 Z" fill="#050b22"/>
+              <path d="M-150,40 C-108,60 -40,70 26,66 C82,62 108,52 130,38 C90,64 20,78 -46,74 C-98,70 -132,58 -150,40 Z" fill="#f4f0dc"/>
+              <ellipse cx="-120" cy="4" rx="22" ry="12" transform="rotate(-14 -120 4)" fill="#f4f0dc"/>
+            </g>
+            <g fill="none" stroke="#8ecfe8" stroke-width="4" stroke-linecap="round" opacity=".5">
+              <path d="M20,440 C90,424 160,452 240,436 C310,422 360,444 392,432"/>
+            </g>
+          </svg>
+          <figcaption><h3>Orca, Midnight</h3><span class="tag">cover art</span></figcaption>
+        </figure>
+      </article>
+
+      <article class="plate">
+        <span class="no">03</span>
+        <figure>
+          <svg viewBox="0 0 400 500" role="img" aria-label="Jellyfish drifting in deep water">
+            <defs>
+              <linearGradient id="deep" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#7fc6e3"/><stop offset="1" stop-color="#123a6b"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="500" fill="url(#deep)"/>
+            <g fill="#fff" opacity=".25">
+              <circle cx="70" cy="120" r="8"/><circle cx="96" cy="86" r="5"/><circle cx="320" cy="300" r="7"/>
+              <circle cx="340" cy="262" r="4"/><circle cx="180" cy="60" r="5"/><circle cx="52" cy="380" r="6"/>
+            </g>
+            <g transform="translate(160,180)">
+              <path d="M-70,20 C-70,-32 -32,-64 0,-64 C34,-64 70,-32 70,20 C40,36 -40,36 -70,20 Z" fill="#f6d3e2" opacity=".92"/>
+              <path d="M-52,22 C-40,80 -46,130 -30,180 M-18,28 C-10,90 -22,140 -6,196 M18,28 C28,88 16,142 32,190 M50,22 C62,76 54,126 70,172"
+                    fill="none" stroke="#f6d3e2" stroke-width="6" stroke-linecap="round" opacity=".75"/>
+              <path d="M-58,-6 C-36,-24 36,-24 58,-6" fill="none" stroke="#fff" stroke-width="5" opacity=".6" stroke-linecap="round"/>
+            </g>
+            <g transform="translate(288,330) scale(.55)">
+              <path d="M-70,20 C-70,-32 -32,-64 0,-64 C34,-64 70,-32 70,20 C40,36 -40,36 -70,20 Z" fill="#ffe2c0" opacity=".9"/>
+              <path d="M-40,24 C-30,80 -38,120 -24,164 M0,28 C10,84 -2,124 14,170 M40,22 C52,72 44,112 58,152"
+                    fill="none" stroke="#ffe2c0" stroke-width="8" stroke-linecap="round" opacity=".7"/>
+            </g>
+            <g transform="translate(84,392) scale(.4)">
+              <path d="M-70,20 C-70,-32 -32,-64 0,-64 C34,-64 70,-32 70,20 C40,36 -40,36 -70,20 Z" fill="#dff0f8" opacity=".8"/>
+              <path d="M-30,24 C-22,70 -30,104 -18,140 M14,26 C22,74 12,106 26,142" fill="none" stroke="#dff0f8" stroke-width="9" stroke-linecap="round" opacity=".6"/>
+            </g>
+          </svg>
+          <figcaption><h3>Slow Drift</h3><span class="tag">editorial</span></figcaption>
+        </figure>
+      </article>
+
+      <article class="plate">
+        <span class="no">04</span>
+        <figure>
+          <svg viewBox="0 0 400 500" role="img" aria-label="A lighthouse on a rock in a storm">
+            <rect width="400" height="500" fill="#dceaf2"/>
+            <path d="M0,0 L400,0 L400,120 C320,150 240,96 160,124 C90,148 40,110 0,132 Z" fill="#b8cfdd" opacity=".7"/>
+            <g fill="none" stroke="#8ea9bb" stroke-width="5" stroke-linecap="round" opacity=".7">
+              <path d="M40,70 C110,50 180,84 250,64"/><path d="M120,32 C190,12 260,44 340,26"/>
+            </g>
+            <path d="M170,470 L190,250 L230,250 L250,470 Z" fill="#f4f1e8"/>
+            <g fill="#e0574a">
+              <path d="M186,300 L234,300 L237,336 L183,336 Z"/>
+              <path d="M178,392 L242,392 L245,428 L175,428 Z"/>
+            </g>
+            <path d="M182,250 L238,250 L242,236 L178,236 Z" fill="#1b2758"/>
+            <rect x="190" y="196" width="40" height="42" rx="4" fill="#f7d489" stroke="#1b2758" stroke-width="4"/>
+            <path d="M186,196 L234,196 L228,172 L192,172 Z" fill="#1b2758"/>
+            <path d="M232,208 L400,150 L400,246 Z" fill="#f7d489" opacity=".5"/>
+            <path d="M188,212 L20,164 L20,254 Z" fill="#f7d489" opacity=".35"/>
+            <path d="M0,452 C60,436 110,470 170,462 L250,462 C310,468 350,440 400,450 L400,500 L0,500 Z" fill="#5f7d8e"/>
+            <path d="M0,470 C80,454 160,486 240,470 C310,456 360,478 400,468 L400,500 L0,500 Z" fill="#3f9fcb"/>
+            <g fill="#fff" opacity=".9">
+              <circle cx="60" cy="470" r="22"/><circle cx="96" cy="482" r="16"/>
+              <circle cx="300" cy="466" r="20"/><circle cx="336" cy="478" r="14"/>
+            </g>
+          </svg>
+          <figcaption><h3>Beacon</h3><span class="tag">poster</span></figcaption>
+        </figure>
+      </article>
+
+      <article class="plate">
+        <span class="no">05</span>
+        <figure>
+          <svg viewBox="0 0 400 500" role="img" aria-label="Koi circling under rain">
+            <rect width="400" height="500" fill="#e8f2ea"/>
+            <g fill="none" stroke="#a8d8ec" stroke-width="7" opacity=".55">
+              <circle cx="200" cy="250" r="70"/><circle cx="200" cy="250" r="120"/><circle cx="200" cy="250" r="172"/>
+            </g>
+            <g stroke="#7fb0c9" stroke-width="3" stroke-linecap="round" opacity=".6">
+              <path d="M60,40 L44,86"/><path d="M140,20 L124,66"/><path d="M250,50 L234,96"/>
+              <path d="M330,26 L314,72"/><path d="M96,120 L80,166"/><path d="M300,140 L284,186"/>
+            </g>
+            <g transform="translate(150,220) rotate(-18)">
+              <path d="M-64,0 C-40,-32 30,-36 64,-8 C36,-2 32,4 60,14 C24,36 -40,30 -64,0 Z" fill="#e0574a"/>
+              <path d="M60,-6 C86,-24 104,-30 122,-30 C108,-14 104,4 108,22 C88,14 72,4 60,-6 Z" fill="#e0574a" opacity=".85"/>
+              <path d="M-30,-16 C-12,-24 6,-22 18,-12 C2,-18 -14,-18 -30,-16 Z" fill="#fff" opacity=".85"/>
+              <circle cx="-52" cy="-4" r="5" fill="#1b2758"/>
+            </g>
+            <g transform="translate(246,296) rotate(150)">
+              <path d="M-64,0 C-40,-32 30,-36 64,-8 C36,-2 32,4 60,14 C24,36 -40,30 -64,0 Z" fill="#f7d489"/>
+              <path d="M60,-6 C86,-24 104,-30 122,-30 C108,-14 104,4 108,22 C88,14 72,4 60,-6 Z" fill="#f7d489" opacity=".85"/>
+              <path d="M-26,-14 C-8,-22 10,-20 22,-10 C6,-16 -10,-16 -26,-14 Z" fill="#fff" opacity=".8"/>
+              <circle cx="-52" cy="-4" r="5" fill="#1b2758"/>
+            </g>
+            <g fill="none" stroke="#5d7a26" stroke-width="6" stroke-linecap="round">
+              <path d="M20,500 C34,430 26,384 44,340"/><path d="M380,500 C364,442 372,398 356,356"/>
+            </g>
+            <g fill="#8fa63a">
+              <path d="M44,344 C22,320 18,290 30,268 C50,286 56,318 44,344 Z"/>
+              <path d="M356,360 C378,336 382,306 370,284 C350,302 344,334 356,360 Z"/>
+            </g>
+          </svg>
+          <figcaption><h3>Koi &amp; Rain</h3><span class="tag">packaging</span></figcaption>
+        </figure>
+      </article>
+
+      <article class="plate">
+        <span class="no">06</span>
+        <figure>
+          <svg viewBox="0 0 400 500" role="img" aria-label="A diver meeting a humpback whale">
+            <defs>
+              <linearGradient id="deep2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#bfe6f4"/><stop offset=".5" stop-color="#4fa8ce"/><stop offset="1" stop-color="#0f2f5c"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="500" fill="url(#deep2)"/>
+            <g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".35">
+              <path d="M40,60 C90,120 70,190 110,250"/><path d="M300,40 C260,110 290,170 250,240"/>
+            </g>
+            <g transform="translate(210,300)">
+              <path d="M150,60 C110,-6 20,-44 -80,-30 C-152,-20 -190,16 -200,60 C-150,92 -70,108 20,104 C104,100 132,84 150,60 Z" fill="#1b2758"/>
+              <path d="M142,52 C168,26 188,10 214,-8 C204,26 198,58 196,92 C172,80 156,66 142,52 Z" fill="#1b2758"/>
+              <path d="M-180,72 C-126,98 -30,110 60,104 C112,100 138,88 156,74 C112,106 30,120 -56,114 C-118,110 -158,94 -180,72 Z" fill="#dff0f8" opacity=".9"/>
+              <g stroke="#0f1a44" stroke-width="4" opacity=".5" fill="none">
+                <path d="M-160,78 C-120,96 -50,106 20,102"/><path d="M-150,92 C-110,108 -46,116 16,112"/>
+              </g>
+              <circle cx="-168" cy="20" r="7" fill="#dff0f8"/>
+              <path d="M-40,-32 C-30,-58 -6,-72 22,-74 C6,-58 -6,-46 -8,-30 Z" fill="#1b2758"/>
+            </g>
+            <g transform="translate(96,180)">
+              <circle cx="0" cy="0" r="20" fill="#f7d489"/>
+              <path d="M-14,16 C-22,42 -18,64 -4,78 C10,66 18,44 14,16 Z" fill="#e0574a"/>
+              <path d="M-14,74 C-26,96 -34,112 -30,128 M14,72 C26,94 32,110 28,126" fill="none" stroke="#1b2758" stroke-width="7" stroke-linecap="round"/>
+              <path d="M-18,30 C-40,40 -54,52 -60,66" fill="none" stroke="#f7d489" stroke-width="8" stroke-linecap="round"/>
+              <g fill="#fff" opacity=".7">
+                <circle cx="26" cy="-26" r="7"/><circle cx="44" cy="-46" r="4"/><circle cx="34" cy="-62" r="3"/>
+              </g>
+            </g>
+          </svg>
+          <figcaption><h3>Deep Song</h3><span class="tag">picture book</span></figcaption>
+        </figure>
+      </article>
+
+    </div>
+
+    <div class="work-rail" aria-hidden="true"><i id="rail"></i></div>
+  </div>
+</section>
+
+<!-- ========== PROCESS ========== -->
+<section class="section process" id="process">
+  <p class="eyebrow reveal">How a piece gets made</p>
+  <h2 class="h2 split" data-split>Four <em>washes</em></h2>
+
+  <div class="stages">
+    <article class="stage reveal">
+      <span class="step">01</span>
+      <div>
+        <h3>Thumbnails</h3>
+        <p>Twenty tiny drawings the size of a stamp, in pencil, before anything is precious. We pick two. <span class="hand">— one day</span></p>
+      </div>
+    </article>
+    <article class="stage reveal d1">
+      <span class="step">02</span>
+      <div>
+        <h3>Underdrawing</h3>
+        <p>Tight graphite on cotton rag, taped down and stretched. This is the stage for changing your mind about the composition. <span class="hand">— two days</span></p>
+      </div>
+    </article>
+    <article class="stage reveal d2">
+      <span class="step">03</span>
+      <div>
+        <h3>Wet-on-wet</h3>
+        <p>The paper is soaked and the colour is dropped in. Nothing here can be undone, which is the whole point of it. <span class="hand">— the good part</span></p>
+      </div>
+    </article>
+    <article class="stage reveal d3">
+      <span class="step">04</span>
+      <div>
+        <h3>Ink &amp; hand-off</h3>
+        <p>Line work over the dry wash, then scanned at 1200dpi and delivered as layered TIFF plus flattened CMYK. <span class="hand">— one day</span></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section class="section about" id="about">
+  <div class="studio reveal">
+    <svg viewBox="0 0 500 500" role="img" aria-label="A desk with brushes, a paint pan and a water jar">
+      <rect width="500" height="500" fill="#eaf6fc"/>
+      <path d="M0,330 L500,330 L500,500 L0,500 Z" fill="#e2c79b"/>
+      <path d="M0,330 L500,330 L500,346 L0,346 Z" fill="#c9a875"/>
+      <g stroke="#c9a875" stroke-width="2" opacity=".6">
+        <path d="M0,392 H500 M0,440 H500"/>
+      </g>
+      <g fill="none" stroke="#a8d8ec" stroke-width="5" stroke-linecap="round" opacity=".8">
+        <path d="M60,90 c-6,-24 20,-38 38,-27 c6,-22 40,-25 49,-5 c24,-7 40,13 31,29 c20,4 22,27 2,33 c-36,9 -94,7 -119,-4 c-15,-6 -13,-22 -1,-26z"/>
+      </g>
+      <g transform="translate(120,236)">
+        <path d="M-52,0 L52,0 L44,90 L-44,90 Z" fill="#cfeaf7" opacity=".85"/>
+        <path d="M-48,44 L48,44 L44,90 L-44,90 Z" fill="#7fc6e3" opacity=".9"/>
+        <ellipse cx="0" cy="0" rx="52" ry="12" fill="#eaf6fc" stroke="#a8d8ec" stroke-width="4"/>
+        <g stroke="#1b2758" stroke-width="7" stroke-linecap="round">
+          <path d="M-16,4 L-44,-92"/><path d="M6,4 L26,-98"/>
+        </g>
+        <path d="M-46,-92 C-56,-108 -50,-124 -40,-126 C-32,-116 -34,-100 -46,-92 Z" fill="#e0574a"/>
+        <path d="M28,-98 C22,-116 30,-130 40,-130 C46,-118 40,-104 28,-98 Z" fill="#f7d489"/>
+      </g>
+      <g transform="translate(320,300)">
+        <rect x="-110" y="-40" width="220" height="80" rx="10" fill="#f4f1e8" stroke="#c9c2b2" stroke-width="4"/>
+        <g>
+          <circle cx="-72" cy="-12" r="18" fill="#3f9fcb"/><circle cx="-24" cy="-12" r="18" fill="#e0574a"/>
+          <circle cx="24" cy="-12" r="18" fill="#f7d489"/><circle cx="72" cy="-12" r="18" fill="#8fa63a"/>
+          <circle cx="-72" cy="22" r="14" fill="#1b2758"/><circle cx="-24" cy="22" r="14" fill="#f6d3e2"/>
+          <circle cx="24" cy="22" r="14" fill="#b3714a"/><circle cx="72" cy="22" r="14" fill="#7fc6e3"/>
+        </g>
+      </g>
+      <g transform="translate(250,412) rotate(-6)">
+        <rect x="-120" y="-30" width="240" height="60" rx="4" fill="#fff" stroke="#d8d2c4" stroke-width="3"/>
+        <path d="M-96,6 C-60,-16 -20,10 16,-8 C48,-24 82,0 100,-10" fill="none" stroke="#8ecfe8" stroke-width="7" stroke-linecap="round"/>
+        <path d="M-90,18 C-50,4 -10,24 30,10" fill="none" stroke="#f7d489" stroke-width="6" stroke-linecap="round" opacity=".9"/>
+      </g>
+    </svg>
+  </div>
+
+  <div>
+    <p class="eyebrow reveal">The studio</p>
+    <h2 class="h2 split" data-split>A desk, a jar, <em>and salt</em></h2>
+    <p class="prose reveal d1" style="margin-top:26px">I work from a second-floor room in Valparaíso with one window that fogs up whenever the kettle goes on. Most mornings start with a wash test on scrap paper to see what the humidity is doing — it decides how the day will go more than any plan does.</p>
+    <p class="prose reveal d2">Before illustration I spent six years as a marine science technician, which is where the whales came from. I've since made pictures for four picture books, two of which you can find in libraries, and a great many magazine spreads about the sea.</p>
+
+    <ul class="facts reveal d3">
+      <li><b>Based</b><span>Valparaíso, Chile — working GMT-4</span></li>
+      <li><b>Tools</b><span>Winsor &amp; Newton pans, Arches 300gsm, Pentel pocket brush</span></li>
+      <li><b>Delivers</b><span>Layered TIFF, flattened CMYK, print-ready at 1200dpi</span></li>
+      <li><b>Teaching</b><span>Wet-on-wet workshop, twice yearly</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section class="section contact" id="contact">
+  <p class="eyebrow reveal">Commissions open — Spring 2026</p>
+  <h2 class="h2 split" data-split>Tell me about the <em>book</em></h2>
+  <a class="mail" href="mailto:hola@leticiavaldez.com">
+    hola@leticiavaldez.com
+    <svg viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M6,26 C120,10 210,32 300,20 C400,7 500,30 594,14"/>
+    </svg>
+  </a>
+  <div class="socials">
+    <a href="#top">Instagram</a>
+    <a href="#top">Behance</a>
+    <a href="#top">Folio Society</a>
+    <a href="#top">Newsletter</a>
+  </div>
+</section>
+
+<footer class="foot">
+  <span>© 2026 Leticia Valdez</span>
+  <span>Painted in Valparaíso</span>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+
+  const calm = matchMedia('(prefers-reduced-motion: reduce)');
+  const clamp = (n, a = 0, b = 1) => Math.min(b, Math.max(a, n));
+
+  /* ---------- word-by-word headline reveal ---------- */
+  for (const el of document.querySelectorAll('[data-split]')) {
+    const nodes = [...el.childNodes];
+    el.textContent = '';
+    let i = 0;
+
+    for (const node of nodes) {
+      const isEm = node.nodeType === 1;
+      const text = node.textContent.trim();
+      if (!text) continue;
+
+      for (const word of text.split(/\s+/)) {
+        const outer = document.createElement('span');
+        outer.className = 'w';
+        const inner = document.createElement(isEm ? 'em' : 'span');
+        inner.textContent = word;
+        inner.style.setProperty('--i', i++);
+        outer.append(inner);
+        el.append(outer, document.createTextNode(' '));
+      }
+    }
+  }
+
+  /* ---------- reveal on enter ---------- */
+  const io = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+
+  for (const el of document.querySelectorAll('.reveal, .split')) io.observe(el);
+
+  /* ---------- seamless marquee ---------- */
+  const marquee = document.getElementById('marquee');
+  if (marquee) marquee.append(...[...marquee.children].map(n => n.cloneNode(true)));
+
+  /* ---------- scroll engine ---------- */
+  const root    = document.documentElement;
+  const hero    = document.querySelector('.hero-wrap');
+  const cover   = document.getElementById('cover');
+  const work    = document.querySelector('.work');
+  const track   = document.getElementById('track');
+  const rail    = document.getElementById('rail');
+  const fill    = document.getElementById('meterFill');
+  const fin     = document.getElementById('fin');
+  const parallax = [...document.querySelectorAll('[data-hd]')];
+
+  let ticking = false;
+
+  function frame() {
+    ticking = false;
+    const vh = innerHeight;
+    const y  = scrollY;
+
+    /* hero: full bleed → card */
+    const heroSpan = hero.offsetHeight - vh;
+    const hp = clamp(y / heroSpan);
+    cover.style.setProperty('--p', hp.toFixed(4));
+
+    /* cover art parallax, layered by depth */
+    if (!calm.matches) {
+      for (const layer of parallax) {
+        const d = Number(layer.dataset.hd);
+        layer.style.setProperty('translate', `0 ${hp * d * -1.6}px`);
+      }
+    }
+
+    /* pinned horizontal gallery */
+    if (track && getComputedStyle(work.querySelector('.work-pin')).position === 'sticky') {
+      const top  = work.offsetTop;
+      const span = work.offsetHeight - vh;
+      const wp   = clamp((y - top) / span);
+      const dist = Math.max(0, track.scrollWidth - innerWidth);
+      track.style.setProperty('--x', (wp * dist).toFixed(2));
+      rail.style.setProperty('--p', wp.toFixed(4));
+    }
+
+    /* global progress → tide height, meter, and the orca crossing */
+    const docSpan = document.body.scrollHeight - vh;
+    const gp = clamp(y / docSpan);
+    root.style.setProperty('--tide', `${(13 + gp * 17).toFixed(2)}vh`);
+    if (fill) fill.style.setProperty('--prog', gp.toFixed(4));
+
+    const swimming = gp > 0.28 && gp < 0.82;
+    fin.classList.toggle('up', swimming);
+    fin.style.setProperty('--swim', clamp((gp - 0.28) / 0.54).toFixed(4));
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(frame);
+  }
+
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  frame();
+
+  /* ---------- ink-dot cursor ---------- */
+  const dot = document.getElementById('dot');
+  let dx = innerWidth / 2, dy = innerHeight / 2, cx = dx, cy = dy, raf = null;
+
+  function glide() {
+    cx += (dx - cx) * 0.18;
+    cy += (dy - cy) * 0.18;
+    dot.style.translate = `${cx}px ${cy}px`;
+    raf = (Math.abs(dx - cx) > 0.1 || Math.abs(dy - cy) > 0.1) ? requestAnimationFrame(glide) : null;
+  }
+
+  addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    dx = e.clientX; dy = e.clientY;
+    dot.classList.add('on');
+    dot.classList.toggle('big', !!e.target.closest('a, .plate, .stage'));
+    if (raf === null) raf = requestAnimationFrame(glide);
+  }, { passive: true });
+
+  addEventListener('pointerleave', () => dot.classList.remove('on'));
+})();
+</script>
+</body>
+</html>

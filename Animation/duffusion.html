@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reaction–Diffusion</title>
+<style>
+  :root {
+    --bg:   #08090C;
+    --line: #1c2129;
+    --text: #e8edf2;
+    --mute: #6d7885;
+    --gold: #FACC15;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    min-height: 100vh;
+    padding: 28px 20px 60px;
+  }
+
+  .wrap { max-width: 860px; margin: 0 auto; }
+
+  h1 {
+    font-size: 14px; letter-spacing: .18em; text-transform: uppercase;
+    font-weight: 700; margin-bottom: 6px;
+  }
+  .tag { font-size: 12px; color: var(--mute); margin-bottom: 22px; }
+
+  /* canvas */
+  #sim {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #000;
+    cursor: crosshair;
+    touch-action: none;      /* mobile pe drag scroll na kare */
+  }
+
+  .label {
+    font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--mute); margin: 22px 0 9px;
+  }
+
+  .row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  button {
+    font: inherit; font-size: 11px;
+    padding: 7px 12px;
+    background: transparent;
+    color: var(--mute);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .15s;
+  }
+  button:hover { color: var(--text); border-color: #38424f; }
+  button.on {
+    background: var(--gold); border-color: var(--gold);
+    color: #08090C; font-weight: 700;
+  }
+  button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .readout {
+    margin-top: 18px;
+    font-size: 11px;
+    color: var(--mute);
+    line-height: 1.9;
+  }
+  .readout b { color: var(--gold); font-weight: 400; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Reaction–Diffusion</h1>
+  <p class="tag">Gray–Scott model · do formulas, aur pattern khud emerge hota hai</p>
+
+  <canvas id="sim"></canvas>
+
+  <p class="label">Pattern</p>
+  <div class="row" id="presets"></div>
+
+  <p class="label">Actions</p>
+  <div class="row">
+    <button id="reseed">Reseed</button>
+    <button id="pause">Pause</button>
+  </div>
+
+  <p class="readout" id="readout"></p>
+
+</div>
+
+<script>
+/* ================================================================
+   GRAY-SCOTT REACTION-DIFFUSION
+
+   Do imaginary chemicals hain grid pe: A aur B.
+   Har cell pe 3 cheezein hoti hain:
+
+   1. DIFFUSION  — dono chemicals aas-paas failte hain
+   2. REACTION   — B, A ko khaata hai:  A + 2B → 3B
+   3. FEED/KILL  — A bahar se add hota hai (feed),
+                   B nikala jaata hai (kill)
+
+   Bas. Koi shape define nahi ki. Sirf ye 3 rules chalane se
+   stripes, spots, coral — sab apne aap ban jaate hain.
+   Isse "emergence" kehte hain.
+   ================================================================ */
+
+const GW = 240, GH = 150;              // simulation grid (pixels nahi, cells)
+const SIZE = GW * GH;
+
+// do chemicals ki concentration, har cell ke liye ek number (0 se 1)
+let A  = new Float32Array(SIZE);
+let B  = new Float32Array(SIZE);
+let A2 = new Float32Array(SIZE);       // next frame ki values
+let B2 = new Float32Array(SIZE);
+
+/* ---------- diffusion rates ----------
+   A tezi se failta hai, B aadhi speed se.
+   Ye difference hi pattern banata hai. Dono same kar do → kuch nahi hoga. */
+const dA = 1.0;
+const dB = 0.5;
+
+/* ---------- FEED aur KILL ----------
+   Sirf ye do numbers poora pattern decide karte hain.
+   0.001 ka farak bhi ekdum alag shape de deta hai. */
+let feed = 0.0545;
+let kill = 0.0620;
+
+const PRESETS = [
+  { name: 'Coral',       f: 0.0545, k: 0.0620 },
+  { name: 'Mitosis',     f: 0.0367, k: 0.0649 },
+  { name: 'Leopard',     f: 0.0300, k: 0.0620 },
+  { name: 'Worms',       f: 0.0780, k: 0.0610 },
+  { name: 'Fingerprint', f: 0.0370, k: 0.0600 },
+  { name: 'Holes',       f: 0.0390, k: 0.0580 },
+  { name: 'Waves',       f: 0.0140, k: 0.0450 }
+];
+
+const canvas = document.getElementById('sim');
+const ctx = canvas.getContext('2d');
+
+// chhota offscreen canvas grid-size ka; ise bada karke display karenge
+const off = document.createElement('canvas');
+off.width = GW; off.height = GH;
+const offCtx = off.getContext('2d');
+const img = offCtx.createImageData(GW, GH);
+
+let running = true;
+
+/* ---------- palette ----------
+   value (0–1) ko color me badalta hai: kaala → gold → cream */
+const RAMP = [
+  [  4,   5,   8],
+  [ 46,  34,   8],
+  [250, 204,  21],
+  [255, 246, 214]
+];
+
+function color(t, out) {
+  t = t < 0 ? 0 : t > 1 ? 1 : t;
+  const s = t * (RAMP.length - 1);
+  const i = Math.min(Math.floor(s), RAMP.length - 2);
+  const f = s - i;
+  const c0 = RAMP[i], c1 = RAMP[i + 1];
+  out[0] = c0[0] + (c1[0] - c0[0]) * f;
+  out[1] = c0[1] + (c1[1] - c0[1]) * f;
+  out[2] = c0[2] + (c1[2] - c0[2]) * f;
+}
+
+/* ---------- setup ---------- */
+function reseed() {
+  A.fill(1);   // poori grid chemical A se bhari
+  B.fill(0);   // B kahin nahi
+
+  // kuch random jagah pe B ke chhote blobs daalo — yahi se growth shuru hoti hai
+  for (let n = 0; n < 12; n++) {
+    const cx = 10 + Math.random() * (GW - 20);
+    const cy = 10 + Math.random() * (GH - 20);
+    const r  = 3 + Math.random() * 5;
+    paint(cx, cy, r);
+  }
+}
+
+function paint(cx, cy, r) {
+  for (let y = Math.floor(cy - r); y <= cy + r; y++) {
+    for (let x = Math.floor(cx - r); x <= cx + r; x++) {
+      if (x < 0 || x >= GW || y < 0 || y >= GH) continue;
+      const dx = x - cx, dy = y - cy;
+      if (dx * dx + dy * dy > r * r) continue;
+      B[y * GW + x] = 1;
+    }
+  }
+}
+
+/* ---------- LAPLACIAN ----------
+   "Mere aas-paas mera average se kitna zyada/kam hai?"
+   Yahi diffusion ka math hai. Weights standard hain:
+   center -1, seedhe padosi 0.2, tirche padosi 0.05.
+   %GW aur %GH se edges wrap hote hain (screen donut ki tarah). */
+function lap(g, x, y) {
+  const l = (x - 1 + GW) % GW, r = (x + 1) % GW;
+  const u = (y - 1 + GH) % GH, d = (y + 1) % GH;
+  const row = y * GW, rowU = u * GW, rowD = d * GW;
+  return -g[row + x]
+    + 0.20 * (g[row + l] + g[row + r] + g[rowU + x] + g[rowD + x])
+    + 0.05 * (g[rowU + l] + g[rowU + r] + g[rowD + l] + g[rowD + r]);
+}
+
+/* ---------- ek simulation step ----------
+   Ye do lines hi poora model hain. */
+function step() {
+  for (let y = 0; y < GH; y++) {
+    for (let x = 0; x < GW; x++) {
+      const i = y * GW + x;
+      const a = A[i], b = B[i];
+      const abb = a * b * b;              // reaction: A + 2B → 3B
+
+      let na = a + (dA * lap(A, x, y) - abb + feed * (1 - a));
+      let nb = b + (dB * lap(B, x, y) + abb - (kill + feed) * b);
+
+      A2[i] = na < 0 ? 0 : na > 1 ? 1 : na;   // 0–1 me clamp
+      B2[i] = nb < 0 ? 0 : nb > 1 ? 1 : nb;
+    }
+  }
+  // buffers swap — naya purana ban gaya
+  [A, A2] = [A2, A];
+  [B, B2] = [B2, B];
+}
+
+/* ---------- render ---------- */
+const rgb = [0, 0, 0];
+
+function render() {
+  const d = img.data;
+  for (let i = 0; i < SIZE; i++) {
+    color(B[i] * 3.2, rgb);              // B ki density = brightness
+    const j = i * 4;
+    d[j]     = rgb[0];
+    d[j + 1] = rgb[1];
+    d[j + 2] = rgb[2];
+    d[j + 3] = 255;
+  }
+  offCtx.putImageData(img, 0, 0);
+
+  // chhote canvas ko bada karke draw karo, smooth interpolation ke saath
+  ctx.imageSmoothingEnabled = true;
+  ctx.drawImage(off, 0, 0, canvas.width, canvas.height);
+}
+
+function loop() {
+  requestAnimationFrame(loop);
+  if (!running) return;
+  for (let n = 0; n < 8; n++) step();   // ek frame me 8 steps = tez growth
+  render();
+}
+
+/* ---------- canvas size ---------- */
+function resize() {
+  const w = canvas.clientWidth;
+  canvas.width  = w;
+  canvas.height = Math.round(w * GH / GW);
+  render();
+}
+
+/* ---------- mouse se paint ---------- */
+let painting = false;
+
+function toGrid(e) {
+  const r = canvas.getBoundingClientRect();
+  const p = e.touches ? e.touches[0] : e;
+  return {
+    x: (p.clientX - r.left) / r.width  * GW,
+    y: (p.clientY - r.top)  / r.height * GH
+  };
+}
+
+function onPaint(e) {
+  if (!painting) return;
+  const g = toGrid(e);
+  paint(g.x, g.y, 4);
+}
+
+canvas.addEventListener('mousedown', e => { painting = true; onPaint(e); });
+canvas.addEventListener('mousemove', onPaint);
+addEventListener('mouseup', () => painting = false);
+
+canvas.addEventListener('touchstart', e => { painting = true; onPaint(e); }, { passive: true });
+canvas.addEventListener('touchmove', onPaint, { passive: true });
+addEventListener('touchend', () => painting = false);
+
+/* ---------- UI ---------- */
+const presetRow = document.getElementById('presets');
+const readout = document.getElementById('readout');
+
+function updateReadout() {
+  readout.innerHTML =
+    `feed = <b>${feed.toFixed(4)}</b>   kill = <b>${kill.toFixed(4)}</b><br>` +
+    `canvas pe drag karo — jahan chhuoge wahan naya growth shuru hoga`;
+}
+
+PRESETS.forEach((p, idx) => {
+  const btn = document.createElement('button');
+  btn.textContent = p.name;
+  if (idx === 0) btn.classList.add('on');
+  btn.addEventListener('click', () => {
+    presetRow.querySelectorAll('button').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    feed = p.f; kill = p.k;
+    reseed();
+    updateReadout();
+  });
+  presetRow.appendChild(btn);
+});
+
+document.getElementById('reseed').addEventListener('click', reseed);
+
+const pauseBtn = document.getElementById('pause');
+pauseBtn.addEventListener('click', () => {
+  running = !running;
+  pauseBtn.textContent = running ? 'Pause' : 'Resume';
+  pauseBtn.classList.toggle('on', !running);
+});
+
+/* ---------- start ---------- */
+addEventListener('resize', resize);
+resize();
+reseed();
+updateReadout();
+loop();
+</script>
+</body>
+</html>

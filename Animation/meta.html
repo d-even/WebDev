@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iridescent carousel</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    height: 100vh;
+    overflow: hidden;
+    font-family: "Helvetica Neue", Inter, Arial, sans-serif;
+    background: #1B1F3B;
+    /* background har slide pe badalta hai — yahi transition premium feel deta hai */
+    transition: background-color 1.1s cubic-bezier(.4, 0, .2, 1);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    cursor: grab;
+    user-select: none;
+  }
+  body:active { cursor: grabbing; }
+
+  /* ---------- Z-SANDWICH ----------
+     text peeche (1) → canvas (2) → text ka niche wala hissa aage (3)
+     Isse object text ke beech se guzarta hua lagta hai. */
+  .title {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(52px, 12vw, 170px);
+    font-weight: 400;
+    letter-spacing: -.03em;
+    white-space: nowrap;
+    color: #fff;
+    pointer-events: none;
+    transition: transform .9s cubic-bezier(.4,0,.2,1), opacity .5s;
+  }
+  .title.back  { z-index: 1; }
+  .title.front { z-index: 3; clip-path: inset(52% 0 0 0); }  /* sirf neeche ka aadha */
+
+  #c { position: absolute; inset: 0; z-index: 2; }
+
+  /* ---------- chrome ---------- */
+  .hud {
+    position: absolute; left: 0; right: 0; z-index: 4;
+    text-align: center;
+    font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+    color: rgba(255,255,255,.65);
+    pointer-events: none;
+  }
+  .hud.top { top: 26px; }
+  .hud.bot { bottom: 26px; }
+
+  .nav {
+    position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%);
+    z-index: 5; display: flex; gap: 8px;
+  }
+  .nav button {
+    width: 34px; height: 34px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 999px;
+    color: #fff; font-size: 13px; cursor: pointer;
+    display: grid; place-items: center;
+    transition: background .2s;
+  }
+  .nav button:hover { background: rgba(255,255,255,.22); }
+  .nav button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+  .hint {
+    position: absolute; bottom: 26px; right: 26px; z-index: 5;
+    font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.4);
+  }
+</style>
+</head>
+<body>
+
+<p class="hud top">Sonic Node // Active</p>
+
+<h1 class="title back"  id="tBack">Hyper Twister</h1>
+<canvas id="c"></canvas>
+<h1 class="title front" id="tFront">Hyper Twister</h1>
+
+<div class="nav">
+  <button id="prev" aria-label="Previous">←</button>
+  <button id="next" aria-label="Next">→</button>
+</div>
+
+<p class="hint">Drag to rotate</p>
+
+<script>
+/* ================================================================
+   4 techniques:
+   1. Procedural iridescent shader (matcap image ke bina)
+   2. Superellipsoid se rounded cube
+   3. Z-sandwich — object text ke beech se
+   4. Carousel with morph transition
+   ================================================================ */
+
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+camera.position.z = 6;
+
+
+/* ================================================================
+   1. IRIDESCENT SHADER
+
+   Trick: view-space normal se color nikalo.
+   - center (camera ki taraf mudi surface) → white, blown out
+   - edges (side me mudi surface)          → saturated rainbow
+
+   Yahi matcap ka effect hai, bina kisi texture file ke.
+   ================================================================ */
+const vertexShader = `
+  varying vec3 vN;
+  void main() {
+    // normalMatrix normal ko VIEW space me le jaata hai —
+    // yani "camera ke hisaab se ye surface kis taraf dekh rahi hai"
+    vN = normalize(normalMatrix * normal);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const fragmentShader = `
+  uniform float uTime;
+  uniform float uHue;        // har shape ka apna base hue
+  varying vec3 vN;
+
+  // cosine palette — Inigo Quilez. RGB me alag-alag phase = rainbow
+  vec3 pal(float t) {
+    return 0.5 + 0.5 * cos(6.28318 * (t + vec3(0.0, 0.33, 0.67)));
+  }
+
+  void main() {
+    vec3 n = normalize(vN);
+
+    float r = length(n.xy);            // 0 = camera ki taraf, 1 = edge
+    float a = atan(n.y, n.x) / 6.28318; // angle → hue
+
+    vec3 col = pal(a + uHue + uTime * 0.04);
+
+    // center white, edge par color → yahi glossy/chrome look deta hai
+    col = mix(vec3(1.0), col, smoothstep(0.05, 0.85, r));
+
+    // saturation punch
+    col = mix(col, col * col * 1.5, 0.55);
+
+    gl_FragColor = vec4(col, 1.0);
+  }
+`;
+
+const material = new THREE.ShaderMaterial({
+  vertexShader,
+  fragmentShader,
+  uniforms: {
+    uTime: { value: 0 },
+    uHue:  { value: 0 }
+  }
+});
+
+
+/* ================================================================
+   2. GEOMETRIES
+   ================================================================ */
+
+/* Rounded cube = SUPERELLIPSOID
+   Sphere ka formula:        x² + y² + z² = 1
+   Rounded cube ka formula:  |x|ᵖ + |y|ᵖ + |z|ᵖ = 1
+
+   p = 2  → sphere
+   p = 4  → rounded cube
+   p = 12 → almost sharp cube                                    */
+function roundedCube(size, seg, p) {
+  const g = new THREE.BoxGeometry(size, size, size, seg, seg, seg);
+  const pos = g.attributes.position;
+  const v = new THREE.Vector3();
+  const half = size / 2;
+
+  for (let i = 0; i < pos.count; i++) {
+    v.fromBufferAttribute(pos, i);
+    // har vertex ko superellipsoid ki surface pe push karo
+    const d = Math.pow(
+      Math.pow(Math.abs(v.x), p) +
+      Math.pow(Math.abs(v.y), p) +
+      Math.pow(Math.abs(v.z), p), 1 / p);
+    v.multiplyScalar(half / d);
+    pos.setXYZ(i, v.x, v.y, v.z);
+  }
+  g.computeVertexNormals();   // ye line zaroori hai warna faceted dikhega
+  return g;
+}
+
+/* Liquid orb — sphere ke upar sin waves */
+function liquidOrb(radius, seg) {
+  const g = new THREE.SphereGeometry(radius, seg, seg);
+  const pos = g.attributes.position;
+  const v = new THREE.Vector3();
+
+  for (let i = 0; i < pos.count; i++) {
+    v.fromBufferAttribute(pos, i);
+    const n = v.clone().normalize();
+    const bump =
+      Math.sin(n.x * 4.5) * Math.cos(n.y * 4.5) * 0.18 +
+      Math.sin(n.z * 7.0) * 0.08;
+    v.addScaledVector(n, bump);
+    pos.setXYZ(i, v.x, v.y, v.z);
+  }
+  g.computeVertexNormals();
+  return g;
+}
+
+const SLIDES = [
+  {
+    title: 'Hyper Twister',
+    bg: '#1B1F3B',
+    hue: 0.0,
+    geo: new THREE.TorusKnotGeometry(1.15, 0.42, 300, 40, 2, 3)
+  },
+  {
+    title: 'Cyber Cube',
+    bg: '#D9A273',
+    hue: 0.45,
+    geo: roundedCube(2.4, 42, 4)
+  },
+  {
+    title: 'Liquid Orb',
+    bg: '#4B1FA8',
+    hue: 0.72,
+    geo: liquidOrb(1.5, 128)
+  },
+  {
+    title: 'Neon Coil',
+    bg: '#0E3B34',
+    hue: 0.15,
+    geo: new THREE.TorusKnotGeometry(1.1, 0.36, 320, 32, 3, 5)
+  }
+];
+
+const mesh = new THREE.Mesh(SLIDES[0].geo, material);
+scene.add(mesh);
+
+
+/* ================================================================
+   3. CAROUSEL — shape shrink → swap → grow
+   ================================================================ */
+let index = 0, busy = false;
+let targetScale = 1, scale = 1;
+
+const tBack = document.getElementById('tBack');
+const tFront = document.getElementById('tFront');
+
+function go(dir) {
+  if (busy) return;
+  busy = true;
+
+  const next = (index + dir + SLIDES.length) % SLIDES.length;
+  const s = SLIDES[next];
+
+  // text bahar slide
+  [tBack, tFront].forEach(el => {
+    el.style.transform = `translateX(${-dir * 55}vw)`;
+    el.style.opacity = '0';
+  });
+
+  targetScale = 0;              // object shrink
+
+  setTimeout(() => {
+    // swap
+    mesh.geometry = s.geo;
+    material.uniforms.uHue.value = s.hue;
+    document.body.style.backgroundColor = s.bg;
+
+    // text doosri taraf se andar
+    [tBack, tFront].forEach(el => {
+      el.style.transition = 'none';
+      el.style.transform = `translateX(${dir * 55}vw)`;
+      el.textContent = s.title;
+      void el.offsetWidth;                       // reflow force karo
+      el.style.transition = '';
+      el.style.transform = 'translateX(0)';
+      el.style.opacity = '1';
+    });
+
+    targetScale = 1;            // object wapas grow
+    index = next;
+    busy = false;
+  }, 450);
+}
+
+document.getElementById('next').addEventListener('click', () => go(1));
+document.getElementById('prev').addEventListener('click', () => go(-1));
+
+addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft')  go(-1);
+});
+
+let wheelLock = false;
+addEventListener('wheel', e => {
+  if (wheelLock) return;
+  wheelLock = true;
+  go(e.deltaY > 0 || e.deltaX > 0 ? 1 : -1);
+  setTimeout(() => wheelLock = false, 900);
+}, { passive: true });
+
+
+/* ---------- drag to rotate ---------- */
+let dragging = false, prevX = 0, prevY = 0;
+let velX = 0.004, velY = 0.002;
+
+function down(x, y) { dragging = true; prevX = x; prevY = y; }
+function move(x, y) {
+  if (!dragging) return;
+  velY = (x - prevX) * 0.005;
+  velX = (y - prevY) * 0.005;
+  prevX = x; prevY = y;
+}
+function up() { dragging = false; }
+
+addEventListener('mousedown', e => down(e.clientX, e.clientY));
+addEventListener('mousemove', e => move(e.clientX, e.clientY));
+addEventListener('mouseup', up);
+addEventListener('touchstart', e => down(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+addEventListener('touchmove',  e => move(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+addEventListener('touchend', up);
+
+
+/* ---------- loop ---------- */
+const clock = new THREE.Clock();
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  material.uniforms.uTime.value = clock.getElapsedTime();
+
+  if (!dragging) {                 // chhoda to dheere-dheere ruk jaye
+    velY += (0.004 - velY) * 0.02;
+    velX += (0.002 - velX) * 0.02;
+  }
+  mesh.rotation.y += velY;
+  mesh.rotation.x += velX;
+
+  scale += (targetScale - scale) * 0.14;   // smooth shrink/grow
+  mesh.scale.setScalar(scale);
+
+  renderer.render(scene, camera);
+}
+
+function resize() {
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize);
+resize();
+animate();
+</script>
+</body>
+</html>
