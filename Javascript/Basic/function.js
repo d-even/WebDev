@@ -53,21 +53,35 @@
 
 
 
-function game(player1, player2) {
+// function game(player1, player2) {
    
-if(player1 === player2){
-  alert("Tie")
-}
-else if((player1 == 'rock' && (player2 =='scissor')) && (player1 =='paper'&& (player2 == 'rock')) && ( player1 =='scissor' && (player2 == 'paper')) ){
-  alert("player1 Win")
-}
-else{
-  alert("player2 Win")
+// if(player1 === player2){
+//   alert("Tie")
+// }
+// else if((player1 == 'rock' && (player2 =='scissor')) && (player1 =='paper'&& (player2 == 'rock')) && ( player1 =='scissor' && (player2 == 'paper')) ){
+//   alert("player1 Win")
+// }
+// else{
+//   alert("player2 Win")
+// }
+// }
+
+// let player1 = prompt("Enter Choice of player 1")
+// let player2 = prompt("Enter Choice of player 2")
+
+// let ans = game(player1,player2)
+
+function addTheNo(num) {
+for(let i = 0; i <= 10; i++){
+   
+
+   console.log(i + num)
+ 
+
+   
 }
 }
 
-let player1 = prompt("Enter Choice of player 1")
-let player2 = prompt("Enter Choice of player 2")
+let num = Number(prompt("Enter a Number "))
 
-let ans = game(player1,player2)
-
+console.log(addTheNo(num))
