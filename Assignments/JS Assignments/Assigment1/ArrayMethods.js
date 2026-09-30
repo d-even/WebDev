@@ -30,15 +30,25 @@ console.log(FindAdmin)
 let CheckAdmin = users.every(user => user.role === "admin")
 console.log(CheckAdmin)
 // 21. Use reduce() to count how many times each number appears.
+let arr12 = [4,6,7,5,7,9,5]
+let CountNo = arr12.reduce((check, num)=>{
+    check[num] = (check[num] || 0) + 1;
+
+    return check;
+}, {})
+console.log(CountNo)
 
 // 22. Convert:
-// ["apple", "banana", "apple", "orange", "banana", "apple"]
-// into:
-// //{
-//  apple: 3,
-//  banana: 2,
-//  orange: 1
-// }
+const fruits1 = ["apple", "banana", "apple", "orange", "banana", "apple"];
+
+const count = fruits1.reduce((curr, fruit) => {
+  curr[fruit] = (curr[fruit] || 0) + 1;
+  return curr;
+}, {});
+
+console.log(count);
+// Output: { apple: 3, banana: 2, orange: 1 }
+
 
 // 23. Given an array of objects, sort the objects by their price.
 const products = [

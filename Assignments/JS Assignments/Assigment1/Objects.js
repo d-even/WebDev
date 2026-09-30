@@ -43,6 +43,7 @@ const student = {
  science: 75,
  english: 90
 };
+
 let totalMarks = Object.values(student)
                 .reduce((sum,value)=> sum + value , 0)
 console.log(totalMarks)

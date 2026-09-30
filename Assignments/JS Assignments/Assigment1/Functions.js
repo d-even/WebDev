@@ -49,20 +49,15 @@ function AddFunction(a,b){
 console.log(function1(num1,num2,AddFunction))
 
 // 45. Write a function that returns another function.
-function NumberCheck(num) {
-    if(num %2 ==0){
-        function Even() {
-        return "Even Number"
+function Out() {
+    
+        function In() {
+        return "Hello World"
     }
-    }
-    else{
-        function Odd() {
-        return "Odd Number"
-    }
-    }
-    return 
+    
+    return In()
 }
-console.log(NumberCheck(10))
+console.log(Out())
 
 // 46. Explain and practice the difference between:
 // function add(a, b) {
