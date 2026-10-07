@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game">
+        <header>
+            <img src="images/logo.svg" alt="Logo">
+            <div class="score">
+                <p>SCORE</p>
+                <h2 id="score">0</h2>
+            </div>
+        </header>
+        <div class="choices" id="choices">
+            <button class="choice paper" data-choice="paper">
+                <img src="images/icon-paper.svg" alt="Paper">
+            </button>
+            <button class="choice scissors" data-choice="scissors">
+                <img src="images/icon-scissors.svg" alt="Scissors">
+            </button>
+            <button class="choice rock" data-choice="rock">
+                <img src="images/icon-rock.svg" alt="Rock">
+            </button>
+        </div>
+        <div class="result" id="result">
+            <div>
+                <p>You Picked</p>
+                <div id="player-choice"></div>
+            </div>
+            <div class="result-text">
+                <h2 id="message">YOU WIN</h2>
+                <button id="play-again">PLAY AGAIN</button>
+            </div>
+            <div>
+                <p>The House Picked</p>
+                <div id="computer-choice"></div>
+            </div>
+        </div>
+        <button class="rules-button" id="rules-button">RULES</button>
+    </div>
+    <div class="rules" id="rules">
+        <div class="rules-box">
+            <div>
+                <h2>RULES</h2>
+                <button id="close-rules">X</button>
+            </div>
+            <img src="images/image-rules.svg" alt="Rules">
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
