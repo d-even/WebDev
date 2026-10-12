@@ -1,5 +1,5 @@
 let currentStep = 0;
-const steps = document.querySelectorAll(".form-step");
+const steps = document.querySelectorAll(".form-step .next");
 const sideSteps = document.querySelectorAll(".step");
 const nextButtons = document.querySelectorAll(".next");
 const backButtons = document.querySelectorAll(".back");
@@ -7,6 +7,11 @@ const plans = document.querySelectorAll(".plan");
 const billing = document.getElementById("billing");
 const addons = document.querySelectorAll(".addon-check");
 const confirmButton = document.querySelector(".confirm");
+
+
+
+
+
 
 let selectedPlan = null;
 let selectedPrice = 0;
@@ -119,4 +124,26 @@ document.getElementById("change-plan").addEventListener("click", function() {
 confirmButton.addEventListener("click", function() {
     currentStep = 4;
     showStep(currentStep);
+});
+
+
+
+
+
+
+const nextButton = document.querySelector('.form-step .next');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const phoneInput = document.getElementById('phone');
+
+nextButton.addEventListener('click', () => {
+ 
+  const personalInfo = {
+    name: nameInput.value,
+    email: emailInput.value,
+    phone: phoneInput.value
+  };
+
+  localStorage.setItem('userPersonalInfo', JSON.stringify(personalInfo));
+  
 });
