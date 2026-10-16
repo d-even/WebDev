@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Four</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="game">
+       
+        <section class="score-card player-card">
+           <div class="avatar">
+    <img src="./assets/images/player-one.svg" alt="Player">
+</div>
+            <h3>YOU</h3>
+            <p id="playerScore">0</p>
+        </section>
+        
+
+        <section class="board-container">
+            <div id="board" class="board"></div>
+        </section>
+
+        <section class="score-card cpu-card">
+             <div class="avatar">
+    <img src="./assets/images/player-two.svg" alt="Player">
+</div>
+            <p id="cpuScore">0</p>
+        </section>
+        
+
+    </main>
+
+    <div class="controls">
+        <h2 id="status"></h2>
+        <button id="restart">Restart Game</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FX_CHECKER</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <b class="logo"><i>/</i>FX_CHECKER</b>
+  <span class="meta"><span id="count">56</span> CURRENCIES · EOD · CENTRAL BANK DATA</span>
+  <div class="rel">
+    <button class="chip" id="acc">&#9679; ACCOUNT ▾</button>
+    <div class="menu" id="accMenu" hidden><button data-a="clearfav">Clear favorites</button><button data-a="clearlog">Clear log</button></div>
+  </div>
+</header>
+
+<div class="ticker">
+  <span class="tag">MARKET SNAPSHOT</span>
+  <button id="pause" aria-label="Pause ticker">❚❚</button>
+  <div class="track"><div id="tape"></div></div>
+</div>
+
+<main>
+  <h1>CHECK THE RATE</h1>
+  <section class="card">
+    <div class="row">
+      <div class="field rel" id="f-from"><label>SEND</label>
+        <div class="in"><input id="amt" inputmode="decimal" value="1,000" aria-label="Amount"><button class="cur" data-s="from"></button></div>
+      </div>
+      <button id="swap" aria-label="Swap currencies">⇄</button>
+      <div class="field rel" id="f-to"><label>RECEIVE</label>
+        <div class="in"><output id="out" class="res"></output><button class="cur" data-s="to"></button></div>
+      </div>
+    </div>
+    <div class="foot"><span id="rate"></span>
+      <span><button class="btn" id="fav">☆ FAVORITE</button> <button class="btn hl" id="log">LOG CONVERSION</button></span>
+    </div>
+  </section>
+
+  <nav class="tabs" id="tabs">
+    <button data-t="history" class="on">HISTORY</button><button data-t="compare">COMPARE</button>
+    <button data-t="favs">FAVORITES <em id="nf">0</em></button><button data-t="log">LOG <em id="nl">0</em></button>
+  </nav>
+  <section id="panel"></section>
+</main>
+<div id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>

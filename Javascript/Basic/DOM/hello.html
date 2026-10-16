@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,4 +14,275 @@
     Voluptatum quam consequuntur laboriosam facere amet saepe tempore, assumenda doloribus explicabo natus error debitis eveniet molestiae rerum! Perferendis ad dolor dicta quidem, atque eaque, ipsa repellat similique nisi, nam ducimus.</p>
     <script src="script.js"></script>
 </body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Game</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            color: #e94560;
+        }
+
+        .status {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+            min-height: 30px;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+            background-color: #16213e;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .cell {
+            border: none;
+            border-radius: 5px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .cell:hover {
+            background-color: #1f4068;
+        }
+
+        .cell:active {
+            transform: scale(0.95);
+        }
+
+        .cell.x {
+            color: #e94560;
+        }
+
+        .cell.o {
+            color: #4ee2ec;
+        }
+
+        .cell.disabled {
+            cursor: not-allowed;
+        }
+
+        .restart-btn {
+            margin-top: 25px;
+            padding: 10px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: #e94560;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .restart-btn:hover {
+            background-color: #ff5773;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="status" id="status">Player X's turn</div>
+
+    <div class="board" id="board">
+        <button class="cell" data-index="0"></button>
+        <button class="cell" data-index="1"></button>
+        <button class="cell" data-index="2"></button>
+        <button class="cell" data-index="3"></button>
+        <button class="cell" data-index="4"></button>
+        <button class="cell" data-index="5"></button>
+        <button class="cell" data-index="6"></button>
+        <button class="cell" data-index="7"></button>
+        <button class="cell" data-index="8"></button>
+    </div>
+
+    <button class="restart-btn" id="restartBtn">Restart Game</button>
+
+    <script>
+        const board = document.getElementById('board');
+        const cells = document.querySelectorAll('.cell');
+        const statusText = document.getElementById('status');
+        const restartBtn = document.getElementById('restartBtn');
+
+        let currentPlayer = 'X';
+        let gameState = ["", "", "", "", "", "", "", "", ""];
+        let isGameActive = true;
+
+        const winningConditions = [
+            [0, 1, 2], // Rows
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6], // Columns
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8], // Diagonals
+            [2, 4, 6]
+        ];
+
+        function updateStatusColor() {
+            if (!isGameActive) return;
+            statusText.style.color = currentPlayer === 'X' ? '#d32f2f' : '#1976d2';
+        }
+
+        updateStatusColor();
+
+        function handleCellClick(e) {
+            const clickedCell = e.target;
+            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
+
+            if (gameState[clickedCellIndex] !== "" || !isGameActive) {
+                return;
+            }
+
+            gameState[clickedCellIndex] = currentPlayer;
+            clickedCell.innerText = currentPlayer;
+            clickedCell.classList.add(currentPlayer.toLowerCase(), 'disabled');
+
+            checkForWinner();
+        }
+
+        function checkForWinner() {
+            let roundWon = false;
+
+            for (let i = 0; i < winningConditions.length; i++) {
+                const winCondition = winningConditions[i];
+                let a = gameState[winCondition[0]];
+                let b = gameState[winCondition[1]];
+                let c = gameState[winCondition[2]];
+
+                if (a === '' || b === '' || c === '') {
+                    continue;
+                }
+                if (a === b && b === c) {
+                    roundWon = true;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                statusText.innerHTML = `Player ${currentPlayer} Wins!`;
+                statusText.style.color = currentPlayer === 'X' ? '#d32f2f' : '#1976d2';
+                isGameActive = false;
+                return;
+            }
+
+            let roundDraw = !gameState.includes("");
+            if (roundDraw) {
+                statusText.innerHTML = "It's a Draw!";
+                statusText.style.color = "#333333";
+                isGameActive = false;
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            statusText.innerHTML = `Player ${currentPlayer}'s turn`;
+            updateStatusColor();
+        }
+
+        function restartGame() {
+            currentPlayer = 'X';
+            gameState = ["", "", "", "", "", "", "", "", ""];
+            isGameActive = true;
+            statusText.innerHTML = "Player X's turn";
+            updateStatusColor();
+            
+            cells.forEach(cell => {
+                cell.innerText = "";
+                cell.classList.remove('x', 'o', 'disabled');
+            });
+        }
+
+        cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+        restartBtn.addEventListener('click', restartGame);
+    </script>
+</body>
 </html>
+

@@ -1,5 +1,5 @@
 let currentStep = 0;
-const steps = document.querySelectorAll(".form-step .next");
+const formSteps = document.querySelectorAll(".form-step");
 const sideSteps = document.querySelectorAll(".step");
 const nextButtons = document.querySelectorAll(".next");
 const backButtons = document.querySelectorAll(".back");
@@ -7,23 +7,71 @@ const plans = document.querySelectorAll(".plan");
 const billing = document.getElementById("billing");
 const addons = document.querySelectorAll(".addon-check");
 const confirmButton = document.querySelector(".confirm");
-
-
-
-
-
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const phoneInput = document.getElementById("phone");
+const storageKey = "multiStepFormData";
 
 let selectedPlan = null;
 let selectedPrice = 0;
 
+function saveFormData() {
+    const formData = {
+        name: nameInput.value,
+        email: emailInput.value,
+        phone: phoneInput.value,
+        plan: selectedPlan,
+        billingYearly: billing.checked,
+        addons: Array.from(addons)
+            .filter(function(addon) {
+                return addon.checked;
+            })
+            .map(function(addon) {
+                return addon.dataset.name;
+            })
+    };
+
+    localStorage.setItem(storageKey, JSON.stringify(formData));
+}
+
+function loadFormData() {
+    const savedData = localStorage.getItem(storageKey);
+    if (!savedData) {
+        return;
+    }
+
+    const formData = JSON.parse(savedData);
+    nameInput.value = formData.name || "";
+    emailInput.value = formData.email || "";
+    phoneInput.value = formData.phone || "";
+    billing.checked = Boolean(formData.billingYearly);
+
+    if (formData.plan) {
+        const savedPlan = Array.from(plans).find(function(plan) {
+            return plan.dataset.plan === formData.plan;
+        });
+        if (savedPlan) {
+            selectedPlan = savedPlan.dataset.plan;
+            savedPlan.classList.add("selected");
+            selectedPrice = Number(
+                billing.checked ? savedPlan.dataset.yearly : savedPlan.dataset.monthly
+            );
+        }
+    }
+
+    addons.forEach(function(addon) {
+        addon.checked = Array.isArray(formData.addons) && formData.addons.includes(addon.dataset.name);
+    });
+}
+
 function showStep(stepNumber) {
-    steps.forEach(function(step) {
+    formSteps.forEach(function(step) {
         step.classList.remove("active");
     });
     sideSteps.forEach(function(step) {
         step.classList.remove("active");
     });
-    steps[stepNumber].classList.add("active");
+    formSteps[stepNumber].classList.add("active");
     if (stepNumber < 4) {
         sideSteps[stepNumber].classList.add("active");
     }
@@ -49,6 +97,7 @@ nextButtons.forEach(function(button) {
         if (currentStep === 3) {
             showSummary();
         }
+        saveFormData();
     });
 });
 backButtons.forEach(function(button) {
@@ -69,6 +118,7 @@ plans.forEach(function(plan) {
         } else {
             selectedPrice = Number(plan.dataset.monthly);
         }
+        saveFormData();
     });
 });
 
@@ -81,6 +131,10 @@ billing.addEventListener("change", function() {
             selectedPrice = Number(selected.dataset.monthly);
         }
     }
+    saveFormData();
+});
+addons.forEach(function(addon) {
+    addon.addEventListener("change", saveFormData);
 });
 function showSummary() {
     let planName = document.getElementById("summary-plan");
@@ -127,23 +181,9 @@ confirmButton.addEventListener("click", function() {
 });
 
 
-
-
-
-
-const nextButton = document.querySelector('.form-step .next');
-const nameInput = document.getElementById('name');
-const emailInput = document.getElementById('email');
-const phoneInput = document.getElementById('phone');
-
-nextButton.addEventListener('click', () => {
- 
-  const personalInfo = {
-    name: nameInput.value,
-    email: emailInput.value,
-    phone: phoneInput.value
-  };
-
-  localStorage.setItem('userPersonalInfo', JSON.stringify(personalInfo));
-  
+[nameInput, emailInput, phoneInput].forEach(function(input) {
+        input.addEventListener("input", saveFormData);
 });
+
+loadFormData();
+showStep(currentStep);

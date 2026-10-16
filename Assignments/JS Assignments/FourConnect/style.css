@@ -1,0 +1,264 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #7540ff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.game {
+    min-height: 640px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    position: relative;
+    padding: 35px 20px 20px;
+}
+
+.board-container {
+    background: white;
+    border: 3px solid black;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 12px 0 black;
+    position: relative;
+    z-index: 1;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(7, 70px);
+    grid-template-rows: repeat(6, 70px);
+    gap: 18px;
+}
+
+.cell {
+    border: 3px solid black;
+    border-radius: 50%;
+    background: #7540ff;
+    box-shadow: inset 0 10px 0 black;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+.cell:hover {
+    transform: scale(1.05);
+}
+
+.cell.player {
+    background: #ff5b83;
+    box-shadow: inset 0 5px 0 #d92758;
+}
+
+.cell.cpu {
+    background: #ffd15c;
+    box-shadow: inset 0 5px 0 #dca42e;
+}
+
+.score-card {
+    background: white;
+    width: 140px;
+    min-width: 140px;
+    height: 170px;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: 0 10px 0 black;
+    text-align: center;
+    position: relative;
+    padding-top: 48px;
+    z-index: 2;
+}
+
+.score-card h3 {
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+.score-card p {
+    font-size: 56px;
+    font-weight: bold;
+}
+
+.avatar {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 55px;
+    height: 55px;
+    background: #ff5b83;
+    border: 3px solid black;
+    border-radius: 50%;
+    font-size: 36px;
+    line-height: 48px;
+    font-weight: bold;
+}
+
+.cpu-avatar {
+    background: #ffd15c;
+    font-size: 25px;
+}
+
+.heart {
+    position: absolute;
+    top: -12px;
+    left: 35%;
+    color: #ff5b83;
+    font-size: 48px;
+    -webkit-text-stroke: 3px black;
+    z-index: 3;
+}
+
+.bottom-heart {
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ff5b83;
+    font-size: 110px;
+    -webkit-text-stroke: 3px black;
+    z-index: 0;
+}
+
+.game::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 38px;
+    background: #5728d5;
+    border-radius: 50% 50% 0 0;
+}
+
+.controls {
+    text-align: center;
+    padding: 15px;
+}
+
+#status {
+    color: white;
+    margin-bottom: 12px;
+}
+
+button {
+    background: #ff5b83;
+    border: 3px solid black;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 0 black;
+}
+
+button:active {
+    transform: translateY(4px);
+    box-shadow: 0 1px 0 black;
+}
+
+@media (max-width: 950px) {
+    .game {
+        gap: 20px;
+    }
+
+    .board {
+        grid-template-columns: repeat(7, 48px);
+        grid-template-rows: repeat(6, 48px);
+        gap: 10px;
+    }
+
+    .board-container {
+        padding: 12px;
+        border-radius: 28px;
+    }
+
+    .score-card {
+        width: 100px;
+        min-width: 100px;
+        height: 145px;
+    }
+
+    .score-card p {
+        font-size: 44px;
+    }
+}
+
+@media (max-width: 560px) {
+    .game {
+        min-height: auto;
+        height: auto;
+        padding: 55px 8px 30px;
+        gap: 8px;
+    }
+
+    .board {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        grid-template-rows: repeat(6, minmax(0, 1fr));
+        gap: 5px;
+        width: min(66vw, 300px);
+        aspect-ratio: 7 / 6;
+    }
+
+    .cell {
+        width: 100%;
+        height: 100%;
+        min-width: 0;
+        min-height: 0;
+        border-width: 2px;
+        box-shadow: inset 0 5px 0 black;
+    }
+
+    .board-container {
+        padding: 8px;
+        border-radius: 22px;
+        box-shadow: 0 7px 0 black;
+    }
+
+    .score-card {
+        width: 65px;
+        min-width: 65px;
+        height: 105px;
+        padding-top: 35px;
+        border-radius: 14px;
+        box-shadow: 0 6px 0 black;
+    }
+
+    .score-card h3 {
+        font-size: 12px;
+    }
+
+    .score-card p {
+        font-size: 32px;
+    }
+
+    .avatar {
+        width: 38px;
+        height: 38px;
+        top: -22px;
+        font-size: 25px;
+        line-height: 32px;
+        border-width: 2px;
+    }
+
+    .cpu-avatar {
+        font-size: 17px;
+    }
+
+    .heart {
+        left: 35%;
+        font-size: 35px;
+    }
+
+    .bottom-heart {
+        font-size: 70px;
+    }
+}
