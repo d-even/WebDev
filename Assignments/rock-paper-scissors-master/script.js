@@ -60,7 +60,6 @@ const store = {
     try {
       localStorage.setItem(key, value);
     } catch {
-      /* ignore */
     }
   },
 };
@@ -78,7 +77,6 @@ function setScore(value) {
   store.set(scoreKey(), score);
 }
 
-// ===== Rendering =====
 function createChip(choice, tag = "div") {
   const chip = document.createElement(tag);
   chip.className = `chip ${choice}`;

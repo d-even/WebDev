@@ -1,51 +1,133 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FX_CHECKER</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FX Checker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <b class="logo"><i>/</i>FX_CHECKER</b>
-  <span class="meta"><span id="count">56</span> CURRENCIES · EOD · CENTRAL BANK DATA</span>
-  <div class="rel">
-    <button class="chip" id="acc">&#9679; ACCOUNT ▾</button>
-    <div class="menu" id="accMenu" hidden><button data-a="clearfav">Clear favorites</button><button data-a="clearlog">Clear log</button></div>
-  </div>
-</header>
+
+    <header class="navbar">
+        <h3> Currency Convertor</h3>
+        <div class="nav-links">
+            Currency Convertor &nbsp; ·  CENTRAL BANK DATA
+        </div>
+        
+    </header>
 
 <div class="ticker">
-  <span class="tag">MARKET SNAPSHOT</span>
-  <button id="pause" aria-label="Pause ticker">❚❚</button>
-  <div class="track"><div id="tape"></div></div>
+    <strong class="ticker-title">MARKET SNAPSHOT</strong>
+
+    <div class="ticker-window">
+        <div class="ticker-track" id="tickerTrack">
+            <span>Loading exchange rates...</span>
+        </div>
+    </div>
 </div>
 
-<main>
-  <h1>CHECK THE RATE</h1>
-  <section class="card">
-    <div class="row">
-      <div class="field rel" id="f-from"><label>SEND</label>
-        <div class="in"><input id="amt" inputmode="decimal" value="1,000" aria-label="Amount"><button class="cur" data-s="from"></button></div>
-      </div>
-      <button id="swap" aria-label="Swap currencies">⇄</button>
-      <div class="field rel" id="f-to"><label>RECEIVE</label>
-        <div class="in"><output id="out" class="res"></output><button class="cur" data-s="to"></button></div>
-      </div>
-    </div>
-    <div class="foot"><span id="rate"></span>
-      <span><button class="btn" id="fav">☆ FAVORITE</button> <button class="btn hl" id="log">LOG CONVERSION</button></span>
-    </div>
-  </section>
+    
 
-  <nav class="tabs" id="tabs">
-    <button data-t="history" class="on">HISTORY</button><button data-t="compare">COMPARE</button>
-    <button data-t="favs">FAVORITES <em id="nf">0</em></button><button data-t="log">LOG <em id="nl">0</em></button>
-  </nav>
-  <section id="panel"></section>
-</main>
-<div id="toast"></div>
-<script src="app.js"></script>
+    <main class="container">
+        <h4>CHECK THE RATE</h4>
+
+        <section class="converter">
+
+            
+<div class="conversion-row">
+    <div class="currency-box">
+        <label>SEND</label>
+        <div class="input-row">
+            <input type="number" id="amount" value="1000" min="0">
+
+            <div class="currency-select">
+
+<img id="fromFlag" src="https://flagcdn.com/w80/us.png" alt="From currency flag">
+
+
+                <select id="fromCurrency" aria-label="Send currency">
+                    <option value="USD" selected>USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                    <option value="INR">INR</option>
+                    <option value="JPY">JPY</option>
+                    <option value="AUD">AUD</option>
+                    <option value="CAD">CAD</option>
+                    <option value="CHF">CHF</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <button id="swapBtn" class="swap-btn" aria-label="Swap currencies">
+        >
+    </button>
+
+    <div class="currency-box receive-box">
+        <label>RECEIVE</label>
+        <div class="input-row">
+            <output id="result">920.00</output>
+
+            <div class="currency-select">
+           
+                    <img id="toFlag" src="https://flagcdn.com/w80/in.png" alt="To currency flag">
+                    
+
+                <select id="toCurrency" aria-label="Receive currency">
+                    <option value="EUR" selected>EUR</option>
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="INR">INR</option>
+                    <option value="JPY">JPY</option>
+                    <option value="AUD">AUD</option>
+                    <option value="CAD">CAD</option>
+                    <option value="CHF">CHF</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            <div class="converter-footer">
+                <span id="rateText">1 USD = 0.9200 EUR</span>
+                <div>
+                    <button id="favoriteBtn">FAVORITE</button>
+                    <button id="convertBtn">LOG CONVERSION</button>
+                </div>
+            </div>
+        </section>
+
+        <nav class="tabs">
+            <button class="tab active" data-tab="history">HISTORY</button>
+            <button class="tab" data-tab="compare">COMPARE</button>
+            <button class="tab" data-tab="favorites">FAVORITES <span id="favCount">0</span></button>
+            <button class="tab" data-tab="log">LOG <span id="logCount">0</span></button>
+        </nav>
+
+        <section class="stats">
+            <div class="stat">
+                <label>OPEN</label>
+                <strong id="openRate">0.9200</strong>
+            </div>
+            <div class="stat">
+                <label>LAST</label>
+                <strong id="lastRate">0.9200</strong>
+            </div>
+            <div class="stat">
+                <label>CHANGE</label>
+                <strong class="green" id="change">+0.0000</strong>
+            </div>
+            <div class="stat">
+                <label>% CHANGE</label>
+                <strong class="green" id="changePercent">▲ +0.00%</strong>
+            </div>
+        </section>
+
+        <section id="extraContent" class="extra-content"></section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>

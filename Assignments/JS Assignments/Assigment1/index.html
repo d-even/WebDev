@@ -1,12 +1,344 @@
+<!-- <!DOCTYPE html>
+<html>
+<body>
+
+    <h2>Change Background Color</h2>
+
+    <button id="colorBtn">Change Color</button>
+
+    <script>
+        document.getElementById("colorBtn").addEventListener("click", function() {
+            document.body.style.backgroundColor = "lightblue";
+        });
+    </script>
+
+</body>
+</html>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+<body>
+
+    <h2>Counter Application</h2>
+
+    <h1 id="count">0</h1>
+
+    <button id="inc">Increment</button>
+    <button id="dec">Decrement</button>
+    <button id="reset">Reset</button>
+
+    <script>
+        let count = 0;
+
+        const display = document.getElementById("count");
+
+        document.getElementById("inc").onclick = function() {
+            count++;
+            display.innerText = count;
+        };
+
+        document.getElementById("dec").onclick = function() {
+            count--;
+            display.innerText = count;
+        };
+
+        document.getElementById("reset").onclick = function() {
+            count = 0;
+            display.innerText = count;
+        };
+    </script>
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>Username Form</h2>
+
+    <form id="userForm">
+        <input type="text" id="username" placeholder="Enter username" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h3 id="result"></h3>
+
+    <script>
+        document.getElementById("userForm").addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            let name = document.getElementById("username").value;
+
+            document.getElementById("result").innerText =
+                `Hello ${name}! Welcome to our website.`;
+
+        });
+    </script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>Password Show/Hide</h2>
+
+    <input type="password" id="password" placeholder="Enter password">
+
+    <button id="toggleBtn">Show Password</button>
+
+    <script>
+        const password = document.getElementById("password");
+        const button = document.getElementById("toggleBtn");
+
+        button.addEventListener("click", function() {
+
+            if (password.type === "password") {
+                password.type = "text";
+                button.innerText = "Hide Password";
+            } else {
+                password.type = "password";
+                button.innerText = "Show Password";
+            }
+
+        });
+    </script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>My Todo List</h2>
+
+    <input type="text" id="taskInput" placeholder="Enter a task">
+
+    <button id="addBtn">Add Task</button>
+
+    <ul id="taskList"></ul>
+
+    <script>
+        const input = document.getElementById("taskInput");
+        const list = document.getElementById("taskList");
+
+        document.getElementById("addBtn").onclick = function() {
+
+            let task = input.value.trim();
+
+            if (task === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            let li = document.createElement("li");
+
+            li.innerText = task;
+
+            let deleteBtn = document.createElement("button");
+
+            deleteBtn.innerText = "Delete";
+
+            deleteBtn.onclick = function() {
+                li.remove();
+            };
+
+            li.appendChild(deleteBtn);
+
+            list.appendChild(li);
+
+            input.value = "";
+        };
+    </script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>Character Counter</h2>
+
+    <textarea id="message" placeholder="Type something..." rows="5" cols="30"></textarea>
+
+    <h3>Characters: <span id="count">0</span></h3>
+
+    <script>
+        const textarea = document.getElementById("message");
+        const count = document.getElementById("count");
+
+        textarea.addEventListener("input", function() {
+
+            count.innerText = textarea.value.length;
+
+        });
+    </script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>Select Your Favorite Language</h2>
+
+    <select id="language">
+        <option value="">Select Language</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="Python">Python</option>
+        <option value="Java">Java</option>
+        <option value="C++">C++</option>
+    </select>
+
+    <h3 id="result"></h3>
+
+    <script>
+        const dropdown = document.getElementById("language");
+
+        dropdown.addEventListener("change", function() {
+
+            document.getElementById("result").innerText =
+                `You selected ${dropdown.value}`;
+
+        });
+    </script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            transition: 0.3s;
+            font-family: Arial;
+        }
+
+        .dark {
+            background-color: black;
+            color: white;
+        }
+    </style>
+
 </head>
 <body>
-    
+
+    <h2>Dark Mode / Light Mode</h2>
+
+    <p>Welcome to my webpage!</p>
+
+    <button id="modeBtn">Enable Dark Mode</button>
+
+    <script>
+        const button = document.getElementById("modeBtn");
+
+        button.onclick = function() {
+
+            document.body.classList.toggle("dark");
+
+            if (document.body.classList.contains("dark")) {
+                button.innerText = "Enable Light Mode";
+            } else {
+                button.innerText = "Enable Dark Mode";
+            }
+
+        };
+    </script>
+
 </body>
-<script src="dummy.js"></script>
+</html>
+
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>Dynamic HTML Elements</h2>
+
+    <button id="addBtn">Add Paragraph</button>
+
+    <div id="container"></div>
+
+    <script>
+        let count = 1;
+
+        document.getElementById("addBtn").onclick = function() {
+
+            let paragraph = document.createElement("p");
+
+            paragraph.innerText = `This is paragraph ${count}`;
+
+            document.getElementById("container").appendChild(paragraph);
+
+            count++;
+
+        };
+    </script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        .thumbnail {
+            width: 100px;
+            height: 70px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        #largeImage {
+            width: 400px;
+            height: 250px;
+            object-fit: cover;
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <h2>Image Gallery</h2>
+
+    <img class="thumbnail"
+         src="https://picsum.photos/id/1015/400/250"
+         onclick="showImage(this.src)">
+
+    <img class="thumbnail"
+         src="https://picsum.photos/id/1016/400/250"
+         onclick="showImage(this.src)">
+
+    <img class="thumbnail"
+         src="https://picsum.photos/id/1018/400/250"
+         onclick="showImage(this.src)">
+
+    <br>
+
+    <img id="largeImage"
+         src="https://picsum.photos/id/1015/400/250">
+
+    <script>
+        function showImage(imageSrc) {
+
+            document.getElementById("largeImage").src = imageSrc;
+
+        }
+    </script>
+
+</body>
 </html>

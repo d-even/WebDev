@@ -8,79 +8,84 @@ const restartButton = document.getElementById("restart");
 const ROWS = 6;
 const COLS = 7;
 
+// Game variables
 let grid = [];
-let currentPlayer = "player";
-let playerScore = 0;
-let player2Score = 0;
+let player = 1;
 let gameOver = false;
 
+let player1Score = 0;
+let player2Score = 0;
+
+
+// Create the game board
 function createBoard() {
     board.innerHTML = "";
-
-    grid = Array.from(
-        { length: ROWS },
-        () => Array(COLS).fill("")
-    );
-
-    currentPlayer = "player";
-    gameOver = false;
-    statusText.textContent = "Player 1's Turn (Pink)";
+    grid = [];
 
     for (let row = 0; row < ROWS; row++) {
+        grid[row] = [];
+
         for (let col = 0; col < COLS; col++) {
+            grid[row][col] = "";
+
             const cell = document.createElement("div");
             cell.classList.add("cell");
 
+            // Handle clicks on the board
             cell.addEventListener("click", () => {
                 dropDot(col);
             });
-
             board.appendChild(cell);
         }
     }
+
+    // Reset the current game
+    player = 1;
+    gameOver = false;
+
+    statusText.textContent = "Player 1's Turn (Pink)";
 }
 
 function dropDot(col) {
-    if (gameOver) return;
+    if (gameOver) {
+        return;
+    }
 
-    // Find the lowest empty cell in the selected column
     for (let row = ROWS - 1; row >= 0; row--) {
         if (grid[row][col] === "") {
-            grid[row][col] = currentPlayer;
+
+          
+            grid[row][col] = player;
 
             const index = row * COLS + col;
-            board.children[index].classList.add(currentPlayer);
+            const cell = board.children[index];
 
-            // Check whether the current player has won
+            if (player === 1) {
+                cell.classList.add("player"); // Pink
+            } else {
+                cell.classList.add("cpu"); // Yellow
+            }
+
             if (checkWinner(row, col)) {
                 gameOver = true;
+                updateScore();
 
-                if (currentPlayer === "player") {
-                    playerScore++;
-                    playerScoreText.textContent = playerScore;
-                    statusText.textContent = "Player 1 Wins! 🎉";
-                } else {
-                    player2Score++;
-                    playerScoreText.textContent = player2Score;
-                    statusText.textContent = "Player 2 Wins! 🎉";
-                }
+                statusText.textContent =
+                    "Player " + player + " Wins!";
 
                 return;
             }
 
-            // Check for a draw
-            if (grid.every(row => row.every(cell => cell !== ""))) {
+            if (isBoardFull()) {
                 gameOver = true;
                 statusText.textContent = "It's a Draw!";
                 return;
             }
 
-            // Switch between the two human players
-            currentPlayer =
-                currentPlayer === "player" ? "cpu" : "player";
+            player = player === 1 ? 2 : 1;
 
             statusText.textContent =
-                currentPlayer === "player"
+                player === 1
                     ? "Player 1's Turn (Pink)"
                     : "Player 2's Turn (Yellow)";
 
@@ -89,50 +94,60 @@ function dropDot(col) {
     }
 }
 
+
 function checkWinner(row, col) {
     const directions = [
-        [0, 1],   // Horizontal
-        [1, 0],   // Vertical
-        [1, 1],   // Diagonal down-right
-        [1, -1]   // Diagonal down-left
+        [0, 1],   
+        [1, 0],   
+        [1, 1],   
+        [1, -1]   
     ];
 
-    for (const [dr, dc] of directions) {
+    for (const [rowDirection, colDirection] of directions) {
         let count = 1;
 
-        count += countDirection(row, col, dr, dc);
-        count += countDirection(row, col, -dr, -dc);
+        for (const side of [-1, 1]) {
+            let r = row + rowDirection * side;
+            let c = col + colDirection * side;
 
-        if (count >= 4) return true;
+            while (
+                r >= 0 &&
+                r < ROWS &&
+                c >= 0 &&
+                c < COLS &&
+                grid[r][c] === player
+            ) {
+                count++;
+
+                r += rowDirection * side;
+                c += colDirection * side;
+            }
+        }
+
+        if (count >= 4) {
+            return true;
+        }
     }
 
     return false;
 }
 
-function countDirection(row, col, dr, dc) {
-    let count = 0;
-    let r = row + dr;
-    let c = col + dc;
 
-    while (
-        r >= 0 &&
-        r < ROWS &&
-        c >= 0 &&
-        c < COLS &&
-        grid[r][c] === currentPlayer
-    ) {
-        count++;
-        r += dr;
-        c += dc;
+function updateScore() {
+    if (player === 1) {
+        player1Score++;
+        playerScoreText.textContent = player1Score;
+    } else {
+        player2Score++;
+        cpuScoreText.textContent = player2Score;
     }
-
-    return count;
 }
 
-function restartGame() {
-    createBoard();
+function isBoardFull() {
+    return grid.every(row =>
+        row.every(cell => cell !== "")
+    );
 }
 
-restartButton.addEventListener("click", restartGame);
-
+restartButton.addEventListener("click", createBoard)
 createBoard();

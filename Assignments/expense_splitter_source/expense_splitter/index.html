@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Splitter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-icon"></span><span>Expense Splitter</span></div>
+      <div class="side-label">GROUPS</div>
+      <nav id="groupList" class="group-list" aria-label="Expense groups"></nav>
+      <button id="newGroupBtn" class="new-group"><span></span> New group</button>
+      <div class="theme-row">
+        <span>Theme</span>
+        <div class="theme-switch">
+          <button data-theme="light" aria-label="Light theme">☼</button>
+          <button data-theme="dark" class="selected" aria-label="Dark theme">☾</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <h1 id="groupTitle">Trip to Japan</h1>
+          <p id="groupDescription">Two weeks in Tokyo, Kyoto, and Osaka. Cherry blossom season 2026.</p>
+          <div class="summary-line">
+            <span class="summary-amount"> <strong id="totalSpent">$2,751.24</strong></span>
+            <span>total spent</span><span id="expenseCount">13 expenses</span>
+            <div id="memberAvatars" class="avatar-stack"></div><span id="memberCount">4 members</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="settleUpBtn" class="btn btn-secondary"> &nbsp; Settle up</button>
+          <button id="addExpenseBtn" class="btn btn-primary">&nbsp; Add expense</button>
+          <button id="settingsBtn" class="icon-btn" aria-label="Group settings"></button>
+        </div>
+      </header>
+
+      <div class="content-grid">
+        <section class="activity-section">
+          <button id="filterToggle" class="filter-toggle"> &nbsp; Filters <span id="filterBadge" class="filter-badge hidden">Active</span></button>
+          <div id="filterPanel" class="filter-panel hidden">
+            <label>Show
+              <select id="typeFilter"><option value="all">All activity</option><option value="expense">Expenses only</option><option value="settlement">Settlements only</option></select>
+            </label>
+            <label>Paid by
+              <select id="payerFilter"><option value="all">Everyone</option></select>
+            </label>
+            <button id="clearFilters" class="btn btn-small btn-secondary">Clear filters</button>
+          </div>
+          <div class="section-heading"><h2>Activity</h2><span id="activityMeta">13 expenses · 2 settlements</span></div>
+          <div id="activityList" class="activity-list"></div>
+        </section>
+
+        <aside class="right-panel">
+          <section class="owed-card">
+            <div class="owed-top">
+              <div class="owed-icon">↙</div>
+              <div><span class="muted">You are owed</span><div id="owedAmount" class="owed-amount">$216.47</div><small>others owe you across this group</small></div>
+            </div>
+            <div class="owed-details"><div><small>You paid</small><strong id="youPaid">$1,123.04</strong></div><div><small>Your share</small><strong id="yourShare">$756.58</strong></div></div>
+          </section>
+          <section class="settlements-card">
+            <div class="card-heading"><strong>Suggested settlements</strong><small>A minimal set of payments to square everyone up.</small></div>
+            <div id="suggestedSettlements"></div>
+          </section>
+          <section class="balances-card">
+            <div class="card-heading"><strong>Member balances</strong><small>Based on expenses and settlements</small></div>
+            <div id="memberBalances" class="member-balances"></div>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <dialog id="expenseDialog" class="modal">
+    <form id="expenseForm" method="dialog">
+      <div class="modal-heading"><h2>Add an expense</h2><button type="button" class="close-btn" data-close="expenseDialog"></button></div>
+      <label>Expense name<input id="expenseName" required placeholder="e.g. Dinner at the restaurant" /></label>
+      <div class="form-row"><label>Amount<input id="expenseAmount" type="number" min="0.01" step="0.01" required placeholder="0.00" /></label><label>Currency<select id="expenseCurrency"><option value="$">$ USD</option><option value="¥">¥ JPY</option><option value="₹">₹ INR</option><option value="€">€ EUR</option></select></label></div>
+      <div class="form-row"><label>Paid by<select id="expensePayer"></select></label><label>Date<input id="expenseDate" type="date" required /></label></div>
+      <label>Split between <span class="hint">(select members)</span><div id="splitMembers" class="split-members"></div></label>
+      <div class="modal-actions"><button type="button" class="btn btn-secondary" data-close="expenseDialog">Cancel</button><button class="btn btn-primary" type="submit">Save expense</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="groupDialog" class="modal">
+    <form id="groupForm" method="dialog">
+      <div class="modal-heading"><h2>Create a group</h2><button type="button" class="close-btn" data-close="groupDialog"></button></div>
+      <label>Group name<input id="newGroupName" required placeholder="e.g. Weekend getaway" /></label>
+      <label>Description<input id="newGroupDescription" placeholder="What is this group for?" /></label>
+      <div class="modal-actions"><button type="button" class="btn btn-secondary" data-close="groupDialog">Cancel</button><button class="btn btn-primary" type="submit">Create group</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="settleDialog" class="modal">
+    <form id="settleForm" method="dialog">
+      <div class="modal-heading"><h2>Record a settlement</h2><button type="button" class="close-btn" data-close="settleDialog"></button></div>
+      <label>Who paid whom?<select id="settlePair"></select></label>
+      <label>Amount<input id="settleAmount" type="number" min="0.01" step="0.01" required placeholder="0.00" /></label>
+      <div class="modal-actions"><button type="button" class="btn btn-secondary" data-close="settleDialog">Cancel</button><button class="btn btn-primary" type="submit">Record payment</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="settingsDialog" class="modal">
+    <form id="settingsForm" method="dialog">
+      <div class="modal-heading"><h2>Group settings</h2><button type="button" class="close-btn" data-close="settingsDialog"></button></div>
+      <label>Group name<input id="settingsName" required /></label>
+      <label>Description<input id="settingsDescription" /></label>
+      <div class="modal-actions"><button type="button" class="btn btn-secondary" data-close="settingsDialog">Cancel</button><button class="btn btn-primary" type="submit">Save changes</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>

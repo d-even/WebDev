@@ -1,44 +1,70 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect Four</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect Four</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <main id="app">
+    <section id="menu-screen" class="screen menu-screen">
+      <div class="menu-card">
+        <div class="logo" aria-label="Connect Four logo">
+          <span class="red-dot"></span><span class="yellow-dot"></span>
+          <span class="yellow-dot"></span><span class="red-dot"></span>
+        </div>
+        <button id="cpu-button" class="menu-button pink">PLAYER VS CPU <span class="faces">☻☷</span></button>
+        <button id="player-button" class="menu-button yellow">PLAY VS PLAYER <img scr></button>
+        <button id="rules-button" class="menu-button white">GAME RULES</button>
+      </div>
+      <div id="difficulty-modal" class="modal hidden">
+        <div class="modal-title">SELECT DIFFICULTY</div>
+        <button data-difficulty="easy">EASY</button>
+        <button data-difficulty="normal">NORMAL</button>
+        <button data-difficulty="hard">HARD</button>
+      </div>
+      <div id="rules-modal" class="modal rules-modal hidden">
+        <div class="modal-title">GAME RULES</div>
+        <p>Take turns dropping discs into a column. The disc falls to the lowest empty space.</p>
+        <p>Connect four of your discs horizontally, vertically, or diagonally to win.</p>
+        <button id="close-rules" class="close-button">GOT IT</button>
+      </div>
+    </section>
 
-    <main class="game">
-       
-        <section class="score-card player-card">
-           <div class="avatar">
-    <img src="./assets/images/player-one.svg" alt="Player">
-</div>
-            <h3>YOU</h3>
-            <p id="playerScore">0</p>
-        </section>
-        
-
-        <section class="board-container">
-            <div id="board" class="board"></div>
-        </section>
-
-        <section class="score-card cpu-card">
-             <div class="avatar">
-    <img src="./assets/images/player-two.svg" alt="Player">
-</div>
-            <p id="cpuScore">0</p>
-        </section>
-        
-
-    </main>
-
-    <div class="controls">
-        <h2 id="status"></h2>
-        <button id="restart">Restart Game</button>
-    </div>
-
-    <script src="script.js"></script>
+    <section id="game-screen" class="screen game-screen hidden">
+      <header class="game-header">
+        <button id="menu-button" class="small-pill">MENU</button>
+        <div class="logo game-logo"><span class="red-dot"></span><span class="yellow-dot"></span><span class="yellow-dot"></span><span class="red-dot"></span></div>
+        <button id="restart-button" class="small-pill">RESTART</button>
+      </header>
+      <div class="game-layout">
+        <aside class="score-card score-left">
+          <div class="avatar avatar-red">☺</div>
+          <strong id="left-name">YOU</strong><span id="left-score" class="score">0</span>
+        </aside>
+        <div class="board-wrap">
+          <div id="board" class="board" role="grid" aria-label="Connect Four board"></div>
+        </div>
+        <aside class="score-card score-right">
+          <div class="avatar avatar-yellow">☷</div>
+          <strong id="right-name">CPU</strong><span id="right-score" class="score">0</span>
+        </aside>
+      </div>
+      <div class="turn-banner" id="turn-banner">
+        <span id="turn-label">YOUR TURN</span>
+        <strong id="timer">30s</strong>
+      </div>
+      <div id="result-modal" class="result-modal hidden">
+        <h2 id="result-title">YOU WIN</h2>
+        <p id="result-message">Great game!</p>
+        <div class="result-actions">
+          <button id="play-again">PLAY AGAIN</button>
+          <button id="result-menu">MENU</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
